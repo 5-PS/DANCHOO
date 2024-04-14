@@ -1,17 +1,17 @@
 {
-  "editor.formatOnSave": true, // 저장시 format
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.minimap.enabled": false,
+  "git.autofetch": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveshare.accessibility.accessibilityFeaturesEnabled": "off",
   "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
     "source.fixAll.eslint": "explicit"
   },
-  // Enable per-language
-  "[typescript]": {
-    // "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-    // "editor.formatOnSave": true,
-  },
-  "workbench.settings.useSplitJSON": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "eslint.validate": ["javascript", "typescript"],
+  "settingsSync.ignoredSettings": []
 }
