@@ -7,3 +7,25 @@
 
 @layer components {
 }
+
+@layer utilities {
+  .gnb {
+    display: grid;
+    grid-row-gap: 16px;
+    grid-template-areas:
+      'logo buttons'
+      'search search';
+    grid-template-columns: 1fr 1fr;
+  }
+  .logo {
+    grid-area: logo;
+  }
+  .buttons {
+    grid-area: buttons;
+    justify-self: end;
+  }
+  .search {
+    grid-area: search;
+    width: 100%;
+  }
+}
