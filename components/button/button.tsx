@@ -16,7 +16,11 @@ interface ButtonProps {
  * @returns
  */
 function Button({ children, ...rest }: ButtonProps) {
-  const buttonClasses = `${rest.background} ${rest.color} ${rest.background === 'bg-white' ? 'border-primary border' : ''} font-bold hover:bg-orange-400 w-full h-[48px]  text-[16px] rounded-md font-sans`;
+  const buttonClasses = `${rest.background} ${rest.color} 
+  ${rest.background === 'bg-white' ? 'border-primary border hover:bg-gray-10' : ''} 
+  ${rest.background === 'bg-gray-40' ? 'hover:bg-gray-50' : ''} 
+  ${rest.background === 'bg-primary' ? 'hover:bg-primary-hover' : ''}
+  font-bold active:scale-95 w-full h-[48px] shadow text-[16px] rounded-md font-sans`;
 
   return (
     <button className={buttonClasses} onClick={rest.onClick}>
