@@ -10,11 +10,10 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "prettier",
-    "import"
-  ],
+  "plugins": ["prettier", "import"],
   "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/button-has-type": "off",
     "prettier/prettier": [
       "error",
       {
@@ -25,16 +24,7 @@
     "import/order": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-          "object",
-          "type"
-        ],
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
         "pathGroups": [
           {
             "pattern": "react*",
@@ -47,9 +37,7 @@
           }
         ],
         "newlines-between": "always",
-        "pathGroupsExcludedImportTypes": [
-          "react*"
-        ],
+        "pathGroupsExcludedImportTypes": ["react*"],
         "alphabetize": {
           "order": "asc"
         }
