@@ -600,29 +600,40 @@ function StateBadge({ state }: StateBadgeProps) {
 }
 
 function Table({ query }: { query: { page: string } }) {
+  const isDefault = query.page ? query.page : '1';
   const pageLength = Math.ceil(STORE_INFORMATION.length / 5);
-  const sliceIndex = (parseInt(query?.page, 10) - 1) * 5;
+  const sliceIndex = (parseInt(isDefault, 10) - 1) * 5;
   return (
-    <div className="w-[964px] rounded-[10px] overflow-hidden border border-gray-20 m-auto">
-      <table className="text-left text-black">
-        <tr className="text-[14px] bg-red-10 border-b border-gray-20">
-          <th className="w-[228px] tb-head">가게</th>
-          <th className="w-[300px] tb-head">일자</th>
-          <th className="w-[200px] tb-head">시급</th>
-          <th className="w-[236px] tb-head">상태</th>
-        </tr>
-        {STORE_INFORMATION.slice(sliceIndex, sliceIndex + 5).map((store) => (
-          <tr className="border-b border-gray-20">
-            <td className="tb-data">{store.title}</td>
-            <td className="tb-data">{store.date}</td>
-            <td className="tb-data">{store.money}</td>
-            <td className="tb-data" aria-label="badge">
-              <StateBadge state={store.state} />
-            </td>
+    <div className="w-[964px] rounded-[10px] overflow-hidden border border-gray-20 m-auto max-lg:w-[351px]">
+      <table className="w-full text-left text-black">
+        <colgroup>
+          <col width="228px" />
+          <col width="300px" />
+          <col width="200px" />
+          <col width="*" />
+        </colgroup>
+        <thead>
+          <tr className="text-[14px] bg-red-10 border-b border-gray-20">
+            <th className="tb-head">가게</th>
+            <th className="tb-head max-md:overflow-x-auto">일자</th>
+            <th className="tb-head">시급</th>
+            <th className="tb-head">상태</th>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {STORE_INFORMATION.slice(sliceIndex, sliceIndex + 5).map((store) => (
+            <tr className="border-b border-gray-20">
+              <td className="tb-data">{store.title}</td>
+              <td className="tb-data">{store.date}</td>
+              <td className="tb-data">{store.money}</td>
+              <td className="tb-data" aria-label="badge">
+                <StateBadge state={store.state} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
-      <Pagination page={query.page} pageLength={pageLength} />
+      <Pagination page={isDefault} pageLength={pageLength} />
     </div>
   );
 }
