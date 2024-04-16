@@ -22,6 +22,9 @@ module.exports = {
         'green-10': '#D4F7D4',
         kakao: '#FEE500',
       },
+      boxShadow: {
+        'modal-box': '0px 2px 8px 0px rgba(120, 116, 134, 0.25)',
+      },
     },
   },
   plugins: [],
