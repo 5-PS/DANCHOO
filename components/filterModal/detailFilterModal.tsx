@@ -116,9 +116,12 @@ function DetailFilterModal() {
         <div className="h-[2px] bg-gray-10" />
         <div className="flex flex-col gap-[8px]">
           <p>금액</p>
-          <div className="flex gap-[12px]">
-            <div>금액입력</div>
-            <div>이상부터</div>
+          <div className="flex gap-[12px] items-center">
+            <div className="px-[20px] py-[16px] w-[169px] border border-gray-30 rounded-[6px] flex ">
+              <input className="w-full outline-none " type="number" placeholder="입력" />
+              <span>원</span>
+            </div>
+            이상부터
           </div>
         </div>
       </div>
