@@ -1,0 +1,92 @@
+'use client';
+
+import { useState } from 'react';
+
+import Image from 'next/image';
+
+const ADDRESS_LIST = [
+  '서울시 종로구',
+  '서울시 중구',
+  '서울시 용산구',
+  '서울시 성동구',
+  '서울시 광진구',
+  '서울시 동대문구',
+  '서울시 중랑구',
+  '서울시 성북구',
+  '서울시 강북구',
+  '서울시 도봉구',
+  '서울시 노원구',
+  '서울시 은평구',
+  '서울시 서대문구',
+  '서울시 마포구',
+  '서울시 양천구',
+  '서울시 강서구',
+  '서울시 구로구',
+  '서울시 금천구',
+  '서울시 영등포구',
+  '서울시 동작구',
+  '서울시 관악구',
+  '서울시 서초구',
+  '서울시 강남구',
+  '서울시 송파구',
+  '서울시 강동구',
+];
+
+function FilterModal() {
+  const [clickAddressList, setClickAddressList] = useState<string[]>([]);
+  const handleAddClickAddressList = (address: string) => {
+    if (clickAddressList.indexOf(address) !== -1) return;
+    const changeArr = [...clickAddressList, address];
+    setClickAddressList(changeArr);
+  };
+  return (
+    <div className="w-[390px] px-[20px] py-[24px] rounded-[10px] border border-gray-20 bg-white m-auto">
+      <div className="text-[20px] mb-[24px]">
+        <strong>상세 모달</strong>
+      </div>
+      <div className="flex flex-col gap-[24px] mb-[40px]">
+        <div className="flex flex-col gap-[12px]">
+          <p>위치</p>
+          <ul className="w-[350px] h-[258px] text-[14px] border border-gray-20 rounded-[6px] overflow-y-auto grid  grid-cols-2 gap-y-[20px] px-[28px] py-[20px]">
+            {ADDRESS_LIST.map((address, i) => (
+              <li key={i}>
+                <button type="button" onClick={() => handleAddClickAddressList(address)}>
+                  {address}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="flex flex-wrap gap-[8px]">
+          {clickAddressList.map((address) => (
+            <span className="px-[10px] py-[6px] rounded-[20px] inline-flex gap-[4px] bg-red-10 text-[#ea3c12] text-[14px]">
+              <strong>{address}</strong>
+              <button type="button">
+                <Image src="/icons/deleteLabelIcon.svg" width={16} height={16} alt="라벨 삭제 아이콘" />
+              </button>
+            </span>
+          ))}
+        </div>
+        <div className="h-[2px] bg-gray-10" />
+        <div className="flex flex-col gap-[8px]">
+          <p>시작일</p>
+          <div>시작일 입력 인풋</div>
+        </div>
+        <div className="h-[2px] bg-gray-10" />
+        <div className="flex flex-col gap-[8px]">
+          <p>금액</p>
+          <div className="flex gap-[12px]">
+            <div>금액입력</div>
+            <div>이상부터</div>
+          </div>
+        </div>
+      </div>
+      <div className="flex gap-[8px]">
+        <button>asdas</button>
+        <button>asdas</button>
+      </div>
+    </div>
+  );
+}
+
+export default FilterModal;
