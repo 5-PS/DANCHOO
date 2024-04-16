@@ -20,7 +20,6 @@ export default function SigninForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col w-[300px] gap-7">
-        {/* FIXME: w-[300px] gap-7 스타일 적용 안됨 */}
         <Input
           label="이메일"
           type="text"
