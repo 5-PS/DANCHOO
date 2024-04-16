@@ -22,14 +22,22 @@ function Pagination({ page, pageLength }: { page: string; pageLength: number }) 
         <div className="flex gap-[4px] md:gap-[2px]">
           {Array.from({ length: pageLength }, (_, index) => index + 1)
             .slice(pageCount * 7, pageCount * 7 + 7)
-            .map((number) => (
-              <Link
-                className={`w-[32px] h-[32px] p-[12px] rounded-[4px] text-[14px] leading-[18px] inline-flex justify-center items-center md:w-[40px] md:h-[40px] ${pageNum === number && 'bg-red-20 text-white'}`}
-                href={`/?page=${number}`}
-              >
-                {number}
-              </Link>
-            ))}
+            .map((number) => {
+              if (pageNum === number)
+                return (
+                  <span className="w-[32px] h-[32px] p-[12px] rounded-[4px] text-[14px] leading-[18px] inline-flex justify-center items-center md:w-[40px] md:h-[40px] bg-red-20 text-white">
+                    {number}
+                  </span>
+                );
+              return (
+                <Link
+                  className={`w-[32px] h-[32px] p-[12px] rounded-[4px] text-[14px] leading-[18px] inline-flex justify-center items-center md:w-[40px] md:h-[40px] `}
+                  href={`/?page=${number}`}
+                >
+                  {number}
+                </Link>
+              );
+            })}
         </div>
         {activeNextBtn && (
           <Link href={`/?page=${isBoundaryPage ? (pageNum / 7) * 7 + 1 : Math.floor(pageNum / 7 + 1) * 7 + 1}`}>
