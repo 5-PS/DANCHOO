@@ -32,7 +32,7 @@ const ADDRESS_LIST = [
   '서울시 강동구',
 ];
 
-function FilterModal() {
+function DetailFilterModal() {
   const [clickAddressList, setClickAddressList] = useState<string[]>([]);
   const [filterAddressList, setFilterAddressList] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
@@ -49,14 +49,14 @@ function FilterModal() {
   };
   const handleSearchAddress = (e) => {
     setSearchValue(e.target.value);
-    const reg = new RegExp(`${searchValue}`, 'g');
+    const reg = new RegExp(`${searchValue}`);
     const filterArr = ADDRESS_LIST.filter((address) => reg.test(address));
     setFilterAddressList(filterArr);
   };
   return (
     <div className="w-[390px] px-[20px] py-[24px] rounded-[10px] border border-gray-20 bg-white m-auto">
       <div className="text-[20px] mb-[24px]">
-        <strong>상세 모달</strong>
+        <strong>상세 필터</strong>
       </div>
       <div className="flex flex-col gap-[24px] mb-[40px]">
         <div className="flex flex-col gap-[12px]">
@@ -120,4 +120,4 @@ function FilterModal() {
   );
 }
 
-export default FilterModal;
+export default DetailFilterModal;
