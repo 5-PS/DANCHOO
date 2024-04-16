@@ -617,7 +617,7 @@ function Table({ query }: { query: { page: string } }) {
           </thead>
           <tbody>
             {STORE_INFORMATION.slice(sliceIndex, sliceIndex + 5).map((store) => (
-              <tr className="text-[14px]  md:text-[16px] border-b border-gray-20 h-[50px]">
+              <tr className="text-[14px]  md:text-[16px] border-b border-gray-20 h-[52px]">
                 <td className="sticky left-0 bg-white tb-data ">{store.title}</td>
                 <td className="tb-data ">{store.date}</td>
                 <td className="tb-data ">{store.money}</td>
