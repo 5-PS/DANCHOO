@@ -4,7 +4,7 @@ import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
   label: string;
-  type: string | undefined;
+  type: string;
   errorMessage: string | undefined;
   placeholder: string;
 }
