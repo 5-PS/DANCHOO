@@ -13,7 +13,9 @@
   "dependencies": {
     "@tanstack/react-query": "^5.29.2",
     "axios": "^1.6.8",
+    "date-fns": "^3.6.0",
     "next": "14.2.1",
+    "node": "^18.20.2",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.3",
