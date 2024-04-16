@@ -41,7 +41,7 @@ function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, sta
 
       <div className="flex flex-col w-full gap-4">
         <div className="flex flex-col gap-2">
-          <h2 className={`font-bold text-black md:text-xl ${closed ? 'text-gray-30' : ''}`}>{name}</h2>
+          <h2 className={`font-bold md:text-xl ${closed ? 'text-gray-30' : 'text-black'}`}>{name}</h2>
 
           <div className="flex items-start gap-1.5 md:items-center ">
             <Image
@@ -69,7 +69,7 @@ function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, sta
 
         <div className="md:flex md:items-center md:justify-between">
           <p
-            className={`text-lg font-bold text-black whitespace-nowrap text-ellipsis overflow-hidden max-w-[130px] md:text-2xl md:tracking-[.48px] ${closed ? 'text-gray-30' : ''}`}
+            className={`text-lg font-bold whitespace-nowrap text-ellipsis overflow-hidden max-w-[130px] md:text-2xl md:tracking-[.48px] ${closed ? 'text-gray-30' : 'text-black'}`}
           >
             {`${hourlyPay.toLocaleString()}원`}
           </p>
