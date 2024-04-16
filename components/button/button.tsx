@@ -10,6 +10,7 @@ interface ButtonProps {
   children: ReactNode;
   background: string;
   fontSize: number;
+  width: number;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 /**
@@ -27,7 +28,10 @@ function Button({ children, ...rest }: ButtonProps) {
   ${rest.fontSize === 16 ? 'text-base font-bold leading-5' : ''} 
   ${rest.fontSize === 14 ? 'text-sm font-bold' : ''} 
   ${rest.fontSize === 12 ? 'text-xs font-normal leading-4' : ''} 
-  w-full h-[48px] shadow text-[16px] rounded-md font-sans`;
+  ${rest.width === 48 ? 'h-[48px]' : ''}
+  ${rest.width === 37 ? 'h-[37px]' : ''}
+  ${rest.width === 32 ? 'h-[32px]' : ''}
+  w-full  shadow text-[16px] rounded-md font-sans`;
 
   function isGray() {
     if (rest.background === 'bg-gray-40') {
