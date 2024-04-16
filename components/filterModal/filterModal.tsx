@@ -34,10 +34,24 @@ const ADDRESS_LIST = [
 
 function FilterModal() {
   const [clickAddressList, setClickAddressList] = useState<string[]>([]);
-  const handleAddClickAddressList = (address: string) => {
+  const [filterAddressList, setFilterAddressList] = useState<string[]>([]);
+  const [searchValue, setSearchValue] = useState<string>('');
+  const handleAddClickAddressListItem = (address: string) => {
     if (clickAddressList.indexOf(address) !== -1) return;
-    const changeArr = [...clickAddressList, address];
-    setClickAddressList(changeArr);
+    const addressAddArr = [...clickAddressList, address];
+    setClickAddressList(addressAddArr);
+  };
+  const handleDeleteClickAddressListItem = (address: string) => {
+    const sliceArr = [...clickAddressList];
+    const addressIndex = clickAddressList.indexOf(address);
+    sliceArr.splice(addressIndex, 1);
+    setClickAddressList(sliceArr);
+  };
+  const handleSearchAddress = (e) => {
+    setSearchValue(e.target.value);
+    const reg = new RegExp(`${searchValue}`, 'g');
+    const filterArr = ADDRESS_LIST.filter((address) => reg.test(address));
+    setFilterAddressList(filterArr);
   };
   return (
     <div className="w-[390px] px-[20px] py-[24px] rounded-[10px] border border-gray-20 bg-white m-auto">
@@ -46,22 +60,39 @@ function FilterModal() {
       </div>
       <div className="flex flex-col gap-[24px] mb-[40px]">
         <div className="flex flex-col gap-[12px]">
-          <p>위치</p>
+          <div className="flex items-center justify-between">
+            위치
+            <input
+              className="border border-gray-20 px-[12px] py-[8px] text-[12px] rounded-[5px]"
+              type="text"
+              placeholder="검색할 주소를 입력해주세요"
+              value={searchValue}
+              onChange={handleSearchAddress}
+            />
+          </div>
           <ul className="w-[350px] h-[258px] text-[14px] border border-gray-20 rounded-[6px] overflow-y-auto grid  grid-cols-2 gap-y-[20px] px-[28px] py-[20px]">
-            {ADDRESS_LIST.map((address, i) => (
-              <li key={i}>
-                <button type="button" onClick={() => handleAddClickAddressList(address)}>
-                  {address}
-                </button>
-              </li>
-            ))}
+            {searchValue
+              ? filterAddressList.map((address) => (
+                  <li>
+                    <button type="button" onClick={() => handleAddClickAddressListItem(address)}>
+                      {address}
+                    </button>
+                  </li>
+                ))
+              : ADDRESS_LIST.map((address) => (
+                  <li>
+                    <button type="button" onClick={() => handleAddClickAddressListItem(address)}>
+                      {address}
+                    </button>
+                  </li>
+                ))}
           </ul>
         </div>
         <div className="flex flex-wrap gap-[8px]">
           {clickAddressList.map((address) => (
             <span className="px-[10px] py-[6px] rounded-[20px] inline-flex gap-[4px] bg-red-10 text-[#ea3c12] text-[14px]">
               <strong>{address}</strong>
-              <button type="button">
+              <button type="button" onClick={() => handleDeleteClickAddressListItem(address)}>
                 <Image src="/icons/deleteLabelIcon.svg" width={16} height={16} alt="라벨 삭제 아이콘" />
               </button>
             </span>
