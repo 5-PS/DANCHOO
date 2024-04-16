@@ -9,13 +9,13 @@
 }
 
 .tb-head {
-  @apply py-[14px] px-[12px];
+  @apply pl-[8px] md:pl-[12px];
 }
 
 .tb-data {
-  @apply py-[20px] px-[12px];
+  @apply px-[8px] py-[9px]  align-middle md:px-[12px] md:py-[20px];
 }
 
 .state-badge {
-  @apply px-[10px] py-[6px] rounded-[28px] text-[14px];
+  @apply px-[10px] py-[6px] rounded-[28px] text-[12px] md:text-[14px];
 }

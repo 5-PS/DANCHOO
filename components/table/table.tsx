@@ -3,7 +3,7 @@ import Pagination from '../pagination/pagination';
 interface StateBadgeProps {
   state: 'pedding' | 'approve' | 'choose';
 }
-
+// api가 없어 만든 임시 데이터 입니다.
 const STORE_INFORMATION: {
   title: string;
   date: string;
@@ -563,7 +563,7 @@ const STORE_INFORMATION: {
     state: 'pedding',
   },
 ];
-
+// TODO: 뱃지 컴포넌트로 따로 분리하기
 function StateBadge({ state }: StateBadgeProps) {
   if (state === 'pedding') {
     return (
@@ -581,16 +581,16 @@ function StateBadge({ state }: StateBadgeProps) {
   }
   if (state === 'choose') {
     return (
-      <div className="flex gap-[12px]">
+      <div className="flex gap-[8px]">
         <button
           type="button"
-          className="py-[10px] px-[20px] text-[14px] rounded-[6px] border border-red-40 text-red-40"
+          className="px-[12px] py-[8px] text-[10px] rounded-[6px] border border-red-40 text-red-40 md:px-[20px] md:py-[10px] md:text-[14px]"
         >
           <strong>거절하기</strong>
         </button>
         <button
           type="button"
-          className="py-[10px] px-[20px] text-[14px] rounded-[6px] border border-blue-20 text-blue-20 "
+          className="px-[12px] py-[8px] text-[10px]  rounded-[6px] border border-blue-20 text-blue-20 md:px-[20px] md:py-[10px] md:text-[14px]"
         >
           <strong>승인하기</strong>
         </button>
@@ -604,35 +604,31 @@ function Table({ query }: { query: { page: string } }) {
   const pageLength = Math.ceil(STORE_INFORMATION.length / 5);
   const sliceIndex = (parseInt(isDefault, 10) - 1) * 5;
   return (
-    <div className="w-[964px] rounded-[10px] overflow-hidden border border-gray-20 m-auto max-lg:w-[351px]">
-      <table className="w-full text-left text-black">
-        <colgroup>
-          <col width="228px" />
-          <col width="300px" />
-          <col width="200px" />
-          <col width="*" />
-        </colgroup>
-        <thead>
-          <tr className="text-[14px] bg-red-10 border-b border-gray-20">
-            <th className="tb-head">가게</th>
-            <th className="tb-head max-md:overflow-x-auto">일자</th>
-            <th className="tb-head">시급</th>
-            <th className="tb-head">상태</th>
-          </tr>
-        </thead>
-        <tbody>
-          {STORE_INFORMATION.slice(sliceIndex, sliceIndex + 5).map((store) => (
-            <tr className="border-b border-gray-20">
-              <td className="tb-data">{store.title}</td>
-              <td className="tb-data">{store.date}</td>
-              <td className="tb-data">{store.money}</td>
-              <td className="tb-data" aria-label="badge">
-                <StateBadge state={store.state} />
-              </td>
+    <div className="relative w-full max-w-[964px] overflow-hidden border border-gray-20 rounded-[10px] bg-white m-auto">
+      <div className="overflow-x-auto ">
+        <table className="w-[801px] border-spacing-0 border-collapse md:w-[962px]">
+          <thead>
+            <tr className="h-[40px] text-[12px] border-b text-left border-gray-20 bg-red-10 md:text-[14px] md:h-[50px]">
+              <th className="tb-head w-[186px] sticky left-0  md:w-[226px] bg-red-10">가게</th>
+              <th className="tb-head w-[270px] md:w-[300px]">일자</th>
+              <th className="tb-head w-[180px]  md:w-[200px]">시급</th>
+              <th className="tb-head w-[165px] md:w-[236px]">상태</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {STORE_INFORMATION.slice(sliceIndex, sliceIndex + 5).map((store) => (
+              <tr className="text-[14px]  md:text-[16px] border-b border-gray-20 h-[50px]">
+                <td className="sticky left-0 bg-white tb-data ">{store.title}</td>
+                <td className="tb-data ">{store.date}</td>
+                <td className="tb-data ">{store.money}</td>
+                <td className="tb-data " aria-label="badge">
+                  <StateBadge state={store.state} />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <Pagination page={isDefault} pageLength={pageLength} />
     </div>
   );
