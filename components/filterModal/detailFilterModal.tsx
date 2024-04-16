@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import DatePicker from 'react-datepicker';
 
 import Image from 'next/image';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 const ADDRESS_LIST = [
   '서울시 종로구',
@@ -33,6 +36,7 @@ const ADDRESS_LIST = [
 ];
 
 function DetailFilterModal() {
+  const [startDate, setStartDate] = useState<Date | null>();
   const [clickAddressList, setClickAddressList] = useState<string[]>([]);
   const [filterAddressList, setFilterAddressList] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
@@ -99,9 +103,15 @@ function DetailFilterModal() {
           ))}
         </div>
         <div className="h-[2px] bg-gray-10" />
-        <div className="flex flex-col gap-[8px]">
+        <div className="flex flex-col gap-[8px] min-h-[98px]">
           <p>시작일</p>
-          <div>시작일 입력 인풋</div>
+          <DatePicker
+            className="w-full px-[20px] py-[16px] border border-gray-30 rounded-[6px]"
+            selected={startDate}
+            onChange={(date: any) => setStartDate(date)}
+            placeholderText="시작일을 선택해주세요"
+            dateFormat="yyyy년 MM월 d일"
+          />
         </div>
         <div className="h-[2px] bg-gray-10" />
         <div className="flex flex-col gap-[8px]">
