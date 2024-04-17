@@ -31,6 +31,10 @@ module.exports = {
       boxShadow: {
         'modal-box': '0px 2px 8px 0px rgba(120, 116, 134, 0.25)',
       },
+      backgroundImage: {
+        'dropdown-down': "url('../public/icons/dropdown-down.svg')",
+        'dropdown-top': "url('../public/icons/dropdown-top.svg')",
+      },
     },
   },
   plugins: [],
