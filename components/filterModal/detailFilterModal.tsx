@@ -121,7 +121,7 @@ function DetailFilterModal() {
               <span className="px-[10px] py-[6px] rounded-[20px] inline-flex gap-[4px] bg-red-10 text-[#ea3c12] text-[14px]">
                 <strong>{address}</strong>
                 <button type="button" onClick={() => handleDeleteClickAddressListItem(address)}>
-                  <Image src="/icons/deleteLabelIcon.svg" width={16} height={16} alt="라벨 삭제 아이콘" />
+                  <Image src="/icons/delete-label-icon.svg" width={16} height={16} alt="라벨 삭제 아이콘" />
                 </button>
               </span>
             ))}
