@@ -8,24 +8,14 @@
 @layer components {
 }
 
-@layer utilities {
-  .gnb {
-    display: grid;
-    grid-row-gap: 16px;
-    grid-template-areas:
-      'logo buttons'
-      'search search';
-    grid-template-columns: 1fr 1fr;
-  }
-  .logo {
-    grid-area: logo;
-  }
-  .buttons {
-    grid-area: buttons;
-    justify-self: end;
-  }
-  .search {
-    grid-area: search;
-    width: 100%;
-  }
+.tb-head {
+  @apply pl-[8px] md:pl-[12px];
+}
+
+.tb-data {
+  @apply px-[8px] py-[9px]  align-middle md:px-[12px] md:py-[20px];
+}
+
+.state-badge {
+  @apply px-[10px] py-[6px] rounded-[28px] text-[12px] md:text-[14px];
 }
