@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 import Image from 'next/image';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import Button from '../button/button';
 
 const ADDRESS_LIST = [
   '서울시 종로구',
@@ -36,10 +37,12 @@ const ADDRESS_LIST = [
 ];
 
 function DetailFilterModal() {
-  const [startDate, setStartDate] = useState<Date | null>();
+  const [activeModal, setActiveModal] = useState<boolean>(false);
+  const [startDate, setStartDate] = useState<Date | null>(null);
   const [clickAddressList, setClickAddressList] = useState<string[]>([]);
   const [filterAddressList, setFilterAddressList] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
+  const [amount, setAmount] = useState<number | null>();
   const handleAddClickAddressListItem = (address: string) => {
     if (clickAddressList.indexOf(address) !== -1) return;
     const addressAddArr = [...clickAddressList, address];
@@ -51,83 +54,116 @@ function DetailFilterModal() {
     sliceArr.splice(addressIndex, 1);
     setClickAddressList(sliceArr);
   };
-  const handleSearchAddress = (e) => {
+  const handleChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
+    setAmount(+e.target.value);
+  };
+  const handleSearchAddress = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
     const reg = new RegExp(`${searchValue}`);
     const filterArr = ADDRESS_LIST.filter((address) => reg.test(address));
     setFilterAddressList(filterArr);
   };
+  const handleResetEvent = () => {
+    setStartDate(null);
+    setAmount(null);
+    setClickAddressList([]);
+  };
   return (
-    <div className="w-[390px] px-[20px] py-[24px] rounded-[10px] border border-gray-20 bg-white m-auto">
-      <div className="text-[20px] mb-[24px]">
-        <strong>상세 필터</strong>
-      </div>
-      <div className="flex flex-col gap-[24px] mb-[40px]">
-        <div className="flex flex-col gap-[12px]">
-          <div className="flex items-center justify-between">
-            위치
-            <input
-              className="border border-gray-20 px-[12px] py-[8px] text-[12px] rounded-[5px]"
-              type="text"
-              placeholder="검색할 주소를 입력해주세요"
-              value={searchValue}
-              onChange={handleSearchAddress}
+    <div className="relative  w-[88px] m-auto">
+      <button
+        type="button"
+        className="text-[14px] rounded-[5px] bg-red-30 font-bold px-[12px] py-[6px] text-white"
+        onClick={() => setActiveModal((prev) => !prev)}
+      >
+        상세 필터
+      </button>
+      <div
+        className={`w-full h-screen px-[12px] py-[24px]  bg-white m-auto fixed top-0 left-0 md:w-[390px] md:h-[auto] md:px-[20px] md:py-[24px] md:rounded-[10px] md:border md:border-gray-20 md:absolute md:top-[120%] md:-left-[302px] ${!activeModal && 'hidden'}`}
+      >
+        <div className="text-[20px] mb-[24px]">
+          <strong>상세 필터</strong>
+        </div>
+        <div className="flex flex-col gap-[24px] mb-[40px]">
+          <div className="flex flex-col gap-[12px]">
+            <div className="flex items-center justify-between">
+              위치
+              <input
+                className="border border-gray-20 px-[12px] py-[8px] text-[12px] rounded-[5px]"
+                type="text"
+                placeholder="검색할 주소를 입력해주세요"
+                value={searchValue}
+                onChange={handleSearchAddress}
+              />
+            </div>
+            <ul className="w-full h-[258px] text-[14px] border border-gray-20 rounded-[6px] overflow-y-auto grid  grid-cols-2 gap-y-[20px] px-[28px] py-[20px]">
+              {searchValue
+                ? filterAddressList.map((address) => (
+                    <li key={address}>
+                      <button type="button" onClick={() => handleAddClickAddressListItem(address)}>
+                        {address}
+                      </button>
+                    </li>
+                  ))
+                : ADDRESS_LIST.map((address) => (
+                    <li key={address}>
+                      <button type="button" onClick={() => handleAddClickAddressListItem(address)}>
+                        {address}
+                      </button>
+                    </li>
+                  ))}
+            </ul>
+          </div>
+          <div className="flex flex-wrap gap-[8px]">
+            {clickAddressList.map((address) => (
+              <span className="px-[10px] py-[6px] rounded-[20px] inline-flex gap-[4px] bg-red-10 text-[#ea3c12] text-[14px]">
+                <strong>{address}</strong>
+                <button type="button" onClick={() => handleDeleteClickAddressListItem(address)}>
+                  <Image src="/icons/deleteLabelIcon.svg" width={16} height={16} alt="라벨 삭제 아이콘" />
+                </button>
+              </span>
+            ))}
+          </div>
+          <div className="h-[2px] bg-gray-10" />
+          <div className="flex flex-col gap-[8px] min-h-[98px]">
+            <p>시작일</p>
+            <DatePicker
+              className="w-full px-[20px] py-[16px] border border-gray-30 rounded-[6px]"
+              selected={startDate}
+              onChange={(date: any) => setStartDate(date)}
+              placeholderText="시작일을 선택해주세요"
+              dateFormat="yyyy년 MM월 d일"
             />
           </div>
-          <ul className="w-[350px] h-[258px] text-[14px] border border-gray-20 rounded-[6px] overflow-y-auto grid  grid-cols-2 gap-y-[20px] px-[28px] py-[20px]">
-            {searchValue
-              ? filterAddressList.map((address) => (
-                  <li>
-                    <button type="button" onClick={() => handleAddClickAddressListItem(address)}>
-                      {address}
-                    </button>
-                  </li>
-                ))
-              : ADDRESS_LIST.map((address) => (
-                  <li>
-                    <button type="button" onClick={() => handleAddClickAddressListItem(address)}>
-                      {address}
-                    </button>
-                  </li>
-                ))}
-          </ul>
-        </div>
-        <div className="flex flex-wrap gap-[8px]">
-          {clickAddressList.map((address) => (
-            <span className="px-[10px] py-[6px] rounded-[20px] inline-flex gap-[4px] bg-red-10 text-[#ea3c12] text-[14px]">
-              <strong>{address}</strong>
-              <button type="button" onClick={() => handleDeleteClickAddressListItem(address)}>
-                <Image src="/icons/deleteLabelIcon.svg" width={16} height={16} alt="라벨 삭제 아이콘" />
-              </button>
-            </span>
-          ))}
-        </div>
-        <div className="h-[2px] bg-gray-10" />
-        <div className="flex flex-col gap-[8px] min-h-[98px]">
-          <p>시작일</p>
-          <DatePicker
-            className="w-full px-[20px] py-[16px] border border-gray-30 rounded-[6px]"
-            selected={startDate}
-            onChange={(date: any) => setStartDate(date)}
-            placeholderText="시작일을 선택해주세요"
-            dateFormat="yyyy년 MM월 d일"
-          />
-        </div>
-        <div className="h-[2px] bg-gray-10" />
-        <div className="flex flex-col gap-[8px]">
-          <p>금액</p>
-          <div className="flex gap-[12px] items-center">
-            <div className="px-[20px] py-[16px] w-[169px] border border-gray-30 rounded-[6px] flex ">
-              <input className="w-full outline-none " type="number" placeholder="입력" />
-              <span>원</span>
+          <div className="h-[2px] bg-gray-10" />
+          <div className="flex flex-col gap-[8px]">
+            <p>금액</p>
+            <div className="flex gap-[12px] items-center">
+              <div className="px-[20px] py-[16px] w-[169px] border border-gray-30 rounded-[6px] flex ">
+                <input
+                  className="w-full outline-none "
+                  type="number"
+                  placeholder="입력"
+                  value={amount || ''}
+                  onChange={handleChangeAmount}
+                />
+                <span>원</span>
+              </div>
+              이상부터
             </div>
-            이상부터
           </div>
         </div>
-      </div>
-      <div className="flex gap-[8px]">
-        <button>asdas</button>
-        <button>asdas</button>
+        <div className="flex gap-[8px] justify-between">
+          <span className="w-[82px]">
+            <Button background="bg-white" fontSize={16} onClick={handleResetEvent}>
+              초기화
+            </Button>
+          </span>
+          <span className="w-[260px] flex-1">
+            <Button background="bg-primary" fontSize={16} onClick={() => console.log('1')}>
+              적용하기
+            </Button>
+          </span>
+        </div>
       </div>
     </div>
   );
