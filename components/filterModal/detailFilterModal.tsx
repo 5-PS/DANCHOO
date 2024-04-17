@@ -78,10 +78,13 @@ function DetailFilterModal() {
         상세 필터
       </button>
       <div
-        className={`w-full h-screen px-[12px] py-[24px]  bg-white m-auto fixed top-0 left-0 md:w-[390px] md:h-[auto] md:px-[20px] md:py-[24px] md:rounded-[10px] md:border md:border-gray-20 md:absolute md:top-[120%] md:-left-[302px] ${!activeModal && 'hidden'}`}
+        className={`w-full h-screen px-[12px] py-[24px] overflow-y-auto  bg-white m-auto fixed top-0 left-0 md:w-[390px] md:h-[auto] md:px-[20px] md:py-[24px] md:rounded-[10px] md:border md:border-gray-20 md:absolute md:top-[120%] md:-left-[302px]  ${!activeModal && 'hidden'}`}
       >
-        <div className="text-[20px] mb-[24px]">
+        <div className="text-[20px] mb-[24px] flex justify-between">
           <strong>상세 필터</strong>
+          <button type="button" onClick={() => setActiveModal(false)}>
+            <Image src="/icons/close-modal-icon.svg" width={24} height={24} alt="모달 닫기 아이콘" />
+          </button>
         </div>
         <div className="flex flex-col gap-[24px] mb-[40px]">
           <div className="flex flex-col gap-[12px]">
