@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
 }
 
 @layer components {
@@ -18,4 +22,19 @@
 
 .state-badge {
   @apply px-[10px] py-[6px] rounded-[28px] text-[12px] md:text-[14px];
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 63px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #7d7986;
+  border-radius: 40px;
+  background-clip: content-box;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
