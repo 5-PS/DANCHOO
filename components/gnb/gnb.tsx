@@ -50,7 +50,11 @@ const alertList = {
     },
   ],
 };
-function UserTypeLink({ userType }: { userType: string }) {
+interface UserTypeProps {
+  userType: string;
+}
+
+function UserTypeLink({ userType }: UserTypeProps) {
   return userType === 'employee' ? <Link href="/my-profile">내 프로필</Link> : <Link href="/my-store">내 가게</Link>;
 }
 
