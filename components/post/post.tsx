@@ -1,3 +1,4 @@
+import { format as dateFnsFormat, parseISO as parseDate, addHours } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -18,6 +19,11 @@ interface PostProps {
 function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, startsAt, workhour, closed }: PostProps) {
   const percentage = calculatePercentage(hourlyPay, originalHourlyPay);
 
+  const startsAtDate = parseDate(startsAt);
+  const endAtDate = addHours(startsAtDate, workhour);
+  const formattedStartTime = dateFnsFormat(startsAtDate, 'yyyy-MM-dd HH:mm');
+  const formattedEndTime = dateFnsFormat(endAtDate, 'HH:mm');
+  const info = `${formattedStartTime}~${formattedEndTime}`;
   return (
     <Link
       href={href}
@@ -50,9 +56,9 @@ function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, sta
               height={20}
               alt="시계 아이콘"
             />
-            {/* TODO: 일하는 시간 계산 함수 만들어야 함 */}
+            {/* TODO: 유틸로 빼야 함 */}
             <p className={`text-xs md:text-sm ${closed ? 'text-gray-30' : 'text-gray-50'}`}>
-              {`${startsAt} (${workhour}시간)`}
+              {info} ({workhour}시간)
             </p>
           </div>
 
