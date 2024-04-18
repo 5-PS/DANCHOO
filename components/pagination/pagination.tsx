@@ -25,7 +25,7 @@ function Pagination({ page, pageLength }: { page: string; pageLength: number }) 
             .map((number) => {
               if (pageNum === number)
                 return (
-                  <span className="w-[32px] h-[32px] p-[12px] rounded-[4px] text-[14px] leading-[18px] inline-flex justify-center items-center md:w-[40px] md:h-[40px] bg-red-40 text-white">
+                  <span className="w-[32px] h-[32px] p-[12px] rounded-[4px] text-[14px] leading-[18px] inline-flex justify-center items-center md:w-[40px] md:h-[40px] bg-red-20">
                     {number}
                   </span>
                 );
