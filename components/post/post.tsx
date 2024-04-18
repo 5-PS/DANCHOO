@@ -45,7 +45,7 @@ function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, sta
 
           <div className="flex items-start gap-1.5 md:items-center ">
             <Image
-              src={`${closed ? '/icons/clock-gray.svg' : '/icons/clock.svg'}`}
+              src={closed ? '/icons/clock-gray.svg' : '/icons/clock-red.svg'}
               width={20}
               height={20}
               alt="시계 아이콘"
@@ -58,7 +58,7 @@ function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, sta
 
           <div className="flex items-center gap-1.5">
             <Image
-              src={`${closed ? '/icons/location-gray.svg' : '/icons/location.svg'}`}
+              src={closed ? '/icons/location-gray.svg' : '/icons/location-red.svg'}
               width={20}
               height={20}
               alt="위치 아이콘"
@@ -71,7 +71,7 @@ function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, sta
           <p
             className={`text-lg font-bold whitespace-nowrap text-ellipsis overflow-hidden max-w-[130px] md:text-2xl md:tracking-[.48px] ${closed ? 'text-gray-30' : 'text-black'}`}
           >
-            {`${hourlyPay.toLocaleString()}원`}
+            {hourlyPay.toLocaleString()}원
           </p>
           <div
             className={`flex justify-start items-center gap-0.5 md:p-3 md:rounded-[20px] md:h-9 ${closed ? 'md:bg-gray-20' : 'md:bg-red-40'}`}
@@ -79,7 +79,7 @@ function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, sta
             <div
               className={`text-xs text-center whitespace-nowrap text-ellipsis overflow-hidden max-w-[125px] md:text-white md:font-bold ${closed ? 'text-gray-30' : 'text-red-40'}`}
             >
-              {`기존 시급보다 ${percentage}%`}
+              기존 시급보다 {percentage}%
             </div>
             <Image
               className="max-[767px]:hidden"
@@ -90,7 +90,7 @@ function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, sta
             />
             <Image
               className="md:hidden"
-              src={`${closed ? '/icons/arrow-gray.svg' : '/icons/arrow-red.svg'}`}
+              src={closed ? '/icons/arrow-gray.svg' : '/icons/arrow-red.svg'}
               alt="화살표 아이콘"
               width={12}
               height={12}
