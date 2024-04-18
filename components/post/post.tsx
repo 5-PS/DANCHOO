@@ -11,7 +11,7 @@ interface PostProps {
   hourlyPay: number;
   originalHourlyPay: number;
   startsAt: string;
-  workhour: string;
+  workhour: number;
   closed: boolean;
 }
 // TODO: 마감 완료와 지난 알바에 따라 달라지는거 만들어야 함
