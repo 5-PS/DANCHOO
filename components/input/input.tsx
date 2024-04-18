@@ -17,7 +17,7 @@ export default forwardRef<HTMLInputElement, InputProps>(({ label, id, errorMessa
         {label}
       </label>
       <input ref={ref} id={id} className={inputClassName} {...restProps} />
-      {rightText && <span className=". absolute right-5 top-[50px]">{rightText}</span>}
+      {rightText && <span className="absolute right-5 top-[50px]">{rightText}</span>}
       {errorMessage && <span className="text-xs text-red-500">{errorMessage}</span>}
     </div>
   );
