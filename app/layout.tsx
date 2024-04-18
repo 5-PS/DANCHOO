@@ -3,6 +3,8 @@ import React from 'react';
 
 import { Inter } from 'next/font/google';
 
+import Footer from '@/components/footer/footer';
+
 import type { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -19,7 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
