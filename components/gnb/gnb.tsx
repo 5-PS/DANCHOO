@@ -54,12 +54,12 @@ function UserTypeLink({ userType }: { userType: string }) {
   return userType === 'employee' ? <Link href="/my-profile">내 프로필</Link> : <Link href="/my-store">내 가게</Link>;
 }
 
-// TODO: 로그아웃 로직 만들어야 합니다
+// TODO: 로그아웃과 인증 확인 로직 만들어야 합니다
 function Gnb() {
-  const auth: boolean = true;
+  const auth: boolean = false;
   const userType: string = 'employee';
   return (
-    <header className="sticky top-0 z-10 px-5 py-3 m-auto bg-white md:p-8 w-full xl:w-[964px]">
+    <header className="sticky top-0 z-10 px-5 py-3 m-auto bg-white md:p-8 w-full md:max-w-[964px]">
       <nav className="flex flex-wrap items-center gap-4 md:relative">
         <Link href="/">
           <Image src="/icons/logo.svg" width={112} height={40} alt="로고" />
