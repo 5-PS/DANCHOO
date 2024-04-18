@@ -21,9 +21,9 @@ function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, sta
   return (
     <Link
       href={href}
-      className="flex flex-col items-center justify-center gap-3 p-3 border border-solid border-gray-20 rounded-xl max-w-[171px] md:max-w-[312px] md:p-4 md:gap-5"
+      className="flex flex-col items-center justify-center gap-3 p-3 border border-solid border-gray-20 rounded-xl md:p-4 md:gap-5"
     >
-      <div className="relative w-36 h-[84px] md:w-[280px] md:h-40">
+      <div className="relative w-full h-[84px] md:h-40">
         <Image
           className={`rounded-xl ${closed ? 'brightness-50' : ''}`}
           src={imageUrl}
