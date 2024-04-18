@@ -19,8 +19,8 @@ function RecuitsCard() {
               </span>
             </div>
           </div>
-          <div className="text-gray-50 text-[14px] md:text-[16px]">asdasda</div>
-          <div className="text-gray-50 text-[14px] md:text-[16px]">asdasda</div>
+          <div className="text-gray-50 text-[14px] md:text-[16px]">시간 들어가는 곳</div>
+          <div className="text-gray-50 text-[14px] md:text-[16px]">주소 들어가는 곳</div>
           <p className="leading-[26px] text-[14px] md:text-[16px]">
             알바하기 편한 너구리네 라면집! 라면 올려두고 끓이기만 하면 되어서 쉬운 편에 속하는 가게입니다.
           </p>
