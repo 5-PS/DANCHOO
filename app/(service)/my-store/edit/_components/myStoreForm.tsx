@@ -60,7 +60,7 @@ export default function MyStoreForm() {
             })}
           />
         </div>
-        <div className="w-full md:max-w-[330px]">
+        <div className="w-full md:max-w-[330px] xl:max-w-[463px]">
           <Input label="기본 시급*" type="number" rightText="원" />
         </div>
         <div className="w-full md:w-[483px]">
