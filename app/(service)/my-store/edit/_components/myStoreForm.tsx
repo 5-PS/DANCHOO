@@ -35,8 +35,8 @@ export default function MyStoreForm() {
   };
   return (
     <form onSubmit={handleSubmit((data) => console.log(data))}>
-      <div className="flex flex-col gap-6 mb-8">
-        <div className="flex gap-5">
+      <div className="flex flex-col gap-6 mb-6 md:mb-8">
+        <div className="flex flex-col gap-5 md:flex-row">
           <Input
             label="가게 이름*"
             type="text"
@@ -48,7 +48,7 @@ export default function MyStoreForm() {
           />
           <SelectInput />
         </div>
-        <div className="flex gap-5">
+        <div className="flex flex-col gap-5 md:flex-row">
           <SelectInput />
           <Input
             label="상세 주소*"
@@ -60,14 +60,14 @@ export default function MyStoreForm() {
             })}
           />
         </div>
-        <div className="w-[472px]">
-          <Input label="기본 시급*" />
+        <div className="w-full md:max-w-[330px]">
+          <Input label="기본 시급*" type="number" rightText="원" />
         </div>
-        <div className="w-[472px]">
+        <div className="w-full md:w-[483px]">
           <p className="mb-2">가게 이미지</p>
           <label
             htmlFor="image-input"
-            className={`flex flex-col gap-3 font-bold text-gray-40 w-full h-[276px] bg-gray-10 border  ${!imageSrc && 'border-gray-20 '}  rounded-xl justify-center items-center cursor-pointer relative overflow-hidden`}
+            className={`flex flex-col gap-3 font-bold text-gray-40 w-full max-w-[375px] h-[201px] md:max-w-full md:h-[276px] bg-gray-10 border  ${!imageSrc && 'border-gray-20 '}  rounded-xl justify-center items-center cursor-pointer relative overflow-hidden`}
           >
             <div className="inline-flex flex-col items-center gap-3">
               <Image src="/icons/image-add-icon.svg" width={32} height={32} alt="사진 추가 아이콘" />
@@ -84,20 +84,18 @@ export default function MyStoreForm() {
             {imageSrc && <Image src={imageSrc} fill alt="미리보기 이미지" />}
           </label>
         </div>
-        <div>
-          <label htmlFor="store-description">
-            <p className="mb-2">가게 설명 </p>
-            <textarea
-              id="store-description"
-              className="w-full h-[153px] rounded-[6px] px-5 py-4 border border-gray-30"
-              {...register('storeDescription')}
-            />
-          </label>
-        </div>
+        <label htmlFor="store-description">
+          <p className="mb-2">가게 설명 </p>
+          <textarea
+            id="store-description"
+            className="w-full h-[153px] rounded-[6px] px-5 py-4 border border-gray-30"
+            {...register('storeDescription')}
+          />
+        </label>
       </div>
       <div className="flex justify-center ">
-        <div className="w-[312px]">
-          <Button fontSize={16} background="bg-primary">
+        <div className="w-full md:w-[312px]">
+          <Button fontSize={16} background="bg-primary" height={48}>
             등록하기
           </Button>
         </div>
