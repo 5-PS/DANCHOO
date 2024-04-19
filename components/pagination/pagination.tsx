@@ -1,11 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import calculateMovePageValue from '@/utils/calculatePage';
+import {
+  LIMIT_PAGE_COUNT_NUM,
+  calculateMovePageValue,
+  calculateSliceValue,
+  isActiveControllBtn,
+} from '@/utils/calculatePage';
 
 function Pagination({ page, pageLength }: { page: string; pageLength: number }) {
   const pageNum = parseInt(page, 10);
-  if (pageLength <= 7) {
+  if (pageLength <= LIMIT_PAGE_COUNT_NUM) {
     return (
       <div className="w-full py-[8px] px-[12px] flex justify-center items-center ">
         <div className="flex gap-[20px] items-center ">
@@ -31,26 +36,24 @@ function Pagination({ page, pageLength }: { page: string; pageLength: number }) 
       </div>
     );
   }
-  const activeNextBtn = Math.ceil(pageNum / 7) !== Math.ceil(pageLength / 7);
-  const [prevBtnPageValue, nextBtnPageValue] = calculateMovePageValue(page);
-  const isBoundaryPage = Number.isInteger(pageNum / 7); //
-  const pageCount = isBoundaryPage ? Math.floor(pageNum / 7) - 1 : Math.floor(pageNum / 7); //
-  const isDisabledPrevBtn =
-    Math.ceil(pageNum / 7) === 1 ? (
-      <Image src="/icons/previcondisabled.svg" width={20} height={20} alt="이전 버튼 비활성화 아이콘" />
-    ) : (
-      <Link href={`/?page=${prevBtnPageValue}`}>
-        <Image src="/icons/previcon.svg" width={20} height={20} alt="이전 버튼 아이콘" />
-      </Link>
-    );
+  const isBoundaryPage = Number.isInteger(pageNum / LIMIT_PAGE_COUNT_NUM);
+  const [prevBtnPageValue, nextBtnPageValue] = calculateMovePageValue(pageNum, isBoundaryPage);
+  const sliceValue = calculateSliceValue(pageNum, isBoundaryPage);
+  const [isActivePrevBtn, isActiveNextBtn] = isActiveControllBtn(pageNum, pageLength);
 
   return (
     <div className="w-full py-[8px] px-[12px] flex justify-center items-center ">
       <div className="flex gap-[20px] items-center ">
-        {isDisabledPrevBtn}
+        {isActivePrevBtn ? (
+          <Image src="/icons/previcondisabled.svg" width={20} height={20} alt="이전 버튼 비활성화 아이콘" />
+        ) : (
+          <Link href={`/?page=${prevBtnPageValue}`}>
+            <Image src="/icons/previcon.svg" width={20} height={20} alt="이전 버튼 아이콘" />
+          </Link>
+        )}
         <div className="flex gap-[4px] md:gap-[2px]">
           {Array.from({ length: pageLength }, (_, index) => index + 1)
-            .slice(pageCount * 7, pageCount * 7 + 7)
+            .slice(sliceValue, sliceValue + LIMIT_PAGE_COUNT_NUM)
             .map((number) => {
               if (pageNum === number)
                 return (
@@ -68,7 +71,7 @@ function Pagination({ page, pageLength }: { page: string; pageLength: number }) 
               );
             })}
         </div>
-        {activeNextBtn && (
+        {isActiveNextBtn && (
           <Link href={`/?page=${nextBtnPageValue}`}>
             <Image src="/icons/nexticon.svg" width={20} height={20} alt="이전 버튼 아이콘" />
           </Link>

@@ -1,16 +1,25 @@
-const LIMIT_PAGE_COUNT_NUM = 7;
+export const LIMIT_PAGE_COUNT_NUM = 7;
 // 이전 버튼, 다음 버튼 눌렀을 때 이동해야할 페이지 값 계산 함수
-function calculateMovePageValue(pageQueryValue: string) {
-  const pageNum = parseInt(pageQueryValue, 10);
-  const isBoundaryPage = Number.isInteger(pageNum / LIMIT_PAGE_COUNT_NUM);
+export function calculateMovePageValue(pageValue: number, isBoundaryPage: boolean): number[] {
   const prevBtnPageValue = isBoundaryPage
-    ? (pageNum / LIMIT_PAGE_COUNT_NUM - 1) * LIMIT_PAGE_COUNT_NUM
-    : Math.floor(pageNum / LIMIT_PAGE_COUNT_NUM) * LIMIT_PAGE_COUNT_NUM;
+    ? (pageValue / LIMIT_PAGE_COUNT_NUM - 1) * LIMIT_PAGE_COUNT_NUM
+    : Math.floor(pageValue / LIMIT_PAGE_COUNT_NUM) * LIMIT_PAGE_COUNT_NUM;
   const nextBtnPageValue = isBoundaryPage
-    ? (pageNum / LIMIT_PAGE_COUNT_NUM) * LIMIT_PAGE_COUNT_NUM + 1
-    : Math.ceil(pageNum / LIMIT_PAGE_COUNT_NUM) * LIMIT_PAGE_COUNT_NUM + 1;
+    ? (pageValue / LIMIT_PAGE_COUNT_NUM) * LIMIT_PAGE_COUNT_NUM + 1
+    : Math.ceil(pageValue / LIMIT_PAGE_COUNT_NUM) * LIMIT_PAGE_COUNT_NUM + 1;
 
   return [prevBtnPageValue, nextBtnPageValue];
 }
-
-export default calculateMovePageValue;
+// 페이지 배열 자르는 인수 값 계산하는 함수
+export function calculateSliceValue(pageValue: number, isBoundaryPage: boolean): number {
+  const calculateValue = isBoundaryPage
+    ? (Math.floor(pageValue / LIMIT_PAGE_COUNT_NUM) - 1) * LIMIT_PAGE_COUNT_NUM
+    : Math.floor(pageValue / LIMIT_PAGE_COUNT_NUM) * LIMIT_PAGE_COUNT_NUM;
+  return calculateValue;
+}
+// 이전 버튼, 다음버튼 활성화 여부 계산 함수
+export function isActiveControllBtn(pageValue: number, pageLength: number) {
+  const isActivePrevBtn = Math.ceil(pageValue / LIMIT_PAGE_COUNT_NUM) === 1;
+  const isActiveNextBtn = Math.ceil(pageValue / LIMIT_PAGE_COUNT_NUM) !== Math.ceil(pageLength / LIMIT_PAGE_COUNT_NUM);
+  return [isActivePrevBtn, isActiveNextBtn];
+}
