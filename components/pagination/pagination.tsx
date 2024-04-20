@@ -8,8 +8,18 @@ import {
   isActiveControllBtn,
 } from '@/utils/calculatePage';
 
-function Pagination({ page, pageLength }: { page: string; pageLength: number }) {
-  const pageNum = parseInt(page, 10);
+function Pagination({
+  page,
+  totalDataCount,
+  sliceDataValue,
+}: {
+  page: string;
+  totalDataCount: number;
+  sliceDataValue: number;
+}) {
+  const defaultPage = page || '1';
+  const pageNum = parseInt(defaultPage, 10);
+  const pageLength = Math.ceil(totalDataCount / sliceDataValue);
   if (pageLength <= LIMIT_PAGE_COUNT_NUM) {
     return (
       <div className="w-full py-[8px] px-[12px] flex justify-center items-center ">
@@ -26,6 +36,7 @@ function Pagination({ page, pageLength }: { page: string; pageLength: number }) 
                 <Link
                   className={`w-[32px] h-[32px] p-[12px] rounded-[4px] text-[14px] leading-[18px] inline-flex justify-center items-center md:w-[40px] md:h-[40px] `}
                   href={`/?page=${number}`}
+                  scroll={false}
                 >
                   {number}
                 </Link>
@@ -47,7 +58,7 @@ function Pagination({ page, pageLength }: { page: string; pageLength: number }) 
         {isActivePrevBtn ? (
           <Image src="/icons/previcondisabled.svg" width={20} height={20} alt="이전 버튼 비활성화 아이콘" />
         ) : (
-          <Link href={`/?page=${prevBtnPageValue}`}>
+          <Link href={`/?page=${prevBtnPageValue}`} scroll={false}>
             <Image src="/icons/previcon.svg" width={20} height={20} alt="이전 버튼 아이콘" />
           </Link>
         )}
@@ -63,8 +74,10 @@ function Pagination({ page, pageLength }: { page: string; pageLength: number }) 
                 );
               return (
                 <Link
+                  key={`${number}s`}
                   className={`w-[32px] h-[32px] p-[12px] rounded-[4px] text-[14px] leading-[18px] inline-flex justify-center items-center md:w-[40px] md:h-[40px] `}
                   href={`/?page=${number}`}
+                  scroll={false}
                 >
                   {number}
                 </Link>
@@ -72,7 +85,7 @@ function Pagination({ page, pageLength }: { page: string; pageLength: number }) 
             })}
         </div>
         {isActiveNextBtn && (
-          <Link href={`/?page=${nextBtnPageValue}`}>
+          <Link href={`/?page=${nextBtnPageValue}`} scroll={false}>
             <Image src="/icons/nexticon.svg" width={20} height={20} alt="이전 버튼 아이콘" />
           </Link>
         )}
