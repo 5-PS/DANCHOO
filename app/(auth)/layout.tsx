@@ -16,17 +16,13 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body>
-        <div className="flex flex-col items-center justify-center min-h-screen my-12">
-          <header className="mb-10">
-            <Link href="/">
-              <Image src={logo} alt="The Julge logo" width={248} height={45} />
-            </Link>
-          </header>
-          <main>{children}</main>
-        </div>
-      </body>
-    </html>
+    <div className="flex flex-col items-center justify-center min-h-screen my-12">
+      <header className="mb-10">
+        <Link href="/">
+          <Image src={logo} alt="The Julge logo" width={248} height={45} />
+        </Link>
+      </header>
+      <main>{children}</main>
+    </div>
   );
 }
