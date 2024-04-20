@@ -46,7 +46,7 @@ export default function SelectInput() {
   };
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col w-full gap-2">
       <p className="leading-[26px]">분류</p>
       <button
         type="button"
