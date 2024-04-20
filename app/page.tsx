@@ -1,7 +1,8 @@
+import DetailFilterModal from '@/components/filterModal/detailFilterModal';
+import SelectInput from '@/components/input/selectInput';
 import Pagination from '@/components/pagination/pagination';
 import Post from '@/components/post/post';
 
-// { query }: { query: { page: string } }
 export default function Home({ searchParams }) {
   const List = {
     offset: 0,
@@ -500,22 +501,48 @@ export default function Home({ searchParams }) {
   };
 
   const [isDefault, pageLength, sliceIndex] = calcPage(searchParams, List, 6);
+
   return (
     <>
       <header>헤더 영역</header>
-      <section className="bg-red-10 h-[400px]">
-        <h2>맞춤공고</h2>
-        <div>공고영역</div>
-      </section>
-      <section className="px-3 sm:px-8 md:max-w-[964px] md:m-auto">
-        <div>
-          <h2>전체 공고</h2>
-          <div>
-            <div>정렬버튼</div>
-            <div>필터 버튼</div>
+      <section className="bg-red-10">
+        {/* sm:px-8 */}
+        {/* <div className="md:px-3 py-[60px]  md:max-w-[964px] md:m-auto overflow-hidden "> */}
+        <div className="py-[60px] md:max-w-[964px] md:m-auto  ">
+          <h2 className="pl-3 sm:pl-8 text-[28px] font-bold">맞춤공고</h2>
+          {/* flex justify-start gap-2 sm:gap-[14px] md:mid-w-[964px]/ */}
+          <div className="max-w-[964px] overflow-x-scroll box">
+            <ul className="flex gap-2 sm:gap-[14px]">
+              {List.items.slice(0, 8).map(({ item }) => (
+                <li className="flex-none first:pl-3 last:pr-3 sm:last:pr-8 sm:first:pl-8" key={item.id}>
+                  <Post
+                    href={item.shop.href}
+                    address={item.shop.item.address1}
+                    imageUrl={item.shop.item.imageUrl}
+                    name={item.shop.item.name}
+                    hourlyPay={item.hourlyPay}
+                    originalHourlyPay={item.shop.item.originalHourlyPay}
+                    startsAt={item.startsAt}
+                    workhour={item.workhour}
+                    closed={item.closed}
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-1 sm:gap-x-[14px] sm:gap-y-8 ">
+      </section>
+      <section className="px-3 py-[60px] sm:px-8 md:max-w-[964px] md:m-auto">
+        <div className="flex justify-between">
+          <h2 className="text-[28px] font-bold">전체 공고</h2>
+          <div className="flex items-center">
+            <div className="w-[105px] h-[30px]">
+              <SelectInput />
+            </div>
+            <DetailFilterModal />
+          </div>
+        </div>
+        <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-1 sm:gap-x-[14px] sm:gap-y-8">
           {List.items.slice(sliceIndex, sliceIndex + 6).map(({ item }) => (
             <li key={item.id}>
               <Post
