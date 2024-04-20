@@ -8,7 +8,7 @@ export default function ProfileEditForm() {
   return (
     <form>
       <div className="flex flex-col gap-6 mb-6 md:gap-8">
-        <div className="flex flex-col w-full gap-5 md:flex-row md:flex-wrap xl:flex-nowrap">
+        <div className="grid gap-x-5 md:grid-cols-2 xl:grid-cols-3 gap-y-6">
           <Input label="이름*" />
           <Input label="연락처*" />
           <SelectInput />
