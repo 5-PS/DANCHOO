@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FieldValues, useForm } from 'react-hook-form';
+import { Controller, FieldValues, useForm } from 'react-hook-form';
 
 import Image from 'next/image';
 
@@ -9,13 +9,13 @@ import Button from '@/components/button/button';
 import Input from '@/components/input/input';
 import SelectInput from '@/components/input/selectInput';
 
-// 2. SelectInput에 이름 props로 넘겨주기
 // 3. SelectInput의 옵션 메뉴 position absolute 주기
 
 export default function MyStoreForm() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<FieldValues>({ mode: 'all' });
   const [imageSrc, setImageSrc] = useState<any>(null);
@@ -30,6 +30,7 @@ export default function MyStoreForm() {
       };
     }
   };
+
   const onSubmit = () => {
     // TODO: submit함수 구현
   };
@@ -40,28 +41,44 @@ export default function MyStoreForm() {
           <Input
             label="가게 이름*"
             type="text"
-            errorMessage={errors.storeName?.message}
+            errorMessage={errors.name?.message}
             placeholder="가게 이름을 적어주세요."
-            {...register('storeName', {
+            {...register('name', {
               required: '가게 이름을 적어주세요',
             })}
           />
-          <SelectInput />
+          <Controller
+            name="address1"
+            control={control}
+            render={({ field: { onChange } }) => <SelectInput onChange={onChange}>분류*</SelectInput>}
+          />
         </div>
         <div className="flex flex-col gap-5 md:flex-row">
-          <SelectInput />
+          <Controller
+            name="category"
+            control={control}
+            render={({ field: { onChange } }) => <SelectInput onChange={onChange}>주소*</SelectInput>}
+          />
           <Input
             label="상세 주소*"
             type="text"
-            errorMessage={errors.detailAddress?.message}
+            errorMessage={errors.address2?.message}
             placeholder="주소를 입력해 주세요."
-            {...register('detailAddress', {
+            {...register('address2', {
               required: '상세 주소를 입력해주세요',
             })}
           />
         </div>
         <div className="w-full md:max-w-[330px] xl:max-w-[463px]">
-          <Input label="기본 시급*" type="number" rightText="원" />
+          <Input
+            label="기본 시급*"
+            type="number"
+            rightText="원"
+            errorMessage={errors.originaHourlyPay?.message}
+            {...register('originaHourlyPay', {
+              validate: (value) => value > 9620 || '최저 시급 이상 입력해주세요',
+            })}
+          />
         </div>
         <div className="w-full md:w-[483px]">
           <p className="mb-2">가게 이미지</p>
@@ -76,7 +93,7 @@ export default function MyStoreForm() {
                 type="file"
                 id="image-input"
                 className="invisible w-0 h-0"
-                {...register('imageFile', {
+                {...register('imageUrl', {
                   onChange: handleUploadImage,
                 })}
               />
@@ -89,7 +106,7 @@ export default function MyStoreForm() {
           <textarea
             id="store-description"
             className="w-full h-[153px] rounded-[6px] px-5 py-4 border border-gray-30"
-            {...register('storeDescription')}
+            {...register('description')}
           />
         </label>
       </div>
