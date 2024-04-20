@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Gnb from '@/components/gnb/gnb';
-
 import MyStoreForm from './_components/myStoreForm';
 
 export default function MystoreEditFormPage() {
