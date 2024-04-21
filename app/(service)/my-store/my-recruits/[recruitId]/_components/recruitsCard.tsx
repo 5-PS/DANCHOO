@@ -9,7 +9,7 @@ function RecuitsCard() {
         <div className="w-full h-[178px] md:h-[361px] xl:h-auto">
           <div className="h-full rounded-xl bg-red-20" />
         </div>
-        <div className="flex flex-col gap-2 xl:pt-4 md:gap-3">
+        <div className="flex flex-col gap-2 xl:pt-4 md:gap-3 md:max-w-full xl:max-w-[346px] xl:w-full">
           <div>
             <span className="inline-block mb-2 font-bold text-primary text-[14px] md:text-[16px]">시급</span>
             <div className="font-bold text-[24px] flex gap-2 items-center md:text-[28px]">
@@ -21,8 +21,9 @@ function RecuitsCard() {
           </div>
           <div className="text-gray-50 text-[14px] md:text-[16px]">시간 들어가는 곳</div>
           <div className="text-gray-50 text-[14px] md:text-[16px]">주소 들어가는 곳</div>
-          <p className="leading-[26px] text-[14px] md:text-[16px]">
-            알바하기 편한 너구리네 라면집! 라면 올려두고 끓이기만 하면 되어서 쉬운 편에 속하는 가게입니다.
+          <p className="leading-[26px] text-[14px] md:text-[16px] line-clamp-2">
+            알바하기
+            ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅁㄴㅇㅁㄴㅁㅇㅁㅇㅇㅁㄴㅇㅁㄴㄴ옹멂엄넒낭ㄹㄹ어ㅏ아엃ㄹㄹ앙
           </p>
           <Button background="bg-white" fontSize={16}>
             공고 편집하기
