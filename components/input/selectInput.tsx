@@ -2,39 +2,13 @@
 
 import { ReactNode, useState } from 'react';
 
-const dummyList = [
-  {
-    id: 1,
-    category: '김밥',
-  },
-  {
-    id: 2,
-    category: '초밥',
-  },
-  {
-    id: 3,
-    category: '돈까스',
-  },
-  {
-    id: 4,
-    category: '제육',
-  },
-  {
-    id: 5,
-    category: '라면',
-  },
-  {
-    id: 6,
-    category: '곱창',
-  },
-];
-
 interface SelectInputProps {
   children: ReactNode;
   onChange: (value: string) => void;
+  renderList: { id: number; category: string }[];
 }
 
-export default function SelectInput({ children, onChange }: SelectInputProps) {
+export default function SelectInput({ children, onChange, renderList }: SelectInputProps) {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   const [selectOption, setSelectOption] = useState('');
 
@@ -64,7 +38,7 @@ export default function SelectInput({ children, onChange }: SelectInputProps) {
       <ul
         className={`scrollbar absolute w-full top-[100px] overflow-y-auto h-[190px] rounded-md border border-solid border-gray-20 bg-white ${isDropdownOpened ? 'block' : 'hidden'}`}
       >
-        {dummyList.map(({ id, category }) => (
+        {renderList.map(({ id, category }) => (
           <li key={id} onClick={() => handleSelectOption(category)} className={listClassName}>
             {category}
           </li>
