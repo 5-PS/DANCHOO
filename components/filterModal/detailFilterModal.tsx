@@ -37,22 +37,23 @@ const ADDRESS_LIST = [
 ];
 // Todo: key값 수정, 적용하기 버튼 onClick 이벤트 추가하기, ESlint 들여쓰기 이슈 고치기
 function DetailFilterModal() {
-  const [activeModal, setActiveModal] = useState<boolean>(false);
+  const [activeModal, setActiveModal] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [clickAddressList, setClickAddressList] = useState<string[]>([]);
   const [filterAddressList, setFilterAddressList] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [amount, setAmount] = useState<number | null>();
+  const handleDeleteClickAddressListItem = (address: string) => {
+    const filterList = clickAddressList.filter((item) => item !== address);
+    setClickAddressList(filterList);
+  };
   const handleAddClickAddressListItem = (address: string) => {
-    if (clickAddressList.indexOf(address) !== -1) return;
+    if (clickAddressList.includes(address)) {
+      handleDeleteClickAddressListItem(address);
+      return;
+    }
     const addressAddArr = [...clickAddressList, address];
     setClickAddressList(addressAddArr);
-  };
-  const handleDeleteClickAddressListItem = (address: string) => {
-    const sliceArr = [...clickAddressList];
-    const addressIndex = clickAddressList.indexOf(address);
-    sliceArr.splice(addressIndex, 1);
-    setClickAddressList(sliceArr);
   };
   const handleChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
     setAmount(+e.target.value);
@@ -102,14 +103,22 @@ function DetailFilterModal() {
               {searchValue
                 ? filterAddressList.map((address) => (
                     <li key={address}>
-                      <button type="button" onClick={() => handleAddClickAddressListItem(address)}>
+                      <button
+                        type="button"
+                        className={`px-2 py-1 ${clickAddressList.indexOf(address) !== -1 && 'rounded-[10px] bg-red-20'}`}
+                        onClick={() => handleAddClickAddressListItem(address)}
+                      >
                         {address}
                       </button>
                     </li>
                   ))
                 : ADDRESS_LIST.map((address) => (
                     <li key={address}>
-                      <button type="button" onClick={() => handleAddClickAddressListItem(address)}>
+                      <button
+                        type="button"
+                        className={`px-2 py-1 ${clickAddressList.indexOf(address) !== -1 && 'rounded-[10px] bg-red-20'}`}
+                        onClick={() => handleAddClickAddressListItem(address)}
+                      >
                         {address}
                       </button>
                     </li>
