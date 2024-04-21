@@ -22,6 +22,7 @@ export default function SigninForm() {
       <div className="flex flex-col w-[300px] gap-7">
         <Input
           label="이메일"
+          id="email"
           type="text"
           errorMessage={errors.email?.message}
           placeholder="이메일을 입력해주세요."
@@ -35,6 +36,7 @@ export default function SigninForm() {
         />
         <Input
           label="비밀번호"
+          id="password"
           type="password"
           errorMessage={errors.password?.message}
           placeholder="비밀번호를 입력해주세요."

@@ -599,8 +599,8 @@ function StateBadge({ state }: StateBadgeProps) {
   }
 }
 
-function Table({ query }: { query: { page: string } }) {
-  const isDefault = query.page ? query.page : '1';
+function Table({ query, type }: { query: { page: string }; type: 'applicantList' | 'applyList' }) {
+  const isDefault = query?.page ? query.page : '1';
   const pageLength = Math.ceil(STORE_INFORMATION.length / 5);
   const sliceIndex = (parseInt(isDefault, 10) - 1) * 5;
   return (
@@ -609,9 +609,18 @@ function Table({ query }: { query: { page: string } }) {
         <table className="w-[801px] border-spacing-0 border-collapse md:w-[962px]">
           <thead>
             <tr className="h-[40px] text-[12px] border-b text-left border-gray-20 bg-red-10 md:text-[14px] md:h-[50px]">
-              <th className="tb-head w-[186px] sticky left-0  md:w-[226px] bg-red-10">가게</th>
-              <th className="tb-head w-[270px] md:w-[300px]">일자</th>
-              <th className="tb-head w-[180px]  md:w-[200px]">시급</th>
+              <th className="tb-head w-[186px] sticky left-0  md:w-[226px] bg-red-10">
+                {type === 'applicantList' && '신청자'}
+                {type === 'applyList' && '가게'}
+              </th>
+              <th className="tb-head w-[270px] md:w-[300px]">
+                {type === 'applicantList' && '소개'}
+                {type === 'applyList' && '일자'}
+              </th>
+              <th className="tb-head w-[180px]  md:w-[200px]">
+                {type === 'applicantList' && '전화번호'}
+                {type === 'applyList' && '시급'}
+              </th>
               <th className="tb-head w-[165px] md:w-[236px]">상태</th>
             </tr>
           </thead>
