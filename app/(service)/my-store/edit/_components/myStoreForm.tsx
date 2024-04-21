@@ -10,6 +10,44 @@ import Input from '@/components/input/input';
 import SelectInput from '@/components/input/selectInput';
 
 // 3. SelectInput의 옵션 메뉴 position absolute 주기
+const FOOD_CATEGORY_LIST = [
+  { id: 1, category: '한식' },
+  { id: 2, category: '중식' },
+  { id: 3, category: '일식' },
+  { id: 4, category: '양식' },
+  { id: 5, category: '분식' },
+  { id: 6, category: '카페' },
+  { id: 7, category: '편의점' },
+  { id: 8, category: '기타' },
+];
+
+const ADDRESS_LIST = [
+  { id: 1, category: '서울시 종로구' },
+  { id: 2, category: '서울시 중구' },
+  { id: 3, category: '서울시 용산구' },
+  { id: 4, category: '서울시 성동구' },
+  { id: 5, category: '서울시 광진구' },
+  { id: 6, category: '서울시 동대문구' },
+  { id: 7, category: '서울시 중랑구' },
+  { id: 8, category: '서울시 성북구' },
+  { id: 9, category: '서울시 강북구' },
+  { id: 10, category: '서울시 도봉구' },
+  { id: 11, category: '서울시 노원구' },
+  { id: 12, category: '서울시 은평구' },
+  { id: 13, category: '서울시 서대문구' },
+  { id: 14, category: '서울시 마포구' },
+  { id: 15, category: '서울시 양천구' },
+  { id: 16, category: '서울시 강서구' },
+  { id: 17, category: '서울시 구로구' },
+  { id: 18, category: '서울시 금천구' },
+  { id: 19, category: '서울시 영등포구' },
+  { id: 20, category: '서울시 동작구' },
+  { id: 21, category: '서울시 관악구' },
+  { id: 22, category: '서울시 서초구' },
+  { id: 23, category: '서울시 강남구' },
+  { id: 24, category: '서울시 송파구' },
+  { id: 25, category: '서울시 강동구' },
+];
 
 export default function MyStoreForm() {
   const {
@@ -50,14 +88,22 @@ export default function MyStoreForm() {
           <Controller
             name="address1"
             control={control}
-            render={({ field: { onChange } }) => <SelectInput onChange={onChange}>분류*</SelectInput>}
+            render={({ field: { onChange } }) => (
+              <SelectInput onChange={onChange} renderList={FOOD_CATEGORY_LIST}>
+                분류*
+              </SelectInput>
+            )}
           />
         </div>
         <div className="flex flex-col gap-5 md:flex-row">
           <Controller
             name="category"
             control={control}
-            render={({ field: { onChange } }) => <SelectInput onChange={onChange}>주소*</SelectInput>}
+            render={({ field: { onChange } }) => (
+              <SelectInput onChange={onChange} renderList={ADDRESS_LIST}>
+                주소*
+              </SelectInput>
+            )}
           />
           <Input
             label="상세 주소*"
