@@ -26,7 +26,7 @@ export default function SelectInput({ children, onChange, renderList }: SelectIn
   };
 
   return (
-    <div className="relative flex flex-col gap-2">
+    <div className="relative flex flex-col w-full gap-2">
       <p className="leading-[26px]">{children}</p>
       <button
         type="button"
