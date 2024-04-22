@@ -509,7 +509,7 @@ export default function Home({ searchParams }) {
         {/* sm:px-8 */}
         {/* <div className="md:px-3 py-[60px]  md:max-w-[964px] md:m-auto overflow-hidden "> */}
         <div className="py-[60px] md:max-w-[964px] md:m-auto  ">
-          <h2 className="pl-3 sm:pl-8 text-[28px] font-bold">맞춤공고</h2>
+          <h2 className="pl-3 sm:pl-8 text-[28px] font-bold mb-4 md:mb-8">맞춤공고</h2>
           {/* flex justify-start gap-2 sm:gap-[14px] md:mid-w-[964px]/ */}
           <div className="max-w-[964px] overflow-x-scroll box">
             <ul className="flex gap-2 sm:gap-[14px]">
@@ -535,9 +535,10 @@ export default function Home({ searchParams }) {
       <section className="px-3 py-[60px] sm:px-8 md:max-w-[964px] md:m-auto">
         <div className="flex justify-between">
           <h2 className="text-[28px] font-bold">전체 공고</h2>
-          <div className="flex items-center">
+          <div className="flex items-center mb-4 md:mb-8">
             <div className="w-[105px] h-[30px]">
-              <SelectInput />
+              {/* <SelectInput /> */}
+              {/* pull 받고 변경 예정 */}
             </div>
             <DetailFilterModal />
           </div>
