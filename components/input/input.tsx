@@ -4,8 +4,8 @@ import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
 interface InputProps extends ComponentPropsWithoutRef<'input'> {
   label: string;
-  errorMessage: string | undefined;
-  rightText: string | undefined;
+  errorMessage?: string;
+  rightText?: string;
 }
 
 export default forwardRef<HTMLInputElement, InputProps>(({ label, id, errorMessage, rightText, ...restProps }, ref) => {
