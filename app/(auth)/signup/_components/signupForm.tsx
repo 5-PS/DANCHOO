@@ -15,11 +15,13 @@ interface FieldValues {
   email: string;
   password: string;
   password_repeat: string;
-  type: string;
+  type: 'employee' | 'employer';
 }
 
-const EMAIL_REGEX = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[a-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
-const PASSWORD_REGEX = /^.{8,}$/;
+const REGEX = {
+  EMAIL: /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[a-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/,
+  PASSWORD: /^.{8,}$/,
+};
 
 export default function SignUpForm() {
   const router = useRouter();
@@ -41,7 +43,7 @@ export default function SignUpForm() {
       validation: {
         required: '이메일을 입력해주세요.',
         pattern: {
-          value: EMAIL_REGEX,
+          value: REGEX.EMAIL,
           message: '올바른 이메일 주소가 아닙니다.',
         },
       },
@@ -54,7 +56,7 @@ export default function SignUpForm() {
       validation: {
         required: '비밀번호를 입력해주세요.',
         pattern: {
-          value: PASSWORD_REGEX,
+          value: REGEX.PASSWORD,
           message: '비밀번호를 8자 이상 입력해주세요.',
         },
       },
