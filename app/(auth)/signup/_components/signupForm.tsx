@@ -29,8 +29,8 @@ export default function SignUpForm() {
   const {
     register,
     control,
+    getValues,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<FieldValues>({ mode: 'all', defaultValues: { type: 'employee' } });
 
@@ -67,7 +67,7 @@ export default function SignUpForm() {
       type: 'password',
       placeholder: '비밀번호를 한 번 더 입력해주세요.',
       validation: {
-        validate: (value: string) => value === watch('password') || '비밀번호가 일치하지 않습니다.',
+        validate: (value: string) => value === getValues('password') || '비밀번호가 일치하지 않습니다.',
       },
     },
   ];
