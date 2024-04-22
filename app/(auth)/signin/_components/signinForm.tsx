@@ -76,9 +76,9 @@ export default function SignInForm() {
           id={id}
           label={label}
           type={type}
-          errorMessage={errors[name]?.message as string}
+          errorMessage={errors[name as keyof FieldValues]?.message}
           placeholder={placeholder}
-          {...register(name, validation)}
+          {...register(name as keyof FieldValues, validation)}
         />
       ))}
       <Button background="bg-primary" fontSize={16} height={48}>
