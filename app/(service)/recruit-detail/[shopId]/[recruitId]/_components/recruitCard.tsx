@@ -89,7 +89,7 @@ function RecruitCard() {
               <div className="text-sm text-black md:text-base">{recruitData?.shop.item.description}</div>
             </div>
           </div>
-          <Button fontSize={16} background="bg-primary">
+          <Button fontSize={16} background="bg-primary" height={48}>
             신청하기
           </Button>
         </div>
