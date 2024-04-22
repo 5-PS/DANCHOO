@@ -12,19 +12,19 @@ import calculatePercentage from '@/utils/calculatePercentage';
 import formatDateRange from '@/utils/formatDateRange';
 
 interface FetchData {
-  hourlyPay: 'number';
-  startsAt: 'string';
-  workhour: 'number';
-  description: 'string';
-  closed: 'boolean';
+  hourlyPay: number;
+  startsAt: string;
+  workhour: number;
+  description: string;
+  closed: boolean;
   shop: {
     item: {
-      name: 'string';
-      category: 'string';
-      address1: 'string';
-      description: 'string';
-      imageUrl: 'string';
-      originalHourlyPay: 'number';
+      name: string;
+      category: string;
+      address1: string;
+      description: string;
+      imageUrl: string;
+      originalHourlyPay: number;
     };
   };
 }
