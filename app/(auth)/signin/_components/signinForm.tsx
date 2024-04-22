@@ -59,11 +59,8 @@ export default function SignInForm() {
       router.push('/');
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error.response?.status === 404) {
-          alert(error.response.data.message);
-        } else {
-          alert('로그인에 실패했습니다.');
-        }
+        const errorMessage = error.response?.status === 404 ? error.response.data.message : '로그인에 실패했습니다.';
+        alert(errorMessage);
       }
     }
   };
