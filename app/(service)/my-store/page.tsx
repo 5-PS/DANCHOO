@@ -1,5 +1,4 @@
 import Footer from '@/components/footer/footer';
-import Gnb from '@/components/gnb/gnb';
 
 import TestHaveRegisteredNotice from './_components/haveRegisteredNotice';
 import MyStoreCard from './_components/myStoreCard';
