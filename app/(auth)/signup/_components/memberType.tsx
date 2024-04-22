@@ -27,7 +27,7 @@ export default function MemberType({ value, onChange }: MemberTypeProps) {
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-black leading-[26px]">회원 유형</p>
+      <div className="text-black leading-[26px]">회원 유형</div>
       <div className="flex gap-4">
         {MEMBER_TYPE.map(({ label, type }) => (
           <button key={type} type="button" onClick={() => onChange(type)} className={getButtonClassName(label)}>
