@@ -32,7 +32,10 @@ interface FetchData {
 function RecruitCard() {
   const [recruitData, setRecruitData] = useState<FetchData | null>(null);
   const { shopId, recruitId } = useParams();
+  const percentage = calculatePercentage(recruitData?.hourlyPay, recruitData?.shop.item.originalHourlyPay);
+
   // 임시로 쓴 데이터 요청임
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -45,7 +48,6 @@ function RecruitCard() {
 
     fetchData();
   }, [shopId, recruitId]);
-  const percentage = calculatePercentage(recruitData?.hourlyPay, recruitData?.shop.item.originalHourlyPay);
 
   return (
     <>
