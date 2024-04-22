@@ -22,12 +22,13 @@ function NotificationCard({ createdAt, result, shop, notice }: NotificationCardP
   const endAtDate = addHours(startsAtDate, workhour);
   const formattedStartTime = dateFnsFormat(startsAtDate, 'yyyy-MM-dd HH:mm');
   const formattedEndTime = dateFnsFormat(endAtDate, 'HH:mm');
+  const workSchedule = `${shop.name}(${formattedStartTime}~${formattedEndTime})`;
 
   return (
     <li className="flex flex-col gap-1 px-3 py-4 bg-white border border-gray-200 rounded-md ">
       <div className={`w-[5px] h-[5px] ${result === 'accepted' ? 'bg-blue-20' : 'bg-red-40'}  rounded-full`} />
       <p className="text-sm">
-        {`${shop.name}(${formattedStartTime}~${formattedEndTime})공고 지원이`}
+        {workSchedule}공고 지원이
         {result === 'accepted' ? (
           <span className="text-blue-20"> 승인</span>
         ) : (
