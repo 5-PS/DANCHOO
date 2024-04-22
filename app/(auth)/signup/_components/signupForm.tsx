@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 
 import Button from '@/components/button/button';
 import Input from '@/components/input/input';
+import ROUTE_PATHS from '@/constants/route';
 import { postSignUpInfo } from '@/services/api';
 
 import MemberType from './memberType';
@@ -75,20 +76,15 @@ export default function SignUpForm() {
   const onSubmit = async (data: FieldValues) => {
     try {
       await postSignUpInfo(data);
-      router.push('/signin');
+
       alert('회원가입이 완료되었습니다.');
+
+      router.push(ROUTE_PATHS.SIGN_IN);
     } catch (error) {
-      const axiosError = error as AxiosError;
-      switch (axiosError.message) {
-        case '400':
-          alert('잘못된 요청입니다. 입력 내용을 확인해주세요.');
-          break;
-        case '409':
-          alert('이미 사용 중인 이메일입니다.');
-          break;
-        default:
-          alert('회원 가입 요청에 실패하였습니다.');
-          break;
+      if (error instanceof AxiosError) {
+        const errorMessage =
+          error.response?.status === 409 ? error.response.data.message : '회원 가입 요청에 실패하였습니다.';
+        alert(errorMessage);
       }
     }
   };
