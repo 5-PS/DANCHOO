@@ -10,3 +10,8 @@ export async function postSignIn({ email, password }: PostSignInBody) {
   const response = await apiClient.post('/token', { email, password });
   return response.data;
 }
+
+export const getNotices = async () => {
+  const { data } = await apiClient.get('/notices');
+  return data;
+};
