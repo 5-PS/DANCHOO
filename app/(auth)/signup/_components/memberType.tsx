@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 
-import checkIcon from '@/public/icons/check.svg';
-import noCheckIcon from '@/public/icons/not-check.svg';
+import checkedIcon from '@/public/icons/checked.svg';
+import uncheckedIcon from '@/public/icons/unchecked.svg';
 
 const MEMBER_TYPE = [
   { label: '알바님', key: 'employee' },
@@ -31,7 +31,7 @@ export default function MemberType({ value, onChange }: MemberTypeProps) {
       <div className="flex gap-4">
         {MEMBER_TYPE.map(({ label, key }) => (
           <button key={key} type="button" onClick={() => onChange(key)} className={getButtonClassName(label)}>
-            <Image src={value === key ? checkIcon : noCheckIcon} alt="check icon" width={20} height={20} />
+            <Image src={value === key ? checkedIcon : uncheckedIcon} alt="check icon" width={20} height={20} />
             {label}
           </button>
         ))}
