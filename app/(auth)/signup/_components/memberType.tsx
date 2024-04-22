@@ -20,9 +20,9 @@ export default function MemberType({ value, onChange }: MemberTypeProps) {
     const baseButtonClassName =
       'py-[13px] w-[167px] text-[14px] leading=[22px] rounded-[30px] border border-solid bg-white flex gap-[9px] justify-center items-center';
 
-    const selectButtonClassName = value === buttonValue ? 'border-primary' : 'border-gray-30';
+    const selectedButtonClassName = value === buttonValue ? 'border-primary' : 'border-gray-30';
 
-    return `${baseButtonClassName} ${selectButtonClassName}`;
+    return `${baseButtonClassName} ${selectedButtonClassName}`;
   };
 
   return (
