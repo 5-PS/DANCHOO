@@ -11,7 +11,6 @@ import RegisteredNotice from './_components/registeredNotice';
 export default function MyStore() {
   return (
     <>
-      <Gnb />
       <div className="flex-col items-center justify-center ">
         <MyStoreCard />
         <RegisteredNotice />
