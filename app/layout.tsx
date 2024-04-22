@@ -1,12 +1,14 @@
 import './globals.css';
-
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 
 import Footer from '@/components/footer/footer';
 
 import type { Metadata } from 'next';
 
-const inter = Inter({ subsets: ['latin'] });
+const myFont = localFont({
+  src: '../public/fonts/Pretendard-Regular.woff2',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'The Julge',
@@ -20,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={inter.className}>{children}</body>
+      <body className={myFont.className}>{children}</body>
     </html>
   );
 }
