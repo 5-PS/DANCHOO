@@ -14,7 +14,7 @@ import MemberType from './memberType';
 interface FieldValues {
   email: string;
   password: string;
-  password_repeat: string;
+  confirmPassword: string;
   type: 'employee' | 'employer';
 }
 
@@ -62,7 +62,7 @@ export default function SignUpForm() {
       },
     },
     {
-      name: 'password_repeat',
+      name: 'confirmPassword',
       label: '비밀번호 확인',
       type: 'password',
       placeholder: '비밀번호를 한 번 더 입력해주세요.',
