@@ -1,6 +1,6 @@
 'use client';
 
-import { Controller, FieldValues, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
@@ -10,6 +10,13 @@ import Input from '@/components/input/input';
 import { postSignUpInfo } from '@/services/api';
 
 import MemberType from './memberType';
+
+interface FieldValues {
+  email: string;
+  password: string;
+  password_repeat: string;
+  type: string;
+}
 
 const EMAIL_REGEX = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[a-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
 const PASSWORD_REGEX = /^.{8,}$/;
@@ -91,9 +98,9 @@ export default function SignUpForm() {
           key={name}
           label={label}
           type={type}
-          errorMessage={errors[name]?.message as string}
+          errorMessage={errors[name as keyof FieldValues]?.message as string}
           placeholder={placeholder}
-          {...register(name, validation)}
+          {...register(name as keyof FieldValues, validation)}
         />
       ))}
       <Controller
