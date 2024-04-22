@@ -6,9 +6,10 @@ interface SelectInputProps {
   children: ReactNode;
   onChange: (value: string) => void;
   renderList: { id: number; category: string }[];
+  errorMessage?: string;
 }
 
-export default function SelectInput({ children, onChange, renderList }: SelectInputProps) {
+export default function SelectInput({ children, onChange, renderList, errorMessage }: SelectInputProps) {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   const [selectOption, setSelectOption] = useState('');
 
@@ -31,10 +32,11 @@ export default function SelectInput({ children, onChange, renderList }: SelectIn
       <button
         type="button"
         onClick={handleClickDropdown}
-        className={`w-full px-5 py-4 text-left bg-white border border-solid rounded-md border-gray-30 ${isDropdownOpened ? 'bg-dropdown-top' : 'bg-dropdown-down'} bg-no-repeat bg-right bg-origin-content`}
+        className={`w-full px-5 py-4 text-left bg-white border border-solid rounded-md border-gray-30 ${isDropdownOpened ? 'bg-dropdown-top' : 'bg-dropdown-down'} ${errorMessage && 'border-red-500'} bg-no-repeat bg-right bg-origin-content`}
       >
         {selectOption || '선택'}
       </button>
+      {errorMessage && <span className="text-xs text-red-500">{errorMessage}</span>}
       <ul
         className={`scrollbar z-50 absolute w-full top-[100px] overflow-y-auto h-[190px] rounded-md border border-solid border-gray-20 bg-white ${isDropdownOpened ? 'block' : 'hidden'}`}
       >
