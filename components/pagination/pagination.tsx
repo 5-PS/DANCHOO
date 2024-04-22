@@ -78,7 +78,6 @@ function Pagination({
                   className={`w-[32px] h-[32px] p-[12px] rounded-[4px] text-[14px] leading-[18px] inline-flex justify-center items-center md:w-[40px] md:h-[40px] `}
                   href={`/?page=${number}`}
                   scroll={false}
-                  scroll={false}
                 >
                   {number}
                 </Link>
