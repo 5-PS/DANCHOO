@@ -36,7 +36,7 @@ export default function SelectInput({ children, onChange, renderList }: SelectIn
         {selectOption || '선택'}
       </button>
       <ul
-        className={`scrollbar absolute w-full top-[100px] overflow-y-auto h-[190px] rounded-md border border-solid border-gray-20 bg-white ${isDropdownOpened ? 'block' : 'hidden'}`}
+        className={`scrollbar z-50 absolute w-full top-[100px] overflow-y-auto h-[190px] rounded-md border border-solid border-gray-20 bg-white ${isDropdownOpened ? 'block' : 'hidden'}`}
       >
         {renderList.map(({ id, category }) => (
           <li key={id} onClick={() => handleSelectOption(category)} className={listClassName}>
