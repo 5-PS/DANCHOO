@@ -10,10 +10,10 @@
 
   html {
     font-family: Pretendard-Regular;
+  }
 
-    textarea {
-      resize: none;
-    }
+  textarea {
+    resize: none;
   }
 }
 
