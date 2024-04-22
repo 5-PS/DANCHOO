@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 import Button from '@/components/button/button';
 
 // TODO: 시급비교 라벨 따로빼기, 주소, 시간 아이콘 넣기
@@ -19,8 +21,18 @@ function RecuitsCard() {
               </span>
             </div>
           </div>
-          <div className="text-gray-50 text-[14px] md:text-[16px]">시간 들어가는 곳</div>
-          <div className="text-gray-50 text-[14px] md:text-[16px]">주소 들어가는 곳</div>
+          <div className="text-gray-50 text-[14px] md:text-[16px] flex items-center gap-[6px] leading-[26px]">
+            <span className="relative inline-block w-4 h-4 md:w-5 md:h-5">
+              <Image src="/icons/clock-red.svg" fill alt="시계 아이콘" />
+            </span>
+            시간 들어가는 곳
+          </div>
+          <div className="text-gray-50 text-[14px] md:text-[16px] flex items-center gap-[6px] leading-[26px]">
+            <span className="relative inline-block w-4 h-4 md:w-5 md:h-5">
+              <Image src="/icons/location-red.svg" fill alt="주소 아이콘" />
+            </span>
+            주소 들어가는 곳
+          </div>
           <p className="leading-[26px] text-[14px] md:text-[16px] line-clamp-2">
             알바하기
             ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅁㄴㅇㅁㄴㅁㅇㅁㅇㅇㅁㄴㅇㅁㄴㄴ옹멂엄넒낭ㄹㄹ어ㅏ아엃ㄹㄹ앙
