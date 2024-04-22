@@ -7,11 +7,13 @@
   input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
   }
+
   html {
     font-family: Pretendard-Regular;
-    textarea {
-      resize: none;
-    }
+
+  textarea {
+    resize: none;
+
   }
 }
 
@@ -90,11 +92,12 @@
   src: url('/fonts/Pretendard-Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
-  .box {
-    -ms-overflow-style: none;
-  }
 
-  .box::-webkit-scrollbar {
-    display: none;
-  }
+.box {
+  -ms-overflow-style: none;
+}
+
+.box::-webkit-scrollbar {
+  display: none;
+
 }
