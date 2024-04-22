@@ -10,10 +10,10 @@
 
   html {
     font-family: Pretendard-Regular;
+  }
 
   textarea {
     resize: none;
-
   }
 }
 
@@ -47,6 +47,9 @@
   background: transparent;
 }
 
+.my-recuits-detail-section {
+  @apply py-10 w-full px-3 md:max-w-[680px] md:px-0 md:m-auto xl:max-w-[964px] xl:py-[60px];
+}
 
 @font-face {
   font-family: 'Pretendard-Thin';
@@ -101,5 +104,4 @@
 
 .box::-webkit-scrollbar {
   display: none;
-
 }
