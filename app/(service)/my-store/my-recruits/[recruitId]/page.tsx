@@ -2,7 +2,11 @@ import Table from '@/components/table/table';
 
 import RecuitsCard from './_components/recruitsCard';
 
-function MyRecruitDetailPage({ searchParams }) {
+interface MyRecruitDetailPageProps {
+  searchParams: { page: string };
+}
+
+function MyRecruitDetailPage({ searchParams }: MyRecruitDetailPageProps) {
   return (
     <main>
       <section className="my-recuits-detail-section">

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import Button from '@/components/button/button';
+import PercentageBadge from '@/components/post/percentageBadge';
 
 // TODO: 시급비교 라벨 따로빼기, 주소, 시간 아이콘 넣기
 
@@ -16,9 +17,7 @@ function RecuitsCard() {
             <span className="inline-block mb-2 font-bold text-primary text-[14px] md:text-[16px]">시급</span>
             <div className="font-bold text-[24px] flex gap-2 items-center md:text-[28px]">
               15,000원
-              <span className=" p-3 rounded-[20px] text-white bg-primary text-[14px] h-[36px] max-md:text-[12px] max-md:p-2 max-md:h-auto">
-                기존 시급보다 50% 업
-              </span>
+              <PercentageBadge closed={false} percentage={50} />
             </div>
           </div>
           <div className="text-gray-50 text-[14px] md:text-[16px] flex items-center gap-[6px] leading-[26px]">
@@ -35,9 +34,9 @@ function RecuitsCard() {
           </div>
           <p className="leading-[26px] text-[14px] md:text-[16px] line-clamp-2">
             알바하기
-            ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅁㄴㅇㅁㄴㅁㅇㅁㅇㅇㅁㄴㅇㅁㄴㄴ옹멂엄넒낭ㄹㄹ어ㅏ아엃ㄹㄹ앙
+            ㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁasdasdasdasdasdasdasdasdasdasdasdasㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅁㄴㅇㅁㄴㅁㅇㅁㅇㅇㅁㄴㅇㅁㄴㄴ옹멂엄넒낭ㄹㄹ어ㅏ아엃ㄹㄹ앙
           </p>
-          <Button background="bg-white" fontSize={16}>
+          <Button background="bg-white" className="h-[48px]">
             공고 편집하기
           </Button>
         </div>
