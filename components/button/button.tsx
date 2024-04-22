@@ -23,15 +23,8 @@ function Button({ children, background, className, ...restProps }: ButtonProps) 
   ${background === 'bg-primary' ? 'hover:bg-primary-hover text-white active:scale-95 ' : ''}
   w-full shadow rounded-md font-sans`;
 
-  function isGray() {
-    if (background === 'bg-gray-40') {
-      return true;
-    }
-    return false;
-  }
-
   return (
-    <button className={`${buttonClasses} ${className}`} disabled={isGray()} {...restProps}>
+    <button className={`${buttonClasses} ${className}`} disabled={background === 'bg-gray-40'} {...restProps}>
       {children}
     </button>
   );
