@@ -47,6 +47,10 @@
   background: transparent;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> e98bcdc20b868e9a1129946bc5ff6e79f09e13ea
 .my-recuits-detail-section {
   @apply py-10 w-full px-3 md:max-w-[680px] md:px-0 md:m-auto xl:max-w-[964px] xl:py-[60px];
 }
@@ -96,7 +100,10 @@
   src: url('/fonts/Pretendard-Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
+<<<<<<< HEAD
 }
+=======
+>>>>>>> e98bcdc20b868e9a1129946bc5ff6e79f09e13ea
 
 .box {
   -ms-overflow-style: none;
