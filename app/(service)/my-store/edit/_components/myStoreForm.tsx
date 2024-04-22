@@ -88,8 +88,9 @@ export default function MyStoreForm() {
           <Controller
             name="address1"
             control={control}
-            render={({ field: { onChange } }) => (
-              <SelectInput onChange={onChange} renderList={FOOD_CATEGORY_LIST}>
+            rules={{ required: '분류를 선택해주세요.' }}
+            render={({ field: { onChange }, fieldState: { error } }) => (
+              <SelectInput onChange={onChange} errorMessage={error?.message} renderList={FOOD_CATEGORY_LIST}>
                 분류*
               </SelectInput>
             )}
@@ -99,8 +100,9 @@ export default function MyStoreForm() {
           <Controller
             name="category"
             control={control}
-            render={({ field: { onChange } }) => (
-              <SelectInput onChange={onChange} renderList={ADDRESS_LIST}>
+            rules={{ required: '주소를 선택해주세요.' }}
+            render={({ field: { onChange }, fieldState: { error } }) => (
+              <SelectInput onChange={onChange} renderList={ADDRESS_LIST} errorMessage={error?.message}>
                 주소*
               </SelectInput>
             )}
@@ -120,8 +122,10 @@ export default function MyStoreForm() {
             label="기본 시급*"
             type="number"
             rightText="원"
+            placeholder="시급을 입력해주세요"
             errorMessage={errors.originaHourlyPay?.message}
             {...register('originaHourlyPay', {
+              required: '시급을 입력해주세요',
               validate: (value) => value > 9620 || '최저 시급 이상 입력해주세요',
             })}
           />
