@@ -1,8 +1,8 @@
 import apiClient from '@/libs/axios';
 import { PostSignInBody, PostSignupBody } from '@/types/api';
 
-export async function postSignUpInfo({ email, password, password_repeat }: PostSignupBody) {
-  const response = await apiClient.post('/users', { email, password, password_repeat });
+export async function postSignUpInfo({ email, password, confirmPassword }: PostSignupBody) {
+  const response = await apiClient.post('/users', { email, password, confirmPassword });
   return response.data;
 }
 

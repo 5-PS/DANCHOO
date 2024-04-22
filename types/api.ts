@@ -1,7 +1,7 @@
 export interface PostSignupBody {
   email: string;
   password: string;
-  password_repeat: string;
+  confirmPassword: string;
 }
 
 export interface PostSignInBody {
