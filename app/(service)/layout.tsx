@@ -1,15 +1,8 @@
-import './globals.css';
-
 import { Inter } from 'next/font/google';
 
-import type { Metadata } from 'next';
+import Gnb from '@/components/gnb/gnb';
 
 const inter = Inter({ subsets: ['latin'] });
-
-export const metadata: Metadata = {
-  title: 'The Julge',
-  description: 'The Julge',
-};
 
 export default function RootLayout({
   children,
@@ -18,7 +11,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Gnb />
+        {children}
+      </body>
     </html>
   );
 }
