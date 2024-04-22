@@ -600,9 +600,9 @@ function StateBadge({ state }: StateBadgeProps) {
 }
 
 function Table({ query, type }: { query: { page: string }; type: 'applicantList' | 'applyList' }) {
-  const isDefault = query?.page ? query.page : '1';
+  const defaultQueryPage = query.page || '1';
   const pageLength = Math.ceil(STORE_INFORMATION.length / 5);
-  const sliceIndex = (parseInt(isDefault, 10) - 1) * 5;
+  const sliceIndex = (parseInt(defaultQueryPage, 10) - 1) * 5;
   return (
     <div className="relative w-full max-w-[964px] overflow-hidden border border-gray-20 rounded-[10px] bg-white m-auto">
       <div className="overflow-x-auto ">
@@ -638,7 +638,7 @@ function Table({ query, type }: { query: { page: string }; type: 'applicantList'
           </tbody>
         </table>
       </div>
-      <Pagination page={isDefault} pageLength={pageLength} />
+      <Pagination page={query.page} pageLength={pageLength} />
     </div>
   );
 }
