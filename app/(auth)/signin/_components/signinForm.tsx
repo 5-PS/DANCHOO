@@ -61,6 +61,8 @@ export default function SignInForm() {
       if (error instanceof AxiosError) {
         if (error.response?.status === 404) {
           alert(error.response.data.message);
+        } else {
+          alert('로그인에 실패했습니다.');
         }
       }
     }
