@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
 export default function AuthLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen my-12">
