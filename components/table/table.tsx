@@ -1,19 +1,168 @@
 import Pagination from '../pagination/pagination';
+import ApplicationTableStateBadge from '../tableStateBadge/applicationTableStateBadge';
+import ApplyTableStateBadge from '../tableStateBadge/applyTableStateBadge';
 
-interface StateBadgeProps {
-  state: 'pedding' | 'approve' | 'choose';
-}
 // api가 없어 만든 임시 데이터 입니다.
 const STORE_INFORMATION: {
   title: string;
   date: string;
   money: number;
-  state: 'pedding' | 'approve' | 'choose';
+  state: 'pending' | 'accepted' | 'rejected';
 }[] = [
   {
     title: '너구리네 라면집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
+    state: 'rejected',
+  },
+  {
+    title: '너구리네 국수집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'accepted',
+  },
+  {
+    title: '너구리네 돈까스집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'accepted',
+  },
+  {
+    title: '너구리네 짜장면집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 카레집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 우동집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 몰라',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 밥집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 한식집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 ㅠㅠㅠ',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 ㅁㄴㅇㅁㄴ',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 술집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 피시방',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 놀이공원',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 기둥',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 흠 뭐하지',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 진짜 뭐하지',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 학원',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 ㅁㄴㅇ',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 ㅁㄴㅇㅁㄴㅇㅁ',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 라면집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 칼국수집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 ㅁㅁㅁ',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 코딩집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 ㅠㅠㅠㅠ',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 라면집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
     state: 'choose',
   },
   {
@@ -26,547 +175,396 @@ const STORE_INFORMATION: {
     title: '너구리네 돈까스집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 짜장면집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 카레집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 우동집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 몰라',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 밥집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 한식집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅁㄴㅇㅁㄴ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 술집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 피시방',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 놀이공원',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 기둥',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 흠 뭐하지',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 진짜 뭐하지',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 학원',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅁㄴㅇ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅁㄴㅇㅁㄴㅇㅁ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 라면집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 칼국수집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅁㅁㅁ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 라면집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'choose',
-  },
-  {
-    title: '너구리네 국수집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'approve',
-  },
-  {
-    title: '너구리네 돈까스집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 짜장면집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 카레집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 우동집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 몰라',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 밥집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 한식집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 ㅠㅠㅠ',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 ㅁㄴㅇㅁㄴ',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 술집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 피시방',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 놀이공원',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 기둥',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 흠 뭐하지',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 진짜 뭐하지',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 학원',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 ㅁㄴㅇ',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 ㅁㄴㅇㅁㄴㅇㅁ',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 라면집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 칼국수집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅁㅁㅁ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 칼국수집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅁㅁㅁ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 칼국수집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅁㅁㅁ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
+  },
+  {
+    title: '너구리네 코딩집',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
+  },
+  {
+    title: '너구리네 ㅠㅠㅠㅠ',
+    date: '2023.01.12~12:00 (2시간)',
+    money: 12500,
+    state: 'pending',
   },
   {
     title: '너구리네 칼국수집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅁㅁㅁ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 칼국수집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅁㅁㅁ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 칼국수집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅁㅁㅁ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 칼국수집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅁㅁㅁ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 칼국수집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅁㅁㅁ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 코딩집',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
   {
     title: '너구리네 ㅠㅠㅠㅠ',
     date: '2023.01.12~12:00 (2시간)',
     money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 코딩집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 ㅠㅠㅠㅠ',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 칼국수집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 ㅁㅁㅁ',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 코딩집',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
-  },
-  {
-    title: '너구리네 ㅠㅠㅠㅠ',
-    date: '2023.01.12~12:00 (2시간)',
-    money: 12500,
-    state: 'pedding',
+    state: 'pending',
   },
 ];
 
 function Table({ query, type }: { query: { page: string }; type: 'applicantList' | 'applyList' }) {
   const defaultQueryPage = query.page || '1';
-  const pageLength = Math.ceil(STORE_INFORMATION.length / 5);
   const sliceIndex = (parseInt(defaultQueryPage, 10) - 1) * 5;
   return (
     <div className="relative w-full max-w-[964px] overflow-hidden border border-gray-20 rounded-[10px] bg-white m-auto">
@@ -595,13 +593,19 @@ function Table({ query, type }: { query: { page: string }; type: 'applicantList'
                 <td className="sticky left-0 bg-white tb-data ">{store.title}</td>
                 <td className="tb-data ">{store.date}</td>
                 <td className="tb-data ">{store.money}</td>
-                <td className="tb-data " aria-label="badge" />
+                <td className="tb-data " aria-label="badge">
+                  {type === 'applicantList' ? (
+                    <ApplicationTableStateBadge state={store.state} />
+                  ) : (
+                    <ApplyTableStateBadge state={store.state} />
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <Pagination page={query.page} pageLength={pageLength} />
+      <Pagination page={query.page} totalDataCount={STORE_INFORMATION.length} sliceDataValue={5} />
     </div>
   );
 }
