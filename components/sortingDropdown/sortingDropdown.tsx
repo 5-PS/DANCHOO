@@ -50,8 +50,10 @@ export default function SortingDropdown() {
         className={`absolute text-[14px] w-full top-[120%] rounded-md bg-white ${isDropdownOpened ? 'block' : 'hidden'}`}
       >
         {FILTER_LIST.map(({ id, category }) => (
-          <li key={id} onClick={() => handleSelectOption(category)} className={listClassName}>
-            {category}
+          <li key={id} className={listClassName}>
+            <button onClick={() => handleSelectOption(category)} className="w-full">
+              {category}
+            </button>
           </li>
         ))}
       </ul>
