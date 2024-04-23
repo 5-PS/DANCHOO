@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 
 import Button from '@/components/button/button';
 import Input from '@/components/input/input';
+import ROUTE_PATHS from '@/constants/route';
 import { postSignIn } from '@/services/api';
 
 interface FieldValues {
@@ -56,7 +57,7 @@ export default function SignInForm() {
     try {
       await postSignIn(data);
 
-      router.push('/');
+      router.push(ROUTE_PATHS.HOME);
     } catch (error) {
       if (error instanceof AxiosError) {
         const errorMessage = error.response?.status === 404 ? error.response.data.message : '로그인에 실패했습니다.';
