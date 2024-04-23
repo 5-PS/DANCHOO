@@ -584,7 +584,7 @@ function Table({ query, type }: { query: { page: string }; type: 'applicantList'
                 {type === 'applicantList' && '전화번호'}
                 {type === 'applyList' && '시급'}
               </th>
-              <th className="tb-head w-[165px] md:w-[236px]">상태</th>
+              <th className="tb-head sticky right-0 bg-red-10 w-[165px] md:w-[236px]">상태</th>
             </tr>
           </thead>
           <tbody>
@@ -593,7 +593,7 @@ function Table({ query, type }: { query: { page: string }; type: 'applicantList'
                 <td className="sticky left-0 bg-white tb-data ">{store.title}</td>
                 <td className="tb-data ">{store.date}</td>
                 <td className="tb-data ">{store.money}</td>
-                <td className="tb-data " aria-label="badge">
+                <td className="tb-data sticky bg-white right-0" aria-label="badge">
                   {type === 'applicantList' ? (
                     <ApplicationTableStateBadge state={store.state} />
                   ) : (
