@@ -7,6 +7,17 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'Pretendard-Black': 'Pretendard-Black',
+        'Pretendard-Bold': 'Pretendard-Bold',
+        'Pretendard-ExtraBold': 'Pretendard-ExtraBold',
+        'Pretendard-ExtraLight': 'Pretendard-ExtraLight',
+        'Pretendard-Light': 'Pretendard-Light',
+        'Pretendard-Medium': 'Pretendard-Medium',
+        'Pretendard-Regular': 'Pretendard-Regular',
+        'Pretendard-SemiBold': 'Pretendard-SemiBold',
+        'Pretendard-Thin': 'Pretendard-Thin',
+      },
       colors: {
         primary: '#0045F8', //#EA3C12
         'primary-hover': '#1160DA',
@@ -30,6 +41,13 @@ module.exports = {
       },
       boxShadow: {
         'modal-box': '0px 2px 8px 0px rgba(120, 116, 134, 0.25)',
+      },
+      backgroundImage: {
+        'dropdown-down': "url('../public/icons/dropdown-down.svg')",
+        'dropdown-top': "url('../public/icons/dropdown-top.svg')",
+      },
+      backgroundSize: {
+        'size-10': '10px 10px',
       },
     },
   },

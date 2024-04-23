@@ -1,0 +1,59 @@
+{
+  "item": {
+    "id": "edc6b62b-5fd2-4871-b125-ac7e761d465d",
+    "name": "나옹이다옹",
+    "category": "한식",
+    "address1": "서울시 종로구",
+    "address2": "string",
+    "description": "양고양고양양고양고양양고양고양양고양고양양고양고양양고양고양양고양고양양고양고양",
+    "imageUrl": "",
+    "originalHourlyPay": 15000,
+    "user": {
+      "item": {
+        "id": "58a6332c-8a43-4e6f-b6c0-d44c8f68dc16",
+        "email": "email01@naver.com",
+        "type": "employer"
+      },
+      "href": "/api/4-2/the-julge/users/58a6332c-8a43-4e6f-b6c0-d44c8f68dc16"
+    }
+  },
+  "links": [
+    {
+      "rel": "self",
+      "description": "가게 정보",
+      "method": "GET",
+      "href": "/api/4-2/the-julge/shops/edc6b62b-5fd2-4871-b125-ac7e761d465d"
+    },
+    {
+      "rel": "update",
+      "description": "가게 정보 수정",
+      "method": "PUT",
+      "href": "/api/4-2/the-julge/shops/edc6b62b-5fd2-4871-b125-ac7e761d465d",
+      "body": {
+        "name": "string",
+        "category": "한식 | 중식 | 일식 | 양식 | 분식 | 카페 | 편의점 | 기타",
+        "address1": "서울시 종로구 | 서울시 중구 | 서울시 용산구 | 서울시 성동구 | 서울시 광진구 | 서울시 동대문구 | 서울시 중랑구 | 서울시 성북구 | 서울시 강북구 | 서울시 도봉구 | 서울시 노원구 | 서울시 은평구 | 서울시 서대문구 | 서울시 마포구 | 서울시 양천구 | 서울시 강서구 | 서울시 구로구 | 서울시 금천구 | 서울시 영등포구 | 서울시 동작구 | 서울시 관악구 | 서울시 서초구 | 서울시 강남구 | 서울시 송파구 | 서울시 강동구",
+        "address2": "string",
+        "description": "string",
+        "imageUrl": "string",
+        "originalHourlyPay": "number"
+      }
+    },
+    {
+      "rel": "user",
+      "description": "가게 주인 정보",
+      "method": "GET",
+      "href": "/api/4-2/the-julge/users/58a6332c-8a43-4e6f-b6c0-d44c8f68dc16"
+    },
+    {
+      "rel": "notices",
+      "description": "공고 목록",
+      "method": "GET",
+      "href": "/api/4-2/the-julge/shops/edc6b62b-5fd2-4871-b125-ac7e761d465d/notices",
+      "query": {
+        "offset": "undefined | number",
+        "limit": "undefined | number"
+      }
+    }
+  ]
+}
