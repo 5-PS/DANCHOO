@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import NotificationBtn from './notificationBtn';
 import SearchBar from './searchBar';
@@ -58,9 +61,15 @@ function UserTypeLink({ userType }: UserTypeProps) {
   return userType === 'employee' ? <Link href="/my-profile">내 프로필</Link> : <Link href="/my-store">내 가게</Link>;
 }
 
-// TODO: 로그아웃과 인증 확인 로직 만들어야 합니다
 function Gnb() {
-  const auth: boolean = false;
+  const router = useRouter();
+
+  const handleLogout = () => {
+    document.cookie = 'accessToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    router.push('/');
+  };
+
+  const auth: boolean = true;
   const userType: string = 'employee';
   return (
     <header className="sticky top-0 z-10 px-5 py-3 m-auto bg-white md:px-8 w-full md:max-w-[964px]">
@@ -72,7 +81,7 @@ function Gnb() {
           {auth ? (
             <>
               <UserTypeLink userType={userType} />
-              <button>로그아웃</button>
+              <button onClick={handleLogout}>로그아웃</button>
               <NotificationBtn alertList={alertList} />
             </>
           ) : (
