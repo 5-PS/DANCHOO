@@ -38,16 +38,16 @@ export default function SortingDropdown() {
   };
 
   return (
-    <div className="relative flex flex-col gap-2">
+    <div className="relative flex flex-col z-50 gap-2">
       <button
         type="button"
         onClick={handleClickDropdown}
-        className={`w-full p-3 text-black font-bold text-left bg-gray-10 border border-solid rounded-md border-gray-30 ${isDropdownOpened ? 'bg-dropdown-top' : 'bg-dropdown-down'} bg-no-repeat bg-right bg-origin-content`}
+        className={`w-[110px] h-[30px] text-[14px] flex items-center p-3 text-black font-bold text-left bg-gray-10 rounded-md ${isDropdownOpened ? 'bg-dropdown-top' : 'bg-dropdown-down'} bg-size-10 bg-no-repeat bg-right bg-origin-content`}
       >
         {selectOption || '선택'}
       </button>
       <ul
-        className={`absolute text-[14px] w-full top-[120%] rounded-md border border-solid border-gray-20 bg-white ${isDropdownOpened ? 'block' : 'hidden'}`}
+        className={`absolute text-[14px] w-full top-[120%] rounded-md bg-white ${isDropdownOpened ? 'block' : 'hidden'}`}
       >
         {FILTER_LIST.map(({ id, category }) => (
           <li key={id} onClick={() => handleSelectOption(category)} className={listClassName}>
