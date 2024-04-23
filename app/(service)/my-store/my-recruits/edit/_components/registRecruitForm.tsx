@@ -25,11 +25,33 @@ export default function RegistRecruitForm() {
     watch,
     formState: { errors },
   } = useForm<FieldValues>({ mode: 'all' });
-
   const hourlyPay = watch('hourlyPay', '');
-
   const [displayHourlyPay, setDisplayHourlyPay] = useState('');
-
+  const inputFields = [
+    {
+      label: '시급*',
+      type: 'text',
+      rightText: '원',
+      errorMessage: errors.hourlyPay?.message,
+      placeholder: '입력',
+      value: displayHourlyPay,
+      register: register('hourlyPay', { required: '시급을 입력해주세요' }),
+    },
+    {
+      label: '시작 일시*',
+      type: 'date',
+      errorMessage: errors.registTime?.message,
+      register: register('registTime', { required: '시작 일시를 입력해주세요' }),
+    },
+    {
+      label: '업무 시간*',
+      type: 'text',
+      errorMessage: errors.workTime?.message,
+      placeholder: '입력',
+      rightText: '시간',
+      register: register('workTime', { required: '업무 시간을 입력해주세요' }),
+    },
+  ];
   useEffect(() => {
     setDisplayHourlyPay(formatHourlyPay(hourlyPay));
   }, [hourlyPay]);
@@ -42,36 +64,21 @@ export default function RegistRecruitForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit((data) => onSubmit(data))}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-6 mb-6 md:gap-8">
         <div className="grid gap-x-5 md:grid-cols-2 xl:grid-cols-3 gap-y-6">
-          <Input
-            label="시급*"
-            type="text"
-            rightText="원"
-            errorMessage={errors.hourlyPay?.message}
-            placeholder="입력"
-            value={displayHourlyPay}
-            {...register('hourlyPay', { required: '시급을 입력해주세요' })}
-          />
-          <Input
-            label="시작 일시*"
-            type="date"
-            errorMessage={errors.registTime?.message}
-            {...register('registTime', {
-              required: '시작 일시를 입력해주세요',
-            })}
-          />
-          <Input
-            label="업무 시간*"
-            type="text"
-            errorMessage={errors.workTime?.message}
-            placeholder="입력"
-            rightText="시간"
-            {...register('workTime', {
-              required: '업무 시간을 입력해주세요',
-            })}
-          />
+          {inputFields.map((field) => (
+            <Input
+              key={field.label}
+              label={field.label}
+              type={field.type}
+              rightText={field.rightText}
+              errorMessage={field.errorMessage}
+              placeholder={field.placeholder}
+              value={field.value}
+              {...field.register}
+            />
+          ))}
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="description">
