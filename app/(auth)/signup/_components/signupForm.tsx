@@ -106,7 +106,7 @@ export default function SignUpForm() {
         control={control}
         render={({ field: { onChange, value } }) => <MemberType value={value} onChange={onChange} />}
       />
-      <Button background="bg-primary" fontSize={16} height={48}>
+      <Button background="bg-primary" className="w-full h-[48px]">
         가입하기
       </Button>
     </form>
