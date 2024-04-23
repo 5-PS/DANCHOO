@@ -79,7 +79,7 @@ export default function SignInForm() {
           {...register(name as keyof FieldValues, validation)}
         />
       ))}
-      <Button background="bg-primary" fontSize={16} height={48}>
+      <Button background="bg-primary" className="w-full h-[48px]">
         로그인 하기
       </Button>
     </form>
