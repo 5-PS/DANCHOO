@@ -55,7 +55,11 @@ export default function SignInForm() {
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      await postSignIn(data);
+      const {
+        item: { token },
+      } = await postSignIn(data);
+
+      document.cookie = `accessToken=${token}; Path=/; Max-Age=86400; Secure; SameSite=Strict`;
 
       router.push(ROUTE_PATHS.HOME);
     } catch (error) {
