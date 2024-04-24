@@ -1,10 +1,15 @@
 'use client';
 
-import { Controller, FieldValues, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
+
+import { AxiosError } from 'axios';
+import { useParams, useRouter } from 'next/navigation';
 
 import Button from '@/components/button/button';
 import Input from '@/components/input/input';
 import SelectInput from '@/components/input/selectInput';
+import { putUserProfile } from '@/services/api';
+import { PutProfileBody } from '@/types/api';
 
 const ADDRESS_LIST = [
   { id: 1, category: '서울시 종로구' },
@@ -33,15 +38,31 @@ const ADDRESS_LIST = [
   { id: 24, category: '서울시 송파구' },
   { id: 25, category: '서울시 강동구' },
 ];
+interface FieldValues extends PutProfileBody {}
 export default function ProfileEditForm() {
+  const params = useParams();
+  const { userId } = params;
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<FieldValues>({ mode: 'all' });
+  const handleOnSubmit = async (data: PutProfileBody) => {
+    try {
+      await putUserProfile(userId, data);
+      alert('프로필을 등록하였습니다');
+      router.push(`/my-profile/${userId}`);
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const errorMessage = err.response?.data.message;
+        alert(errorMessage);
+      }
+    }
+  };
   return (
-    <form onSubmit={handleSubmit((data) => console.log(data))}>
+    <form onSubmit={handleSubmit((data) => handleOnSubmit(data))}>
       <div className="flex flex-col gap-6 mb-6 md:gap-8">
         <div className="grid gap-x-5 md:grid-cols-2 xl:grid-cols-3 gap-y-6">
           <Input
@@ -86,7 +107,7 @@ export default function ProfileEditForm() {
       </div>
       <div className="flex items-center justify-center">
         <div className="w-full md:w-[312px]">
-          <Button background="bg-primary" fontSize={16} height={48}>
+          <Button background="bg-primary" className="h-[48px]">
             등록하기
           </Button>
         </div>
