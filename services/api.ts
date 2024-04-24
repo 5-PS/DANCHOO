@@ -13,25 +13,32 @@ export async function postSignIn({ email, password }: PostSignInBody) {
   return data;
 }
 
-export const getNotices = async ({
-  offset = 0,
-  limit = 6,
-  address,
-  keyword,
-  startsAtGte,
-  hourlyPayGte,
-  sort,
-}: GetNoticesParams) => {
+// export const getNotices = async ({
+//   offset = 0,
+//   limit = 6,
+//   address,
+//   keyword,
+//   startsAtGte,
+//   hourlyPayGte,
+//   sort,
+// }: GetNoticesParams) => {
+//   const { data } = await apiClient.get('/notices', {
+//     params: {
+//       offset,
+//       limit,
+//       address,
+//       keyword,
+//       startsAtGte,
+//       hourlyPayGte,
+//       sort,
+//     },
+//   });
+//   return data;
+// };
+
+export const getNotices = async ({ sort, ...rest }: GetNoticesParams) => {
   const { data } = await apiClient.get('/notices', {
-    params: {
-      offset,
-      limit,
-      address,
-      keyword,
-      startsAtGte,
-      hourlyPayGte,
-      sort,
-    },
+    params: { sort, limit: 6, ...rest },
   });
   return data;
 };

@@ -3,8 +3,6 @@
 import { useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import queryString from 'query-string';
 
 import DetailFilterModal from '@/components/filterModal/detailFilterModal';
 import Pagination from '@/components/pagination/pagination';
@@ -13,30 +11,22 @@ import SortingDropdown from '@/components/sortingDropdown/sortingDropdown';
 import { getNotices } from '@/services/api';
 
 function TotalRecruitList({ searchParams }) {
-  const searchParamsUrl = useSearchParams();
-  const pathName = usePathname();
-  const router = useRouter();
+  const [sortOption, setSortOption] = useState<'time' | 'pay' | 'hour' | 'shop' | undefined>('time');
 
-  const handleSubmit = (data: any) => {
-    router.push(
-      queryString.stringify({
-        url: pathName,
-        query: {
-          sort: data.sort,
-        },
+  const { data } = useQuery({
+    queryKey: ['notices', sortOption, searchParams.page],
+    queryFn: () =>
+      getNotices({
+        sort: sortOption,
+        offset: (searchParams.page - 1) * 6,
       }),
-    );
-  };
-  const [sortOption, setSortOption] = useState<string>('time');
+  });
 
-  const { data } = useQuery({ queryKey: ['notices2', searchParams.sort, searchParams.page], queryFn: getNotices });
   if (!data) return null;
-
-  console.log(sortOption);
 
   const pageLength = data ? data.count : 0;
 
-  const handleSortChange = (option: string) => {
+  const handleSortChange = (option: 'time' | 'pay' | 'hour' | 'shop' | undefined) => {
     setSortOption(option);
   };
   return (
@@ -45,7 +35,7 @@ function TotalRecruitList({ searchParams }) {
         <h2 className="text-[28px] font-bold">전체 공고</h2>
         <div className="flex items-center mb-4 md:mb-8">
           <div className="w-[105px] h-[30px]">
-            <SortingDropdown onSelect={handleSubmit} />
+            <SortingDropdown onSelect={handleSortChange} sortOption={sortOption} />
           </div>
           <DetailFilterModal />
         </div>
