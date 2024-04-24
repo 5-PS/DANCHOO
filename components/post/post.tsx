@@ -1,3 +1,7 @@
+'use client';
+
+import { useMemo } from 'react';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -31,7 +35,7 @@ function Post({
   workhour,
   closed,
 }: PostProps) {
-  const percentage = calculatePercentage(hourlyPay, originalHourlyPay);
+  const percentage = useMemo(() => calculatePercentage(hourlyPay, originalHourlyPay), [hourlyPay, originalHourlyPay]);
 
   const handleClick = () => {
     const recentlyViewedRecruits = JSON.parse(sessionStorage.getItem('recentlyViewedRecruits') || '[]');
