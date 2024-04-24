@@ -6,22 +6,26 @@ const FILTER_LIST = [
   {
     id: 1,
     category: '마감임박순',
+    sort: 'time',
   },
   {
     id: 2,
     category: '시급많은순',
+    sort: 'pay',
   },
   {
     id: 3,
     category: '시간적은순',
+    sort: 'hour',
   },
   {
     id: 4,
     category: '가다나순',
+    sort: 'shop',
   },
 ];
 
-export default function SortingDropdown() {
+export default function SortingDropdown({ onSelect }: { onSelect: (option: string) => void }) {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
   const [selectOption, setSelectOption] = useState('마감임박순');
 
@@ -32,9 +36,10 @@ export default function SortingDropdown() {
     setIsDropdownOpened(!isDropdownOpened);
   };
 
-  const handleSelectOption = (category: string) => {
+  const handleSelectOption = (category: string, sort: string) => {
     setSelectOption(category);
     setIsDropdownOpened(false);
+    onSelect(sort);
   };
 
   return (
@@ -47,11 +52,11 @@ export default function SortingDropdown() {
         {selectOption || '선택'}
       </button>
       <ul
-        className={`absolute text-[14px] w-full top-[120%] rounded-md border border-solid border-gray-20 bg-white ${isDropdownOpened ? 'block' : 'hidden'}`}
+        className={`z-50 absolute text-[14px] w-full top-[120%] rounded-md border border-solid border-gray-20 bg-white ${isDropdownOpened ? 'block' : 'hidden'}`}
       >
-        {FILTER_LIST.map(({ id, category }) => (
-          <li key={id} onClick={() => handleSelectOption(category)} className={listClassName}>
-            {category}
+        {FILTER_LIST.map(({ id, category, sort }) => (
+          <li key={id} className={listClassName}>
+            <button onClick={() => handleSelectOption(category, sort)}>{category}</button>
           </li>
         ))}
       </ul>
