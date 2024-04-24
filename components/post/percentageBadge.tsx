@@ -4,25 +4,19 @@ interface PercentageBadgeProps {
   isClosed: boolean;
   percentage: number;
 }
+
 function PercentageBadge({ isClosed, percentage }: PercentageBadgeProps) {
+  if (isClosed) return null;
   return (
-    <div
-      className={`flex justify-start items-center gap-0.5 md:p-3 md:rounded-[20px] md:h-9 ${isClosed ? 'md:bg-gray-20' : 'md:bg-red-40'}`}
-    >
-      <div
-        className={`text-xs text-center whitespace-nowrap text-ellipsis overflow-hidden max-w-[125px] md:text-white md:font-bold ${isClosed ? 'text-gray-30' : 'text-red-40'}`}
-      >
-        {`기존 시급보다 ${percentage}%`}
+    percentage >= 5 && (
+      <div className="flex justify-start items-center gap-0.5 p-3 rounded-[20px] h-9 bg-red-40">
+        <p className="text-xs text-center whitespace-nowrap overflow-hidden max-w-[125px] text-white font-bold">
+          {`기존 시급보다 ${percentage}%`}
+        </p>
+        <Image src="/icons/arrow-white.svg" alt="화살표 아이콘" width={12} height={12} />
       </div>
-      <Image className="max-[767px]:hidden" src="/icons/arrow-white.svg" width={12} height={12} alt="위치 아이콘" />
-      <Image
-        className="md:hidden"
-        src={`${isClosed ? '/icons/arrow-gray.svg' : '/icons/arrow-red.svg'}`}
-        alt="화살표 아이콘"
-        width={12}
-        height={12}
-      />
-    </div>
+    )
   );
 }
+
 export default PercentageBadge;
