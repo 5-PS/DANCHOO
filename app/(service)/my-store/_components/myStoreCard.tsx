@@ -4,7 +4,10 @@ import Button from '@/components/button/button';
 
 import { item } from './가게정보.json';
 /**
- * @todo 처음에 가게 정보 없을 때 보여줄 가게없음 보이게
+ * @todo 처음에 가게 정보 없을 때 보여줄 가게없음 보이게 => 없을 때에는 가게 등록하기 보이게
+ * @todo 편집하기 누르면 가게 정보 편집 페이지로
+ * @todo 공고 등록하기 페이지를 누르면 공고 등록하기 페이지로 이동
+ * @todo 내가 등록한 공고 무한스크롤로, 최신순으로 정렬하고,
  */
 export default function MyStoreCard() {
   return (
