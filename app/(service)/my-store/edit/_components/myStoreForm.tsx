@@ -11,6 +11,7 @@ import Button from '@/components/button/button';
 import Input from '@/components/input/input';
 import SelectInput from '@/components/input/selectInput';
 import { postCreateStore, requestUploadImg } from '@/services/api';
+import { PostCreateStoreBody } from '@/types/api';
 
 // 3. SelectInput의 옵션 메뉴 position absolute 주기
 const FOOD_CATEGORY_LIST = [
@@ -76,7 +77,11 @@ export default function MyStoreForm() {
   const onSubmit = async (formData) => {
     try {
       const imageUrl = await requestUploadImg(formData.imageUrl[0]);
-      const postData = { ...formData, imageUrl, originalHourlyPay: Number(formData.originalHourlyPay) };
+      const postData: PostCreateStoreBody = {
+        ...formData,
+        imageUrl,
+        originalHourlyPay: Number(formData.originalHourlyPay),
+      };
       const { item } = await postCreateStore(postData);
       alert('내가게가 등록 되었습니다');
       router.push(`/my-store/${item.id}`);
