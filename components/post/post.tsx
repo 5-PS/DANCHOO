@@ -33,9 +33,39 @@ function Post({
 }: PostProps) {
   const percentage = calculatePercentage(hourlyPay, originalHourlyPay);
 
+  const handleClick = () => {
+    const recentlyViewedRecruits = JSON.parse(sessionStorage.getItem('recentlyViewedRecruits') || '[]');
+
+    const recruitInfo = {
+      id,
+      shopId,
+      address,
+      imageUrl,
+      name,
+      hourlyPay,
+      originalHourlyPay,
+      startsAt,
+      workhour,
+      closed,
+    };
+
+    const isAlreadyListedIndex = recentlyViewedRecruits.findIndex(
+      (recruit: { id: string }) => recruit.id === recruitInfo.id,
+    );
+
+    if (isAlreadyListedIndex === -1) {
+      if (recentlyViewedRecruits.length >= 6) recentlyViewedRecruits.pop();
+    } else {
+      recentlyViewedRecruits.splice(isAlreadyListedIndex, 1);
+    }
+    recentlyViewedRecruits.unshift(recruitInfo);
+
+    sessionStorage.setItem('recentlyViewedRecruits', JSON.stringify(recentlyViewedRecruits));
+  };
   return (
     <Link
       href={`/recruit-detail/${shopId}/${id}`}
+      onClick={handleClick}
       className="flex flex-col items-center min-w-32 min-h-[350px] md:min-h-[335px] justify-center gap-3 p-3 border border-solid bg-white border-gray-20 rounded-xl md:w-max-[312px] md:p-4 md:gap-5"
     >
       <div className="relative flex-auto w-full">
