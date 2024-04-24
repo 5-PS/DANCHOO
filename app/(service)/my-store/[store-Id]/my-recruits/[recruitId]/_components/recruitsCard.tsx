@@ -33,7 +33,7 @@ async function RecuitsCard({ storeId, recruitId }: RecuitsCardProps) {
           <div>
             <span className="inline-block mb-2 font-bold text-primary text-[14px] md:text-[16px]">시급</span>
             <div className="font-bold text-[24px] flex gap-2 items-center md:text-[28px]">
-              {item.hourlyPay}원
+              {item.hourlyPay.toLocaleString()}원
               <PercentageBadge
                 closed={false}
                 percentage={calculatePercentage(item.hourlyPay, shop.item.originalHourlyPay)}
