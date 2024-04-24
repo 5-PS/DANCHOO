@@ -49,3 +49,15 @@ export const getStoreRecruit = async (storeId: string, recruitId: string) => {
   });
   return data;
 };
+
+export const getRecruitApplyList = async (storeId: string, recruitId: string, offset: number) => {
+  const { data } = await axios.get(
+    `${TEST_URL}/shops/${storeId}/notices/${recruitId}/applications?limit=5&offset=${(offset - 1) * 5}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+  return data;
+};
