@@ -1,11 +1,14 @@
-import { format as dateFnsFormat, parseISO as parseDate, addHours } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import calculatePercentage from '@/utils/calculatePercentage';
+import formatDateRange from '@/utils/formatDateRange';
+
+import PercentageBadge from './percentageBadge';
 
 interface PostProps {
-  href: string;
+  id: string;
+  shopId: string;
   address: string;
   imageUrl: string;
   name: string;
@@ -16,26 +19,32 @@ interface PostProps {
   closed: boolean;
 }
 // TODO: 마감 완료와 지난 알바에 따라 달라지는거 만들어야 함
-function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, startsAt, workhour, closed }: PostProps) {
+function Post({
+  id,
+  shopId,
+  address,
+  imageUrl,
+  name,
+  hourlyPay,
+  originalHourlyPay,
+  startsAt,
+  workhour,
+  closed,
+}: PostProps) {
   const percentage = calculatePercentage(hourlyPay, originalHourlyPay);
 
-  const startsAtDate = parseDate(startsAt);
-  const endAtDate = addHours(startsAtDate, workhour);
-  const formattedStartTime = dateFnsFormat(startsAtDate, 'yyyy-MM-dd HH:mm');
-  const formattedEndTime = dateFnsFormat(endAtDate, 'HH:mm');
-  const info = `${formattedStartTime}~${formattedEndTime}`;
   return (
     <Link
-      href={href}
-      className="flex flex-col items-center justify-center gap-3 p-3 border border-solid bg-white border-gray-20 rounded-xl md:w-max-[312px] md:p-4 md:gap-5"
+      href={`/recruit-detail/${shopId}/${id}`}
+      className="flex flex-col items-center min-w-32 min-h-[350px] md:min-h-[335px] justify-center gap-3 p-3 border border-solid bg-white border-gray-20 rounded-xl md:w-max-[312px] md:p-4 md:gap-5"
     >
-      <div className="relative w-full h-[84px] md:h-40">
+      <div className="relative flex-auto w-full">
         <Image
           className={`rounded-xl ${closed ? 'brightness-50' : ''}`}
           src={imageUrl}
           fill
           unoptimized
-          objectFit="cover"
+          sizes="100vw"
           alt={name}
         />
         {closed && (
@@ -47,7 +56,11 @@ function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, sta
 
       <div className="flex flex-col w-full gap-4">
         <div className="flex flex-col gap-2">
-          <h2 className={`font-bold md:text-xl ${closed ? 'text-gray-30' : 'text-black'}`}>{name}</h2>
+          <h2
+            className={`font-bold md:text-xl whitespace-nowrap text-ellipsis overflow-hidden ${closed ? 'text-gray-30' : 'text-black'}`}
+          >
+            {name}
+          </h2>
 
           <div className="flex items-start gap-1.5 md:items-center ">
             <Image
@@ -56,9 +69,8 @@ function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, sta
               height={20}
               alt="시계 아이콘"
             />
-            {/* TODO: 유틸로 빼야 함 */}
             <p className={`text-xs md:text-sm ${closed ? 'text-gray-30' : 'text-gray-50'}`}>
-              {info} ({workhour}시간)
+              {formatDateRange(startsAt, workhour)} ({workhour}시간)
             </p>
           </div>
 
@@ -79,29 +91,7 @@ function Post({ href, address, imageUrl, name, hourlyPay, originalHourlyPay, sta
           >
             {hourlyPay.toLocaleString()}원
           </p>
-          <div
-            className={`flex justify-start items-center gap-0.5 md:p-3 md:rounded-[20px] md:h-9 ${closed ? 'md:bg-gray-20' : 'md:bg-red-40'}`}
-          >
-            <div
-              className={`text-xs text-center whitespace-nowrap text-ellipsis overflow-hidden max-w-[125px] md:text-white md:font-bold ${closed ? 'text-gray-30' : 'text-red-40'}`}
-            >
-              기존 시급보다 {percentage}%
-            </div>
-            <Image
-              className="max-[767px]:hidden"
-              src="/icons/arrow-white.svg"
-              width={12}
-              height={12}
-              alt="위치 아이콘"
-            />
-            <Image
-              className="md:hidden"
-              src={closed ? '/icons/arrow-gray.svg' : '/icons/arrow-red.svg'}
-              alt="화살표 아이콘"
-              width={12}
-              height={12}
-            />
-          </div>
+          {percentage >= 5 && <PercentageBadge closed={closed} percentage={percentage} />}
         </div>
       </div>
     </Link>
