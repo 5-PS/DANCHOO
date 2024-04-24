@@ -1,12 +1,7 @@
-
-import apiClient, { postRequest } from '@/libs/axios';
-import { PostSignInBody, PostSignupBody, PutProfileBody } from '@/types/api';
-
 import axios, { AxiosError } from 'axios';
 
 import apiClient, { postRequest } from '@/libs/axios';
-import { PostCreateStoreBody, PostSignInBody, PostSignupBody } from '@/types/api';
-
+import { PostSignInBody, PostSignupBody, PutProfileBody, PostCreateStoreBody } from '@/types/api';
 
 export async function postSignUpInfo({ email, password, confirmPassword, type }: PostSignupBody) {
   const { data } = await apiClient.post('/users', { email, password, confirmPassword, type });
@@ -18,10 +13,10 @@ export async function postSignIn({ email, password }: PostSignInBody) {
   return data;
 }
 
-
 export const putUserProfile = async (userId: string | string[], formData: PutProfileBody) => {
   const { data } = await postRequest.put(`users/${userId}`, formData);
-
+  return data;
+};
 // S3이미지 업로드
 export const uploadImageToS3 = async (url: string, file: File) => axios.put(url, file);
 
@@ -42,5 +37,15 @@ export const requestUploadImg = async (file: File) => {
 
 export const postCreateStore = async (formData: PostCreateStoreBody) => {
   const { data } = await postRequest.post('/shops', formData);
+  return data;
+};
+
+export const TEST_URL = 'https://bootcamp-api.codeit.kr/api/0-1/the-julge';
+export const getStoreRecruit = async (storeId: string, recruitId: string) => {
+  const { data } = await axios.get(`${TEST_URL}/shops/${storeId}/notices/${recruitId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
   return data;
 };
