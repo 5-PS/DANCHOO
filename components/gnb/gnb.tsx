@@ -6,8 +6,8 @@ import SearchBar from './searchBar';
 
 function Gnb() {
   return (
-    <header className="sticky top-0 z-10 px-5 py-3 m-auto bg-white md:px-8 w-full md:max-w-[964px]">
-      <nav className="flex flex-wrap items-center gap-4 md:relative md:gap-10">
+    <header className="sticky top-0 z-10 w-full px-5 py-3 bg-white">
+      <nav className="flex flex-wrap items-center gap-4 m-auto md:relative md:gap-10 md:max-w-[964px]">
         <Link href="/">
           <Image src="/icons/logo.svg" width={112} height={40} alt="로고" />
         </Link>
