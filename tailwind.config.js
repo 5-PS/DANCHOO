@@ -46,6 +46,9 @@ module.exports = {
         'dropdown-down': "url('../public/icons/dropdown-down.svg')",
         'dropdown-top': "url('../public/icons/dropdown-top.svg')",
       },
+      backgroundSize: {
+        'size-10': '10px 10px',
+      },
     },
   },
   plugins: [],
