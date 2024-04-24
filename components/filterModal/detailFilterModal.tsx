@@ -73,7 +73,7 @@ function DetailFilterModal() {
     <div className="relative w-[88px]">
       <button
         type="button"
-        className="text-[14px] rounded-[5px] bg-red-30 font-bold px-[12px] py-[6px] text-white"
+        className="text-[14px] rounded-[5px] bg-red-40 font-bold px-[12px] py-[6px] text-white"
         onClick={() => setActiveModal((prev) => !prev)}
       >
         상세 필터
@@ -166,12 +166,12 @@ function DetailFilterModal() {
         </div>
         <div className="flex gap-[8px] justify-between">
           <span className="w-[82px]">
-            <Button background="bg-white" fontSize={16} onClick={handleResetEvent}>
+            <Button background="bg-white" onClick={handleResetEvent} className="h-12">
               초기화
             </Button>
           </span>
           <span className="w-[260px] flex-1">
-            <Button background="bg-primary" fontSize={16} onClick={() => console.log('1')}>
+            <Button background="bg-primary" className="h-12" onClick={() => console.log('1')}>
               적용하기
             </Button>
           </span>

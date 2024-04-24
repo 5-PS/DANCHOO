@@ -11,7 +11,7 @@ import SortingDropdown from '@/components/sortingDropdown/sortingDropdown';
 import { getNotices } from '@/services/api';
 
 function TotalRecruitList({ searchParams }) {
-  const [sortOption, setSortOption] = useState<'time' | 'pay' | 'hour' | 'shop' | undefined>('time');
+  const [sortOption, setSortOption] = useState<'time' | 'pay' | 'hour' | 'shop' | undefined>(undefined);
 
   const { data } = useQuery({
     queryKey: ['notices', sortOption, searchParams.page],
@@ -24,7 +24,7 @@ function TotalRecruitList({ searchParams }) {
 
   if (!data) return null;
 
-  const pageLength = data ? data.count : 0;
+  const pageLength = data?.count;
 
   const handleSortChange = (option: 'time' | 'pay' | 'hour' | 'shop' | undefined) => {
     setSortOption(option);
@@ -33,10 +33,8 @@ function TotalRecruitList({ searchParams }) {
     <>
       <div className="flex justify-between">
         <h2 className="text-[28px] font-bold">전체 공고</h2>
-        <div className="flex items-center mb-4 md:mb-8">
-          <div className="w-[105px] h-[30px]">
-            <SortingDropdown onSelect={handleSortChange} sortOption={sortOption} />
-          </div>
+        <div className="flex items-center justify-center gap-1 mb-4 md:mb-8">
+          <SortingDropdown onSelect={handleSortChange} sortOption={sortOption} />
           <DetailFilterModal />
         </div>
       </div>

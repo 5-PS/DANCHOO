@@ -57,9 +57,7 @@ export default function SortingDropdown({
       >
         {selectOption || '선택'}
       </button>
-      <ul
-        className={`absolute text-[14px] w-full top-[120%] rounded-md bg-white ${isDropdownOpened ? 'block' : 'hidden'}`}
-      >
+      <ul className={`absolute text-[14px] w-full top-[120%] bg-white ${isDropdownOpened ? 'block' : 'hidden'} `}>
         {FILTER_LIST.map(({ id, category, sort }) => (
           <li key={id} className={listClassName}>
             <button onClick={() => handleSelectOption(category, sort)} className="w-full">

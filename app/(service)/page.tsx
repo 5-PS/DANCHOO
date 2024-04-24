@@ -13,7 +13,6 @@ export default function Home({ searchParams }) {
 
   return (
     <>
-      <header>헤더 영역</header>
       <section className="bg-red-10">
         <div className="py-[60px] md:max-w-[964px] md:m-auto">
           <h2 className="pl-3 sm:pl-8 text-[28px] font-bold mb-4 md:mb-8">맞춤공고</h2>
