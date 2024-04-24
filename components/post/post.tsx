@@ -8,8 +8,6 @@ import Link from 'next/link';
 import calculatePercentage from '@/utils/calculatePercentage';
 import formatDateRange from '@/utils/formatDateRange';
 
-import PercentageBadge from './percentageBadge';
-
 interface PostProps {
   id: string;
   shopId: string;
@@ -127,7 +125,31 @@ function Post({
           >
             {hourlyPay.toLocaleString()}원
           </p>
-          {percentage >= 5 && <PercentageBadge isClosed={isClosed} percentage={percentage} />}
+          {percentage >= 5 && (
+            <div
+              className={`flex justify-start items-center gap-0.5 md:p-3 md:rounded-[20px] md:h-9 ${isClosed ? 'md:bg-gray-20' : 'md:bg-red-40'}`}
+            >
+              <div
+                className={`text-xs text-center whitespace-nowrap text-ellipsis overflow-hidden max-w-[125px] md:text-white md:font-bold ${isClosed ? 'text-gray-30' : 'text-red-40'}`}
+              >
+                {`기존 시급보다 ${percentage}%`}
+              </div>
+              <Image
+                className="max-[767px]:hidden"
+                src="/icons/arrow-white.svg"
+                width={12}
+                height={12}
+                alt="위치 아이콘"
+              />
+              <Image
+                className="md:hidden"
+                src={`${isClosed ? '/icons/arrow-gray.svg' : '/icons/arrow-red.svg'}`}
+                alt="화살표 아이콘"
+                width={12}
+                height={12}
+              />
+            </div>
+          )}
         </div>
       </div>
     </Link>
