@@ -21,7 +21,14 @@ export interface GetNoticesParams {
   sort?: 'time' | 'pay' | 'hour' | 'shop';
 }
 
-export interface ApiResponse {
+// interface Pagination {
+//   offset: number;
+//   limit: number;
+//   count: number;
+//   hasNext: boolean;
+// }
+
+export interface RecruitResponse {
   offset: number;
   limit: number;
   count: number;

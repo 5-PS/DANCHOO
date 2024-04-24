@@ -4,11 +4,18 @@ import { useQuery } from '@tanstack/react-query';
 
 import Post from '@/components/post/post';
 import { getPersonalNotices } from '@/services/api';
+import { RecruitResponse } from '@/types/api';
 
 import TotalRecruitList from './_components/totalRecruitList';
 
-export default function Home({ searchParams }) {
-  const { data } = useQuery({ queryKey: ['notices'], queryFn: getPersonalNotices });
+export default function Home({
+  searchParams,
+}: {
+  searchParams: {
+    page: number;
+  };
+}) {
+  const { data } = useQuery<RecruitResponse>({ queryKey: ['notices'], queryFn: getPersonalNotices });
   if (!data) return null;
 
   return (
@@ -38,7 +45,7 @@ export default function Home({ searchParams }) {
         </div>
       </section>
       <section className="px-3 py-[60px] sm:px-8 md:max-w-[964px] md:m-auto">
-        <TotalRecruitList searchParams={searchParams} />
+        <TotalRecruitList page={searchParams.page} />
       </section>
     </>
   );

@@ -9,7 +9,7 @@ import Pagination from '@/components/pagination/pagination';
 import Post from '@/components/post/post';
 import SortingDropdown from '@/components/sortingDropdown/sortingDropdown';
 import { getNotices } from '@/services/api';
-import { ApiResponse } from '@/types/api';
+import { RecruitResponse } from '@/types/api';
 
 interface TFilter {
   address: string[];
@@ -17,28 +17,22 @@ interface TFilter {
   hourlyPayGte: number;
 }
 
-function TotalRecruitList({
-  searchParams,
-}: {
-  searchParams: {
-    page: number;
-  };
-}) {
+function TotalRecruitList({ page }: { page?: number }) {
   const [sortOption, setSortOption] = useState<'time' | 'pay' | 'hour' | 'shop'>('time');
   const [filters, setFilters] = useState<TFilter>({
     address: [],
     startsAtGte: '',
     hourlyPayGte: 0,
   });
-  const page = searchParams.page ? searchParams.page : 1;
+  const pageQuery = page || 1;
 
-  const { data } = useQuery<ApiResponse>({
+  const { data } = useQuery<RecruitResponse>({
     queryKey: ['notices', sortOption, page, filters],
     queryFn: () =>
       getNotices({
         sort: sortOption,
         limit: 6,
-        offset: (page - 1) * 6,
+        offset: (pageQuery - 1) * 6,
         address: filters.address,
         startsAtGte: filters.startsAtGte,
         hourlyPayGte: filters.hourlyPayGte,
@@ -86,7 +80,7 @@ function TotalRecruitList({
           </li>
         ))}
       </ul>
-      <Pagination page={page.toString()} sliceDataValue={6} totalDataCount={pageLength} />
+      <Pagination page={pageQuery.toString()} sliceDataValue={6} totalDataCount={pageLength} />
       <div />
     </>
   );

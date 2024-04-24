@@ -13,36 +13,6 @@ export async function postSignIn({ email, password }: PostSignInBody) {
   return data;
 }
 
-// export const getNotices = async ({
-//   offset = 0,
-//   limit = 6,
-//   address,
-//   keyword,
-//   startsAtGte,
-//   hourlyPayGte,
-//   sort,
-// }: GetNoticesParams) => {
-//   const { data } = await apiClient.get('/notices', {
-//     params: {
-//       offset,
-//       limit,
-//       address,
-//       keyword,
-//       startsAtGte,
-//       hourlyPayGte,
-//       sort,
-//     },
-//   });
-//   return data;
-// };
-
-// export const getNotices = async (params: GetNoticesParams) => {
-//   const { data } = await apiClient.get('/notices', {
-//     params: { ...params, limit: 6 },
-//   });
-//   return data;
-// };
-
 export const getNotices = async ({ offset, limit, address, startsAtGte, hourlyPayGte }: GetNoticesParams) => {
   const params = new URLSearchParams();
   if (offset) {
