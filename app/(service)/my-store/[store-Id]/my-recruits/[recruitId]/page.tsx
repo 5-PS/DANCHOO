@@ -1,5 +1,4 @@
-import Table from '@/components/table/table';
-
+import ApplicantList from './_components/applicantList';
 import RecuitsCard from './_components/recruitsCard';
 
 interface MyRecruitDetailPageProps {
@@ -15,7 +14,7 @@ function MyRecruitDetailPage({ params, searchParams }: MyRecruitDetailPageProps)
       </section>
       <section className="my-recuits-detail-section">
         <h1 className="text-[20px] font-bold mb-4 md:text-[28px] md:mb-8 ">신청자 목록</h1>
-        <Table query={searchParams} type="applicantList" />
+        <ApplicantList searchParams={searchParams} />
       </section>
     </main>
   );
