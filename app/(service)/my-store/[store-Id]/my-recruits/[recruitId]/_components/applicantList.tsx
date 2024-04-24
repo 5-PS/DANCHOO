@@ -1,8 +1,26 @@
 import Table from '@/components/table/table';
+import { getRecruitApplyList } from '@/services/api';
 
 interface ApplicantListProps {
   searchParams: { page: string };
+  storeId: string;
+  recruitId: string;
 }
-export default function ApplicantList({ searchParams }: ApplicantListProps) {
-  return <Table query={searchParams} type="applicantList" />;
+export default async function ApplicantList({ searchParams, storeId, recruitId }: ApplicantListProps) {
+  const offset = searchParams.page ? Number(searchParams.page) : 1;
+  const response = await getRecruitApplyList(storeId, recruitId, offset);
+  console.log(offset);
+  if (response.count === 0) {
+    return <div>아직 신청자가 없어요!</div>;
+  }
+  const { items } = response;
+
+  const data = items.map((data) => ({
+    status: data.item.status,
+    col1: data.item.user.item.name,
+    col2: data.item.user.item.bio,
+    col3: data.item.user.item.phone,
+  }));
+
+  return <Table query={searchParams} type="applicantList" data={data} totalDataCount={response.count} />;
 }
