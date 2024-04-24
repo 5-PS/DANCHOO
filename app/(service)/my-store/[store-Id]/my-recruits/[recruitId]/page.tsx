@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import ApplicantList from './_components/applicantList';
 import RecuitsCard from './_components/recruitsCard';
 
@@ -10,11 +12,15 @@ function MyRecruitDetailPage({ params, searchParams }: MyRecruitDetailPageProps)
   return (
     <main>
       <section className="my-recuits-detail-section">
-        <RecuitsCard storeId={params['store-Id']} recruitId={params.recruitId} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <RecuitsCard storeId={params['store-Id']} recruitId={params.recruitId} />
+        </Suspense>
       </section>
       <section className="my-recuits-detail-section">
         <h1 className="text-[20px] font-bold mb-4 md:text-[28px] md:mb-8 ">신청자 목록</h1>
-        <ApplicantList searchParams={searchParams} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <ApplicantList searchParams={searchParams} storeId={params['store-Id']} recruitId={params.recruitId} />
+        </Suspense>
       </section>
     </main>
   );
