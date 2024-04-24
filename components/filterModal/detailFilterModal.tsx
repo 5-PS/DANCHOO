@@ -36,7 +36,7 @@ const ADDRESS_LIST = [
   '서울시 강동구',
 ];
 // Todo: key값 수정, 적용하기 버튼 onClick 이벤트 추가하기, ESlint 들여쓰기 이슈 고치기
-function DetailFilterModal() {
+function DetailFilterModal({ onFiltersChange }) {
   const [activeModal, setActiveModal] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [clickAddressList, setClickAddressList] = useState<string[]>([]);
@@ -69,6 +69,15 @@ function DetailFilterModal() {
     setAmount(null);
     setClickAddressList([]);
   };
+
+  const applyFilters = () => {
+    onFiltersChange({
+      address: clickAddressList,
+      startsAtGte: startDate,
+      hourlyPayGte: amount,
+    });
+  };
+
   return (
     <div className="relative w-[88px]">
       <button
@@ -171,7 +180,7 @@ function DetailFilterModal() {
             </Button>
           </span>
           <span className="w-[260px] flex-1">
-            <Button background="bg-primary" className="h-12" onClick={() => console.log('1')}>
+            <Button background="bg-primary" className="h-12" onClick={applyFilters}>
               적용하기
             </Button>
           </span>

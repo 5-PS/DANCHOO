@@ -9,16 +9,39 @@ import Pagination from '@/components/pagination/pagination';
 import Post from '@/components/post/post';
 import SortingDropdown from '@/components/sortingDropdown/sortingDropdown';
 import { getNotices } from '@/services/api';
+import { ApiResponse } from '@/types/api';
 
-function TotalRecruitList({ searchParams }) {
-  const [sortOption, setSortOption] = useState<'time' | 'pay' | 'hour' | 'shop' | undefined>(undefined);
+interface TFilter {
+  address: string[];
+  startsAtGte: string;
+  hourlyPayGte: number;
+}
 
-  const { data } = useQuery({
-    queryKey: ['notices', sortOption, searchParams.page],
+function TotalRecruitList({
+  searchParams,
+}: {
+  searchParams: {
+    page: number;
+  };
+}) {
+  const [sortOption, setSortOption] = useState<'time' | 'pay' | 'hour' | 'shop'>('time');
+  const [filters, setFilters] = useState<TFilter>({
+    address: [],
+    startsAtGte: '',
+    hourlyPayGte: 0,
+  });
+  const page = searchParams.page ? searchParams.page : 1;
+
+  const { data } = useQuery<ApiResponse>({
+    queryKey: ['notices', sortOption, page, filters],
     queryFn: () =>
       getNotices({
         sort: sortOption,
-        offset: (searchParams.page - 1) * 6,
+        limit: 6,
+        offset: (page - 1) * 6,
+        address: filters.address,
+        startsAtGte: filters.startsAtGte,
+        hourlyPayGte: filters.hourlyPayGte,
       }),
   });
 
@@ -26,7 +49,15 @@ function TotalRecruitList({ searchParams }) {
 
   const pageLength = data?.count;
 
-  const handleSortChange = (option: 'time' | 'pay' | 'hour' | 'shop' | undefined) => {
+  const handleFiltersChange = ({ address, startsAtGte, hourlyPayGte }: TFilter) => {
+    setFilters({
+      address,
+      startsAtGte,
+      hourlyPayGte,
+    });
+  };
+
+  const handleSortChange = (option: 'time' | 'pay' | 'hour' | 'shop') => {
     setSortOption(option);
   };
   return (
@@ -35,7 +66,7 @@ function TotalRecruitList({ searchParams }) {
         <h2 className="text-[28px] font-bold">전체 공고</h2>
         <div className="flex items-center justify-center gap-1 mb-4 md:mb-8">
           <SortingDropdown onSelect={handleSortChange} sortOption={sortOption} />
-          <DetailFilterModal />
+          <DetailFilterModal onFiltersChange={handleFiltersChange} />
         </div>
       </div>
       <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-1 sm:gap-x-[14px] sm:gap-y-8">
@@ -55,7 +86,7 @@ function TotalRecruitList({ searchParams }) {
           </li>
         ))}
       </ul>
-      <Pagination page={searchParams.page} sliceDataValue={6} totalDataCount={pageLength} />
+      <Pagination page={page.toString()} sliceDataValue={6} totalDataCount={pageLength} />
       <div />
     </>
   );

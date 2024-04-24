@@ -36,10 +36,39 @@ export async function postSignIn({ email, password }: PostSignInBody) {
 //   return data;
 // };
 
-export const getNotices = async ({ sort, ...rest }: GetNoticesParams) => {
-  const { data } = await apiClient.get('/notices', {
-    params: { sort, limit: 6, ...rest },
-  });
+// export const getNotices = async (params: GetNoticesParams) => {
+//   const { data } = await apiClient.get('/notices', {
+//     params: { ...params, limit: 6 },
+//   });
+//   return data;
+// };
+
+export const getNotices = async ({ offset, limit, address, startsAtGte, hourlyPayGte }: GetNoticesParams) => {
+  const params = new URLSearchParams();
+  if (offset) {
+    params.append('offset', offset.toString());
+  }
+
+  if (limit) {
+    params.append('limit', limit.toString());
+  }
+
+  if (address.length !== 0) {
+    address.forEach((v) => {
+      params.append('address', v);
+    });
+  }
+  if (startsAtGte !== '') {
+    params.append('startsAtGte', startsAtGte.toString());
+  }
+
+  if (hourlyPayGte !== 0) {
+    params.append('hourlyPayGte', hourlyPayGte.toString());
+  }
+
+  console.log(params.getAll('address'));
+
+  const { data } = await apiClient.get('/notices', { params });
   return data;
 };
 

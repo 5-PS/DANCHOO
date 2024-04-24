@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-const FILTER_LIST = [
+const FILTER_LIST: { id: number; category: string; sort: 'time' | 'pay' | 'hour' | 'shop' }[] = [
   {
     id: 1,
     category: '마감임박순',
