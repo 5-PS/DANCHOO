@@ -7,7 +7,12 @@ import { useRouter } from 'next/navigation';
 
 import Button from '@/components/button/button';
 import Input from '@/components/input/input';
+import ROUTE_PATHS from '@/constants/route';
 import { postSignIn } from '@/services/api';
+
+interface SignInFormProps {
+  referer: string | null;
+}
 
 interface FieldValues {
   email: string;
@@ -43,7 +48,7 @@ const FORM_FIELDS = [
   },
 ];
 
-export default function SignInForm() {
+export default function SignInForm({ referer }: SignInFormProps) {
   const router = useRouter();
 
   const {
@@ -54,9 +59,14 @@ export default function SignInForm() {
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      await postSignIn(data);
+      const {
+        item: { token },
+      } = await postSignIn(data);
 
-      router.push('/');
+      document.cookie = `accessToken=${token}; Path=/; Max-Age=86400; Secure; SameSite=Strict`;
+
+      if (!referer) router.push(ROUTE_PATHS.HOME);
+      else router.push(referer);
     } catch (error) {
       if (error instanceof AxiosError) {
         const errorMessage = error.response?.status === 404 ? error.response.data.message : '로그인에 실패했습니다.';
@@ -78,7 +88,7 @@ export default function SignInForm() {
           {...register(name as keyof FieldValues, validation)}
         />
       ))}
-      <Button background="bg-primary" fontSize={16} height={48}>
+      <Button background="bg-primary" className="w-full h-[48px]">
         로그인 하기
       </Button>
     </form>

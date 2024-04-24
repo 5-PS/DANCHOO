@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import ROUTE_PATHS from '@/constants/route';
+
 import SignUpForm from './_components/signupForm';
 
 export default function SignUp() {
@@ -8,9 +10,9 @@ export default function SignUp() {
       <SignUpForm />
       <p className="mt-5 text-black">
         이미 가입하셨나요?{' '}
-        <span className="text-[#5534DA] underline">
-          <Link href="/signin">로그인하기</Link>
-        </span>
+        <Link href={ROUTE_PATHS.SIGN_IN} className="text-[#5534DA] underline">
+          로그인하기
+        </Link>
       </p>
     </div>
   );
