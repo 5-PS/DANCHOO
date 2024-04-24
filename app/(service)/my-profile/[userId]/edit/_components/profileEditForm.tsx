@@ -86,7 +86,7 @@ export default function ProfileEditForm() {
       </div>
       <div className="flex items-center justify-center">
         <div className="w-full md:w-[312px]">
-          <Button background="bg-primary" fontSize={16} height={48}>
+          <Button background="bg-primary" className="h-[48px]">
             등록하기
           </Button>
         </div>
