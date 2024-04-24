@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Controller, FieldValues, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 import { AxiosError } from 'axios';
 import Image from 'next/image';
@@ -13,7 +13,6 @@ import SelectInput from '@/components/input/selectInput';
 import { postCreateStore, requestUploadImg } from '@/services/api';
 import { PostCreateStoreBody } from '@/types/api';
 
-// 3. SelectInput의 옵션 메뉴 position absolute 주기
 const FOOD_CATEGORY_LIST = [
   { id: 1, category: '한식' },
   { id: 2, category: '중식' },
@@ -53,6 +52,16 @@ const ADDRESS_LIST = [
   { id: 25, category: '서울시 강동구' },
 ];
 
+interface FieldValues {
+  name: string;
+  address2: string;
+  originalHourlyPay: number;
+  imageUrl: [];
+  description: string;
+  category: string;
+  address1: string;
+}
+
 export default function MyStoreForm() {
   const router = useRouter();
   const {
@@ -74,7 +83,7 @@ export default function MyStoreForm() {
     }
   };
 
-  const onSubmit = async (formData) => {
+  const onSubmit = async (formData: any) => {
     try {
       const imageUrl = await requestUploadImg(formData.imageUrl[0]);
       const postData: PostCreateStoreBody = {
@@ -143,7 +152,7 @@ export default function MyStoreForm() {
             type="number"
             rightText="원"
             placeholder="시급을 입력해주세요"
-            errorMessage={errors.originaHourlyPay?.message}
+            errorMessage={errors.originalHourlyPay?.message}
             {...register('originalHourlyPay', {
               required: '시급을 입력해주세요',
               validate: (value) => value > 9620 || '최저 시급 이상 입력해주세요. 9620원 이상',
