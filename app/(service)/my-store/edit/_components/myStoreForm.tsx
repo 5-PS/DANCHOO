@@ -3,11 +3,14 @@
 import { useState } from 'react';
 import { Controller, FieldValues, useForm } from 'react-hook-form';
 
+import { AxiosError } from 'axios';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import Button from '@/components/button/button';
 import Input from '@/components/input/input';
 import SelectInput from '@/components/input/selectInput';
+import { postCreateStore, requestUploadImg } from '@/services/api';
 
 // 3. SelectInput의 옵션 메뉴 position absolute 주기
 const FOOD_CATEGORY_LIST = [
@@ -50,6 +53,7 @@ const ADDRESS_LIST = [
 ];
 
 export default function MyStoreForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -69,11 +73,22 @@ export default function MyStoreForm() {
     }
   };
 
-  const onSubmit = () => {
-    // TODO: submit함수 구현
+  const onSubmit = async (formData) => {
+    try {
+      const imageUrl = await requestUploadImg(formData.imageUrl[0]);
+      const postData = { ...formData, imageUrl, originalHourlyPay: Number(formData.originalHourlyPay) };
+      const { item } = await postCreateStore(postData);
+      alert('내가게가 등록 되었습니다');
+      router.push(`/my-store/${item.id}`);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const errorMessage = error.response?.data.message;
+        alert(errorMessage);
+      }
+    }
   };
   return (
-    <form onSubmit={handleSubmit((data) => console.log(data))}>
+    <form onSubmit={handleSubmit((data) => onSubmit(data))}>
       <div className="flex flex-col gap-6 mb-6 md:mb-8">
         <div className="flex flex-col gap-5 md:flex-row">
           <Input
@@ -86,7 +101,7 @@ export default function MyStoreForm() {
             })}
           />
           <Controller
-            name="address1"
+            name="category"
             control={control}
             rules={{ required: '분류를 선택해주세요.' }}
             render={({ field: { onChange }, fieldState: { error } }) => (
@@ -98,7 +113,7 @@ export default function MyStoreForm() {
         </div>
         <div className="flex flex-col gap-5 md:flex-row">
           <Controller
-            name="category"
+            name="address1"
             control={control}
             rules={{ required: '주소를 선택해주세요.' }}
             render={({ field: { onChange }, fieldState: { error } }) => (
@@ -124,9 +139,9 @@ export default function MyStoreForm() {
             rightText="원"
             placeholder="시급을 입력해주세요"
             errorMessage={errors.originaHourlyPay?.message}
-            {...register('originaHourlyPay', {
+            {...register('originalHourlyPay', {
               required: '시급을 입력해주세요',
-              validate: (value) => value > 9620 || '최저 시급 이상 입력해주세요',
+              validate: (value) => value > 9620 || '최저 시급 이상 입력해주세요. 9620원 이상',
             })}
           />
         </div>
@@ -144,12 +159,14 @@ export default function MyStoreForm() {
                 id="image-input"
                 className="invisible w-0 h-0"
                 {...register('imageUrl', {
+                  required: '가게 이미지를 올려주세요',
                   onChange: handleUploadImage,
                 })}
               />
             </div>
             {imageSrc && <Image src={imageSrc} fill alt="미리보기 이미지" />}
           </label>
+          {errors.imageUrl && <span className="text-xs text-red-500">{errors.imageUrl.message}</span>}
         </div>
         <label htmlFor="store-description">
           <p className="mb-2">가게 설명 </p>
@@ -162,7 +179,7 @@ export default function MyStoreForm() {
       </div>
       <div className="flex justify-center ">
         <div className="w-full md:w-[312px]">
-          <Button fontSize={16} background="bg-primary" height={48}>
+          <Button background="bg-primary" className="h-12">
             등록하기
           </Button>
         </div>
