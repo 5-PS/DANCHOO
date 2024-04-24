@@ -23,7 +23,9 @@ export const uploadImageToS3 = async (url: string, file: File) => axios.put(url,
 // eslint-disable-next-line consistent-return
 export const requestUploadImg = async (file: File) => {
   try {
-    const { data } = await postRequest.post('/images', { name: file.name });
+    const { data } = await postRequest.post('/images', {
+      name: file.name,
+    });
     const slicePresignedURL: string = data.item.url.slice(0, data.item.url.indexOf('?'));
     await uploadImageToS3(data.item.url, file);
     return slicePresignedURL;
