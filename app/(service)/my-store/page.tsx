@@ -1,8 +1,8 @@
 import Footer from '@/components/footer/footer';
 
-import TestHaveRegisteredNotice from './_components/haveRegisteredNotice';
-import MyStoreCard from './_components/myStoreCard';
-import RegisteredNotice from './_components/registeredNotice';
+import TestHaveRegisteredNotice from './[store-Id]/_components/haveRegisteredNotice';
+import MyStoreCard from './[store-Id]/_components/myStoreCard';
+import RegisteredNotice from './[store-Id]/_components/registeredNotice';
 
 /**
  * @todo 데이터가 있다면 <haveRegisteredNotice />, 없다면 <RegisteredNotice /> 예정
