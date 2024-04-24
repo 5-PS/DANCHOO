@@ -36,6 +36,8 @@ function Post({
   closed,
 }: PostProps) {
   const percentage = useMemo(() => calculatePercentage(hourlyPay, originalHourlyPay), [hourlyPay, originalHourlyPay]);
+  const isPassed = new Date() > new Date(startsAt);
+  const isClosed = closed || isPassed;
 
   const handleClick = () => {
     const recentlyViewedRecruits = JSON.parse(sessionStorage.getItem('recentlyViewedRecruits') || '[]');
@@ -50,7 +52,7 @@ function Post({
       originalHourlyPay,
       startsAt,
       workhour,
-      closed,
+      isClosed,
     };
 
     const isAlreadyListedIndex = recentlyViewedRecruits.findIndex(
@@ -74,58 +76,58 @@ function Post({
     >
       <div className="relative flex-auto w-full">
         <Image
-          className={`rounded-xl ${closed ? 'brightness-50' : ''}`}
+          className={`rounded-xl ${isClosed ? 'brightness-50' : ''}`}
           src={imageUrl}
           fill
           unoptimized
           sizes="100vw"
           alt={name}
         />
-        {closed && (
-          <p className="absolute text-xl font-bold transform -translate-x-1/2 -translate-y-1/2 text-gray-30 top-1/2 left-1/2 whitespace-nowrap">
-            마감 완료
-          </p>
+        {isClosed && (
+          <span className="absolute text-xl font-bold transform -translate-x-1/2 -translate-y-1/2 text-gray-30 top-1/2 left-1/2 whitespace-nowrap">
+            {closed ? '마감 완료' : '지난 공고'}
+          </span>
         )}
       </div>
 
       <div className="flex flex-col w-full gap-4">
         <div className="flex flex-col gap-2">
           <h2
-            className={`font-bold md:text-xl whitespace-nowrap text-ellipsis overflow-hidden ${closed ? 'text-gray-30' : 'text-black'}`}
+            className={`font-bold md:text-xl whitespace-nowrap text-ellipsis overflow-hidden ${isClosed ? 'text-gray-30' : 'text-black'}`}
           >
             {name}
           </h2>
 
           <div className="flex items-start gap-1.5 md:items-center ">
             <Image
-              src={closed ? '/icons/clock-gray.svg' : '/icons/clock-red.svg'}
+              src={isClosed ? '/icons/clock-gray.svg' : '/icons/clock-red.svg'}
               width={20}
               height={20}
               alt="시계 아이콘"
             />
-            <p className={`text-xs md:text-sm ${closed ? 'text-gray-30' : 'text-gray-50'}`}>
+            <p className={`text-xs md:text-sm ${isClosed ? 'text-gray-30' : 'text-gray-50'}`}>
               {formatDateRange(startsAt, workhour)} ({workhour}시간)
             </p>
           </div>
 
           <div className="flex items-center gap-1.5">
             <Image
-              src={closed ? '/icons/location-gray.svg' : '/icons/location-red.svg'}
+              src={isClosed ? '/icons/location-gray.svg' : '/icons/location-red.svg'}
               width={20}
               height={20}
               alt="위치 아이콘"
             />
-            <p className={`text-xs md:text-sm ${closed ? 'text-gray-30' : 'text-gray-50'}`}>{address}</p>
+            <p className={`text-xs md:text-sm ${isClosed ? 'text-gray-30' : 'text-gray-50'}`}>{address}</p>
           </div>
         </div>
 
         <div className="md:flex md:items-center md:justify-between">
           <p
-            className={`text-lg font-bold whitespace-nowrap text-ellipsis overflow-hidden max-w-[130px] md:text-2xl md:tracking-[.48px] ${closed ? 'text-gray-30' : 'text-black'}`}
+            className={`text-lg font-bold whitespace-nowrap text-ellipsis overflow-hidden max-w-[130px] md:text-2xl md:tracking-[.48px] ${isClosed ? 'text-gray-30' : 'text-black'}`}
           >
             {hourlyPay.toLocaleString()}원
           </p>
-          {percentage >= 5 && <PercentageBadge closed={closed} percentage={percentage} />}
+          {percentage >= 5 && <PercentageBadge isClosed={isClosed} percentage={percentage} />}
         </div>
       </div>
     </Link>
