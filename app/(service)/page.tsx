@@ -2,20 +2,14 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import DetailFilterModal from '@/components/filterModal/detailFilterModal';
-import Pagination from '@/components/pagination/pagination';
 import Post from '@/components/post/post';
-import SortingDropdown from '@/components/sortingDropdown/sortingDropdown';
-import { getNotices } from '@/services/api';
+import { getPersonalNotices } from '@/services/api';
 
 import TotalRecruitList from './_components/totalRecruitList';
 
 export default function Home({ searchParams }) {
-  const { data } = useQuery({ queryKey: ['notices'], queryFn: getNotices });
+  const { data } = useQuery({ queryKey: ['notices'], queryFn: getPersonalNotices });
   if (!data) return null;
-
-  const sliceIndex = data.offset;
-  const pageLength = data.count;
 
   return (
     <>
