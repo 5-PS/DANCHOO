@@ -123,3 +123,21 @@ export const requestRejecteRecruit = async ({ storeId, recruitId, applicationsId
     }
   }
 };
+
+// eslint-disable-next-line consistent-return
+export const getStoreInformation = async (storeId: string | string[]) => {
+  try {
+    const { data } = await apiClient.get(`/shops/${storeId}`);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const requestModificationStore = async (storeId: string | string[], formData: PostCreateStoreBody) => {
+  try {
+    await postRequest.put(`/shops/${storeId}`, formData);
+  } catch (err) {
+    console.log(err);
+  }
+};
