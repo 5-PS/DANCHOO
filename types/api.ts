@@ -139,3 +139,9 @@ export interface PostCreateStoreBody {
   imageUrl: 'string';
   originalHourlyPay: 'number';
 }
+
+export interface RequestRecruit {
+  storeId: string | string[];
+  recruitId: string | string[];
+  applicationsId?: string;
+}
