@@ -17,9 +17,7 @@ function MyProfile() {
             <div className="flex justify-between">
               <div className="text-[20px]">{List.name}</div>
               <div className="w-[200px]">
-                <Button background="bg-white" fontSize={16} height={37}>
-                  편집하기
-                </Button>
+                <Button background="bg-white">편집하기</Button>
               </div>
             </div>
             <div>{List.phone}</div>
