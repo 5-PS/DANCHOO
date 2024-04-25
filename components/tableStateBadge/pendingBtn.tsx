@@ -1,6 +1,22 @@
 'use client';
 
-export default function PendingBtn() {
+import { AxiosError } from 'axios';
+import { useParams, useRouter } from 'next/navigation';
+
+import { requestAccepteRecruit, requestRejecteRecruit } from '@/services/api';
+
+interface PendingBtnProps {
+  applicationsId?: string;
+}
+export default function PendingBtn({ applicationsId }: PendingBtnProps) {
+  const router = useRouter();
+  const params = useParams();
+  const apiId = {
+    storeId: params['store-Id'],
+    recruitId: params.recruitId,
+    applicationsId,
+  };
+
   const btnStyle =
     'px-[12px] py-[8px] text-[12px] border md:text-[14px] md:px-[20px] md:py-[10px] rounded-[6px] md:font-bold';
   // TODO: 거절, 승인 이벤트 달아주기
