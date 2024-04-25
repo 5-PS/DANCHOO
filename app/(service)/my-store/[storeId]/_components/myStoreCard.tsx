@@ -22,18 +22,13 @@ export default function MyStoreCard() {
   useEffect(() => {
     (async () => {
       const { item } = await getMyStoreData(storeId as string);
-      setStoreData(item); // 이렇게 하면 item을 컴포넌트의 상태로 저장하고, 컴포넌트의 전체 범위에서 사용할 수 있습니다.
+      setStoreData(item);
     })();
   }, [storeId]);
   return (
     <div className=" bg-red-10 flex flex-col w-[351px] xl:w-[964px] gap-3 p-5 mx-auto mb-3 md:w-[632px] border rounded-xl border-gray-20 md:p-6 md:mb-6 md:gap-4 xl:flex-row xl:gap-8 ">
       <div className=" rounded-lg overflow-hidden w-[311px] h-[177px] md:max-w-full md:w-[632px] md:h-[361px] xl:w-[539px] xl:h-[308px]  bg-slate-500 relative">
-        <Image
-          className="" // 임시로 배경. 나중에 이미지넣고 지우기
-          src={storeData.imageUrl}
-          alt="가게이미지"
-          fill
-        />
+        <Image className="" src={storeData.imageUrl} alt="가게이미지" fill />
       </div>
       <div className="flex flex-col justify-between xl:w-[343px] ">
         <div className="flex flex-col gap-2 xl:pt-4 md:gap-3">
