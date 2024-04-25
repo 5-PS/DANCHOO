@@ -1,6 +1,7 @@
 import './globals.css';
 import localFont from 'next/font/local';
 
+import ReactQueryClientProvider from '@/components/reactQuery/reactQueryClientProvider';
 import Providers from '@/contexts/providers';
 
 import type { Metadata } from 'next';
@@ -23,7 +24,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={myFont.className}>
-        <Providers>{children}</Providers>
+        <ReactQueryClientProvider>
+          <Providers>{children}</Providers>
+        </ReactQueryClientProvider>
       </body>
     </html>
   );
