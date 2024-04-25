@@ -40,6 +40,7 @@ export interface PutProfileBody {
     | '서울시 송파구'
     | '서울시 강동구';
   bio: string;
+}
 
 export interface PostCreateStoreBody {
   name: 'string';
@@ -74,5 +75,4 @@ export interface PostCreateStoreBody {
   description: 'string';
   imageUrl: 'string';
   originalHourlyPay: 'number';
-
 }
