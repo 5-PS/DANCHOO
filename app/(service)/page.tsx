@@ -28,7 +28,8 @@ export default function Home({
               {data.items.slice(0, 8).map(({ item }) => (
                 <li className="flex-none first:pl-3 last:pr-3 sm:last:pr-8 sm:first:pl-8" key={item.id}>
                   <Post
-                    href={item.shop.href}
+                    id={item.id}
+                    shopId={item.shop.item.id}
                     address={item.shop.item.address1}
                     imageUrl={item.shop.item.imageUrl}
                     name={item.shop.item.name}

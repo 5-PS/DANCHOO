@@ -33,7 +33,7 @@ export const getNotices = async ({ offset, limit, address, startsAtGte, hourlyPa
     });
   }
   if (startsAtGte) {
-    params.append('startsAtGte', startsAtGte.toString());
+    params.append('startsAtGte', startsAtGte.toISOString());
   }
 
   if (hourlyPayGte) {

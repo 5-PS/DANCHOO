@@ -16,7 +16,7 @@ export interface GetNoticesParams {
   limit?: number;
   address: string[];
   keyword?: string;
-  startsAtGte: string;
+  startsAtGte?: Date;
   hourlyPayGte: number;
   sort?: 'time' | 'pay' | 'hour' | 'shop';
 }

@@ -13,7 +13,7 @@ import { RecruitResponse } from '@/types/api';
 
 interface TFilter {
   address: string[];
-  startsAtGte: string;
+  startsAtGte?: Date;
   hourlyPayGte: number;
 }
 
@@ -21,7 +21,7 @@ function TotalRecruitList({ page }: { page?: number }) {
   const [sortOption, setSortOption] = useState<'time' | 'pay' | 'hour' | 'shop'>('time');
   const [filters, setFilters] = useState<TFilter>({
     address: [],
-    startsAtGte: '',
+    startsAtGte: undefined,
     hourlyPayGte: 0,
   });
   const pageQuery = page || 1;
@@ -67,7 +67,8 @@ function TotalRecruitList({ page }: { page?: number }) {
         {data.items.map(({ item }) => (
           <li key={item.id}>
             <Post
-              href={item.shop.href}
+              id={item.id}
+              shopId={item.shop.item.id}
               address={item.shop.item.address1}
               imageUrl={item.shop.item.imageUrl}
               name={item.shop.item.name}
