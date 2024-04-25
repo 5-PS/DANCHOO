@@ -16,7 +16,7 @@ async function RecuitsCard({ storeId, recruitId }: RecuitsCardProps) {
   const response = await getStoreRecruit(storeId, recruitId);
   const { item } = response;
   const { shop } = item;
-
+  console.log(shop);
   return (
     <>
       <div className="mb-4 md:mb-6">
@@ -26,10 +26,10 @@ async function RecuitsCard({ storeId, recruitId }: RecuitsCardProps) {
         <h1 className="text-[20px] font-bold md:text-[28px]">{shop.item.name}</h1>
       </div>
       <div className="flex flex-col w-full gap-3 p-5 mb-3 border rounded-xl border-gray-20 md:p-6 md:mb-6 md:gap-4 xl:flex-row xl:gap-8">
-        <div className="w-full h-[178px] relative md:h-[361px] xl:h-auto">
+        <div className="w-full h-[178px] relative md:h-[350px] xl:h-[320px]">
           <Image src={shop.item.imageUrl} fill alt="가게 이미지" />
         </div>
-        <div className="flex flex-col gap-2 xl:pt-4 md:gap-3 md:max-w-full xl:max-w-[346px] xl:w-full">
+        <div className="flex flex-col gap-2 xl:pt-4 md:gap-3 md:max-w-full xl:max-w-[346px] xl:w-full xl:justify-between">
           <div>
             <span className="inline-block mb-2 font-bold text-primary text-[14px] md:text-[16px]">시급</span>
             <div className="font-bold text-[24px] flex gap-2 items-center md:text-[28px]">
@@ -52,7 +52,7 @@ async function RecuitsCard({ storeId, recruitId }: RecuitsCardProps) {
             </span>
             {shop.item.address1}
           </div>
-          <p className="leading-[26px] text-[14px] md:text-[16px] line-clamp-2">{item.description}</p>
+          <p className="leading-[26px] text-[14px] md:text-[16px] line-clamp-2">{shop.item.description}</p>
           <Button background="bg-white" className="h-[48px]">
             공고 편집하기
           </Button>
