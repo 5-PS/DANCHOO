@@ -36,6 +36,7 @@ function NotificationBtn() {
     };
     fetchData();
   }, []);
+
   return (
     <>
       <button onClick={() => setIsNotificationOpen((prev) => !prev)}>
