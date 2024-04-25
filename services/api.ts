@@ -41,3 +41,8 @@ export const postCreateStore = async (formData: PostCreateStoreBody) => {
   const { data } = await postRequest.post('/shops', formData);
   return data;
 };
+
+export const putAlertRead = async (userId: string, alertId: string) => {
+  const { data } = await postRequest.put(`/users/${userId}/alerts/${alertId}`);
+  return data;
+};

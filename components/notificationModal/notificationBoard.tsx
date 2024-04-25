@@ -10,11 +10,11 @@ interface AlertItem {
     id: string;
     createdAt: string;
     result: 'accepted' | 'rejected';
+    read: boolean;
     shop: {
       item: {
         id: string;
         name: string;
-        imageUrl: string;
       };
     };
     notice: {
@@ -28,17 +28,17 @@ interface AlertItem {
 interface NotificationBoardProps {
   onClose: () => void;
   alertList: {
-    limit: number;
+    count: number;
     items: AlertItem[];
   };
 }
 
 function NotificationBoard({ onClose, alertList }: NotificationBoardProps) {
-  const { limit, items } = alertList;
+  const { count, items } = alertList;
   return (
     <div className="flex flex-col gap-4 px-5 py-6 bg-red-10 bg-full md:max-w-[328px] shadow-modal-box border border-gray-200 md:rounded-xl h-screen md:h-fit">
       <div className="flex justify-between align-middle">
-        <h2 className="text-xl font-bold">{`알림 ${limit}개`}</h2>
+        <h2 className="text-xl font-bold">{`알림 ${count}개`}</h2>
         <button type="button" onClick={onClose} className="block md:hidden">
           <Image src={close} alt="닫기 버튼" />
         </button>
@@ -53,7 +53,14 @@ function NotificationBoard({ onClose, alertList }: NotificationBoardProps) {
             notice: { item: noticeItem },
           } = item;
           return (
-            <NotificationCard key={id} createdAt={createdAt} result={result} shop={shopItem} notice={noticeItem} />
+            <NotificationCard
+              key={id}
+              alertId={id}
+              createdAt={createdAt}
+              result={result}
+              shop={shopItem}
+              notice={noticeItem}
+            />
           );
         })}
       </ul>

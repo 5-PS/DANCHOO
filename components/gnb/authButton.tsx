@@ -11,53 +11,6 @@ import jwtDecode from '@/utils/jwtDecode';
 
 import NotificationBtn from './notificationBtn';
 
-// 더미데이터
-const alertList = {
-  limit: 5, // 알림 개수
-  items: [
-    {
-      item: {
-        id: '1',
-        createdAt: '2024-04-18T08:00:00Z',
-        result: 'accepted', // 또는 'rejected'
-        shop: {
-          item: {
-            id: '1',
-            name: 'Shop A',
-            imageUrl: 'https://example.com/shop_a_image.jpg',
-          },
-        },
-        notice: {
-          item: {
-            startsAt: '2024-04-18T09:00:00Z',
-            workhour: 8,
-          },
-        },
-      },
-    },
-    {
-      item: {
-        id: '2',
-        createdAt: '2024-04-17T12:00:00Z',
-        result: 'rejected', // 또는 'accepted'
-        shop: {
-          item: {
-            id: '2',
-            name: 'Shop B',
-            imageUrl: 'https://example.com/shop_b_image.jpg',
-          },
-        },
-        notice: {
-          item: {
-            startsAt: '2024-04-17T13:00:00Z',
-            workhour: 6,
-          },
-        },
-      },
-    },
-  ],
-};
-
 interface UserTypeProps {
   userType?: string;
 }
@@ -102,7 +55,7 @@ function AuthButton() {
         <>
           <UserTypeLink userType={userType} />
           <button onClick={handleLogout}>로그아웃</button>
-          <NotificationBtn alertList={alertList} />
+          <NotificationBtn />
         </>
       ) : (
         <>
