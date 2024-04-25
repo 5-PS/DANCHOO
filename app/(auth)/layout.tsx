@@ -12,7 +12,7 @@ export default function AuthLayout({
   children: ReactNode;
 }>) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen my-12">
+    <div className="flex flex-col items-center justify-center min-h-screen py-12">
       <header className="mb-10">
         <Link href={ROUTE_PATHS.HOME}>
           <Image src={logo} alt="The Julge logo" width={248} height={45} />
