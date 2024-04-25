@@ -5,7 +5,7 @@ import {
   LIMIT_PAGE_COUNT_NUM,
   calculateMovePageValue,
   calculateSliceValue,
-  isActiveControllBtn,
+  isActiveControlBtn,
 } from '@/utils/calculatePage';
 
 function Pagination({
@@ -50,7 +50,7 @@ function Pagination({
   const isBoundaryPage = Number.isInteger(pageNum / LIMIT_PAGE_COUNT_NUM);
   const [prevBtnPageValue, nextBtnPageValue] = calculateMovePageValue(pageNum, isBoundaryPage);
   const sliceValue = calculateSliceValue(pageNum, isBoundaryPage);
-  const [isActivePrevBtn, isActiveNextBtn] = isActiveControllBtn(pageNum, pageLength);
+  const [isActivePrevBtn, isActiveNextBtn] = isActiveControlBtn(pageNum, pageLength);
 
   return (
     <div className="w-full py-[8px] px-[12px] flex justify-center items-center ">
