@@ -76,3 +76,9 @@ export interface PostCreateStoreBody {
   imageUrl: 'string';
   originalHourlyPay: 'number';
 }
+
+export interface RequestRecruit {
+  storeId: string;
+  recruitId: string;
+  applicationsId: string;
+}

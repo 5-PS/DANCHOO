@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 import apiClient, { postRequest } from '@/libs/axios';
-import { PostSignInBody, PostSignupBody, PutProfileBody, PostCreateStoreBody } from '@/types/api';
+import { PostSignInBody, PostSignupBody, PutProfileBody, PostCreateStoreBody, RequestRecruit } from '@/types/api';
 
 export async function postSignUpInfo({ email, password, confirmPassword, type }: PostSignupBody) {
   const { data } = await apiClient.post('/users', { email, password, confirmPassword, type });
@@ -42,30 +42,19 @@ export const postCreateStore = async (formData: PostCreateStoreBody) => {
   return data;
 };
 
-// TODO: 4-2api로 변경
-export const TEST_URL = 'https://bootcamp-api.codeit.kr/api/0-1/the-julge';
 export const getStoreRecruit = async (storeId: string, recruitId: string) => {
-  const { data } = await axios.get(`${TEST_URL}/shops/${storeId}/notices/${recruitId}`, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+  const { data } = await apiClient.get(`/shops/${storeId}/notices/${recruitId}`);
   return data;
 };
 
 export const getRecruitApplyList = async (storeId: string, recruitId: string, offset: number) => {
-  const { data } = await axios.get(
-    `${TEST_URL}/shops/${storeId}/notices/${recruitId}/applications?limit=5&offset=${(offset - 1) * 5}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    },
+  const { data } = await apiClient.get(
+    `/shops/${storeId}/notices/${recruitId}/applications?limit=5&offset=${(offset - 1) * 5}`,
   );
   return data;
 };
 
-export const requestAccepteRecruit = async ({ storeId, recruitId, applicationsId }) => {
+export const requestAccepteRecruit = async ({ storeId, recruitId, applicationsId }: RequestRecruit) => {
   try {
     await postRequest.put(`/shops/${storeId}/notices/${recruitId}/applications/${applicationsId}`, {
       status: 'accepted',
@@ -77,7 +66,7 @@ export const requestAccepteRecruit = async ({ storeId, recruitId, applicationsId
   }
 };
 
-export const requestRejecteRecruit = async ({ storeId, recruitId, applicationsId }) => {
+export const requestRejecteRecruit = async ({ storeId, recruitId, applicationsId }: RequestRecruit) => {
   try {
     await postRequest.put(`/shops/${storeId}/notices/${recruitId}/applications/${applicationsId}`, {
       status: 'rejected',
