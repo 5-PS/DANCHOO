@@ -1,7 +1,7 @@
 import './globals.css';
 import localFont from 'next/font/local';
 
-import Footer from '@/components/footer/footer';
+import ReactQueryClientProvider from '@/components/reactQuery/reactQueryClientProvider';
 
 import type { Metadata } from 'next';
 
@@ -21,8 +21,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className={myFont.className}>{children}</body>
-    </html>
+    <ReactQueryClientProvider>
+      <html lang="ko">
+        <body className={myFont.className}>{children}</body>
+      </html>
+    </ReactQueryClientProvider>
   );
 }

@@ -3,11 +3,12 @@ import PendingBtn from './pendingBtn';
 
 interface ApplicationTableStateBadgeProps {
   state: 'pending' | 'accepted' | 'rejected';
+  applicationsId?: string;
 }
 
-export default function ApplicationTableStateBadge({ state }: ApplicationTableStateBadgeProps) {
+export default function ApplicationTableStateBadge({ state, applicationsId }: ApplicationTableStateBadgeProps) {
   if (state === 'pending') {
-    return <PendingBtn />;
+    return <PendingBtn applicationsId={applicationsId} />;
   }
 
   return <ApplyTableStateBadge state={state} />;
