@@ -13,8 +13,12 @@ export async function postSignIn({ email, password }: PostSignInBody) {
   return data;
 }
 
-export const getNotices = async ({ offset, limit, address, startsAtGte, hourlyPayGte }: GetNoticesParams) => {
+export const getNotices = async ({ offset, limit, address, startsAtGte, hourlyPayGte, sort }: GetNoticesParams) => {
   const params = new URLSearchParams();
+
+  if (sort) {
+    params.append('sort', sort);
+  }
   if (offset) {
     params.append('offset', offset.toString());
   }
@@ -28,11 +32,11 @@ export const getNotices = async ({ offset, limit, address, startsAtGte, hourlyPa
       params.append('address', v);
     });
   }
-  if (startsAtGte !== '') {
+  if (startsAtGte) {
     params.append('startsAtGte', startsAtGte.toString());
   }
 
-  if (hourlyPayGte !== 0) {
+  if (hourlyPayGte) {
     params.append('hourlyPayGte', hourlyPayGte.toString());
   }
 
