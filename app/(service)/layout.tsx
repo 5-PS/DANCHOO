@@ -1,9 +1,11 @@
+import { ReactNode } from 'react';
+
 import Gnb from '@/components/gnb/gnb';
 
-export default function RootLayout({
+export default function Layout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <>
