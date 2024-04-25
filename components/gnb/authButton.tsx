@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { AxiosError } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -35,7 +36,10 @@ function AuthButton() {
           const { data } = await apiClient.get(`/users/${userId}`);
           setUserType(data.item.type);
         } catch (error) {
-          console.error('Failed to fetch user data:', error);
+          if (error instanceof AxiosError) {
+            const errorMessage = error.response?.data.message;
+            alert(errorMessage);
+          }
         }
       };
       fetchData();
