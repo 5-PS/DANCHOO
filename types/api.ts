@@ -145,3 +145,12 @@ export interface RequestRecruit {
   recruitId: string | string[];
   applicationsId?: string;
 }
+export interface PostRecruitsEditBody {
+  Id: string | string[];
+  formData: {
+    hourlyPay: number;
+    startsAt: string; // 양식: 2023-12-23T00:00:00Z
+    workhour: number;
+    description: string;
+  };
+}

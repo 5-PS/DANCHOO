@@ -1,66 +1,77 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+
+import { AxiosError } from 'axios';
+import { useParams, useRouter } from 'next/navigation';
 
 import Button from '@/components/button/button';
 import Input from '@/components/input/input';
+import { postRecruitsEdit } from '@/services/api';
 
 interface FieldValues {
-  hourlyPay: string;
-  registTime: string;
-  workTime: string;
+  hourlyPay: number;
+  startsAt: string;
+  workhour: number;
   description: string;
 }
 
-function formatHourlyPay(input: string) {
-  const onlyNums = input.replace(/[^0-9]/g, '');
-  return onlyNums.length < 4 ? onlyNums : onlyNums.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-}
-
 export default function RegistRecruitForm() {
+  const { storeId } = useParams();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<FieldValues>({ mode: 'all' });
-  const hourlyPay = watch('hourlyPay', '');
-  const [displayHourlyPay, setDisplayHourlyPay] = useState('');
+
   const inputFields = [
     {
       label: '시급*',
-      type: 'text',
+      type: 'number',
       rightText: '원',
       errorMessage: errors.hourlyPay?.message,
       placeholder: '입력',
-      value: displayHourlyPay,
       register: register('hourlyPay', { required: '시급을 입력해주세요' }),
     },
     {
       label: '시작 일시*',
       type: 'date',
-      errorMessage: errors.registTime?.message,
-      register: register('registTime', { required: '시작 일시를 입력해주세요' }),
+      errorMessage: errors.startsAt?.message,
+      register: register('startsAt', { required: '시작 일시를 입력해주세요' }),
     },
     {
       label: '업무 시간*',
-      type: 'text',
-      errorMessage: errors.workTime?.message,
+      type: 'number',
+      errorMessage: errors.workhour?.message,
       placeholder: '입력',
       rightText: '시간',
-      register: register('workTime', { required: '업무 시간을 입력해주세요' }),
+      register: register('workhour', { required: '업무 시간을 입력해주세요' }),
     },
   ];
-  useEffect(() => {
-    setDisplayHourlyPay(formatHourlyPay(hourlyPay));
-  }, [hourlyPay]);
 
-  /**
-   * @todo 공고등록 로직 추가
-   */
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
+  const postRecruits = async (Id: string | string[], data: any) => {
+    const formData = {
+      ...data,
+      startsAt: `${data.startsAt}T15:00:00Z`,
+      hourlyPay: Number(data.hourlyPay),
+      workhour: Number(data.workhour),
+    };
+    console.log(formData);
+    try {
+      await postRecruitsEdit({ Id, formData });
+      alert('성공!');
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log(error.message);
+        alert(error.response?.data.message);
+      }
+    }
+  };
+
+  const onSubmit = async (data: FieldValues) => {
+    await postRecruits(storeId, data);
+    router.push(`/my-store/${storeId}`);
   };
 
   return (
@@ -75,7 +86,6 @@ export default function RegistRecruitForm() {
               rightText={field.rightText}
               errorMessage={field.errorMessage}
               placeholder={field.placeholder}
-              value={field.value}
               {...field.register}
             />
           ))}
