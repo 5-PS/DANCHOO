@@ -41,3 +41,8 @@ export const postCreateStore = async (formData: PostCreateStoreBody) => {
   const { data } = await postRequest.post('/shops', formData);
   return data;
 };
+
+export const getMyStoreData = async (id: string) => {
+  const { data } = await apiClient.get(`/shops/${id}`);
+  return data;
+};
