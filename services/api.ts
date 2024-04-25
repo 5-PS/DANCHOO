@@ -1,7 +1,14 @@
 import axios, { AxiosError } from 'axios';
 
 import apiClient, { postRequest } from '@/libs/axios';
-import { GetNoticesParams, PostSignInBody, PostSignupBody, PutProfileBody, PostCreateStoreBody } from '@/types/api';
+import {
+  PostSignInBody,
+  PostSignupBody,
+  PutProfileBody,
+  PostCreateStoreBody,
+  RequestRecruit,
+  GetNoticesParams,
+} from '@/types/api';
 
 export async function postSignUpInfo({ email, password, confirmPassword, type }: PostSignupBody) {
   const { data } = await apiClient.post('/users', { email, password, confirmPassword, type });
@@ -84,4 +91,39 @@ export const postCreateStore = async (formData: PostCreateStoreBody) => {
 export const putAlertRead = async (userId: string, alertId: string) => {
   const { data } = await postRequest.put(`/users/${userId}/alerts/${alertId}`);
   return data;
+};
+export const getStoreRecruit = async (storeId: string, recruitId: string) => {
+  const { data } = await apiClient.get(`/shops/${storeId}/notices/${recruitId}`);
+  return data;
+};
+
+export const getRecruitApplyList = async (storeId: string, recruitId: string, offset: number) => {
+  const { data } = await apiClient.get(
+    `/shops/${storeId}/notices/${recruitId}/applications?limit=5&offset=${(offset - 1) * 5}`,
+  );
+  return data;
+};
+
+export const requestAccepteRecruit = async ({ storeId, recruitId, applicationsId }: RequestRecruit) => {
+  try {
+    await postRequest.put(`/shops/${storeId}/notices/${recruitId}/applications/${applicationsId}`, {
+      status: 'accepted',
+    });
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      alert(err.response?.data.message);
+    }
+  }
+};
+
+export const requestRejecteRecruit = async ({ storeId, recruitId, applicationsId }: RequestRecruit) => {
+  try {
+    await postRequest.put(`/shops/${storeId}/notices/${recruitId}/applications/${applicationsId}`, {
+      status: 'rejected',
+    });
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      alert(err.response?.data.message);
+    }
+  }
 };
