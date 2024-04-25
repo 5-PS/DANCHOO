@@ -46,10 +46,10 @@ export default function PendingBtn({ applicationsId }: PendingBtnProps) {
   };
   return (
     <div className="flex gap-3">
-      <button type="button" className={`${btnStyle} border-red-500 text-red-500`} onClick={handleAcceptedBtnEvent}>
+      <button type="button" className={`${btnStyle} border-red-500 text-red-500`} onClick={handleRejectedBtnEvent}>
         거절하기
       </button>
-      <button type="button" className={`${btnStyle} border-blue-20 text-blue-20`} onClick={handleRejectedBtnEvent}>
+      <button type="button" className={`${btnStyle} border-blue-20 text-blue-20`} onClick={handleAcceptedBtnEvent}>
         승인하기
       </button>
     </div>
