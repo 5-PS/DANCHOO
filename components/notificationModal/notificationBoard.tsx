@@ -1,30 +1,10 @@
 import Image from 'next/image';
 
 import close from '@/public/icons/close.svg';
+import { AlertItem } from '@/types/notification';
 
 import NotificationCard from './notificationCard';
 
-// [TODO]: 데이터 연결 이후 타입 분리 및 추가 수정 이 있을 예정
-interface AlertItem {
-  item: {
-    id: string;
-    createdAt: string;
-    result: 'accepted' | 'rejected';
-    read: boolean;
-    shop: {
-      item: {
-        id: string;
-        name: string;
-      };
-    };
-    notice: {
-      item: {
-        startsAt: string;
-        workhour: number;
-      };
-    };
-  };
-}
 interface NotificationBoardProps {
   onClose: () => void;
   alertList: {
