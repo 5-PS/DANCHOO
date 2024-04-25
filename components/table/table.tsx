@@ -10,6 +10,7 @@ interface TableProps {
     col1: string;
     col2: string;
     col3: string;
+    applicationsId?: string;
   }[];
   totalDataCount: number;
 }
@@ -43,7 +44,7 @@ function Table({ query, type, data, totalDataCount }: TableProps) {
                 <td className="tb-data ">{data.col3}</td>
                 <td className="sticky right-0 bg-white tb-data" aria-label="badge">
                   {type === 'applicantList' ? (
-                    <ApplicationTableStateBadge state={data.status} />
+                    <ApplicationTableStateBadge state={data.status} applicationsId={data.applicationsId} />
                   ) : (
                     <ApplyTableStateBadge state={data.status} />
                   )}
