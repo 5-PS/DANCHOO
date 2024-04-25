@@ -78,7 +78,7 @@ export interface PostCreateStoreBody {
 }
 
 export interface RequestRecruit {
-  storeId: string;
-  recruitId: string;
-  applicationsId: string;
+  storeId: string | string[];
+  recruitId: string | string[];
+  applicationsId?: string;
 }
