@@ -17,13 +17,12 @@ export default async function ApplicantList({ searchParams, storeId, recruitId }
     );
   }
   const { items } = response;
-
-  const data = items.map((data) => ({
-    status: data.item.status,
-    col1: data.item.user.item.name,
-    col2: data.item.user.item.bio,
-    col3: data.item.user.item.phone,
+  const data = items.map(({ item }) => ({
+    status: item.status,
+    col1: item.user.item.name,
+    col2: item.user.item.bio,
+    col3: item.user.item.phone,
+    applicationsId: item.id,
   }));
-
   return <Table query={searchParams} type="applicantList" data={data} totalDataCount={response.count} />;
 }
