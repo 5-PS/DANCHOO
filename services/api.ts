@@ -42,6 +42,7 @@ export const postCreateStore = async (formData: PostCreateStoreBody) => {
   return data;
 };
 
+// TODO: 4-2api로 변경
 export const TEST_URL = 'https://bootcamp-api.codeit.kr/api/0-1/the-julge';
 export const getStoreRecruit = async (storeId: string, recruitId: string) => {
   const { data } = await axios.get(`${TEST_URL}/shops/${storeId}/notices/${recruitId}`, {
@@ -62,4 +63,28 @@ export const getRecruitApplyList = async (storeId: string, recruitId: string, of
     },
   );
   return data;
+};
+
+export const requestAccepteRecruit = async ({ storeId, recruitId, applicationsId }) => {
+  try {
+    await postRequest.put(`/shops/${storeId}/notices/${recruitId}/applications/${applicationsId}`, {
+      status: 'accepted',
+    });
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      alert(err.response?.data.message);
+    }
+  }
+};
+
+export const requestRejecteRecruit = async ({ storeId, recruitId, applicationsId }) => {
+  try {
+    await postRequest.put(`/shops/${storeId}/notices/${recruitId}/applications/${applicationsId}`, {
+      status: 'rejected',
+    });
+  } catch (err) {
+    if (err instanceof AxiosError) {
+      alert(err.response?.data.message);
+    }
+  }
 };
