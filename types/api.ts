@@ -10,6 +10,69 @@ export interface PostSignInBody {
   password: string;
 }
 
+export interface GetNoticesParams {
+  page?: number;
+  offset?: number;
+  limit?: number;
+  address: string[];
+  keyword?: string;
+  startsAtGte?: Date;
+  hourlyPayGte: number;
+  sort?: 'time' | 'pay' | 'hour' | 'shop';
+}
+
+// interface Pagination {
+//   offset: number;
+//   limit: number;
+//   count: number;
+//   hasNext: boolean;
+// }
+
+export interface RecruitResponse {
+  offset: number;
+  limit: number;
+  count: number;
+  hasNext: boolean;
+  address: string[];
+  keyword?: string;
+  items: JobItem[];
+  links: Link[];
+}
+
+interface JobItem {
+  item: {
+    id: string;
+    hourlyPay: number;
+    startsAt: string;
+    workhour: number;
+    description: string;
+    closed: boolean;
+    shop: ShopDetail;
+  };
+  links: Link[];
+}
+
+interface ShopDetail {
+  item: {
+    id: string;
+    name: string;
+    category: string;
+    address1: string;
+    address2: string;
+    description: string;
+    imageUrl: string;
+    originalHourlyPay: number;
+  };
+  href: string;
+}
+
+interface Link {
+  rel: string;
+  description: string;
+  method: string;
+  href: string;
+}
+
 export interface PutProfileBody {
   name: string;
   phone: string;
@@ -40,7 +103,7 @@ export interface PutProfileBody {
     | '서울시 송파구'
     | '서울시 강동구';
   bio: string;
-
+}
 export interface PostCreateStoreBody {
   name: 'string';
   category: '한식' | '중식' | '일식' | '양식' | '분식' | '카페' | '편의점' | '기타';
@@ -74,5 +137,4 @@ export interface PostCreateStoreBody {
   description: 'string';
   imageUrl: 'string';
   originalHourlyPay: 'number';
-
 }
