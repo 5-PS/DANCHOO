@@ -12,5 +12,5 @@ export default function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  return <body className="bg-gary-5">{children}</body>;
+  return <body>{children}</body>;
 }

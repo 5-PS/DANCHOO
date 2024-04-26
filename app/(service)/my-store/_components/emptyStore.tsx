@@ -1,4 +1,7 @@
+import Link from 'next/link';
+
 import Button from '@/components/button/button';
+import ROUTE_PATHS from '@/constants/route';
 
 export default function EmptyNotice() {
   return (
@@ -10,9 +13,11 @@ export default function EmptyNotice() {
             내 가게를 소개하고 공고도 등록해 보세요.
           </div>
           <div className=" md:w-[346px] rounded-md justify-center items-center gap-2 inline-flex">
-            <Button className="px-5 py-2 font-bold md:h-12" background="bg-primary">
-              가게 등록하기
-            </Button>
+            <Link href={ROUTE_PATHS.STORE_EDIT}>
+              <Button className="px-5 py-2 font-bold md:h-12" background="bg-primary">
+                가게 등록하기
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
