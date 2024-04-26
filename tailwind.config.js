@@ -18,6 +18,7 @@ module.exports = {
         'Pretendard-SemiBold': 'Pretendard-SemiBold',
         'Pretendard-Thin': 'Pretendard-Thin',
       },
+
       colors: {
         primary: '#0045F8', //#EA3C12
         'primary-hover': '#1160DA',
@@ -39,9 +40,11 @@ module.exports = {
         'green-10': '#D4F7D4',
         kakao: '#FEE500',
       },
+
       boxShadow: {
         'modal-box': '0px 2px 8px 0px rgba(120, 116, 134, 0.25)',
       },
+
       backgroundImage: {
         'dropdown-down': "url('../public/icons/dropdown-down.svg')",
         'dropdown-top': "url('../public/icons/dropdown-top.svg')",
@@ -49,7 +52,23 @@ module.exports = {
       backgroundSize: {
         'size-10': '10px 10px',
       },
+
+      keyframes: {
+        slideUp: {
+          '0%': { transform: 'translateY(100vh) translateX(-50%)' },
+          '100%': { transform: 'translateY(0) translateX(-50%)' },
+        },
+        slideDown: {
+          '0%': { transform: 'translateY(0) translateX(-50%)' },
+          '100%': { transform: 'translateY(100vh) translateX(-50%)' },
+        },
+      },
+
+      animation: {
+        slideUp: 'slideUp 1s ease-in-out',
+        slideDown: 'slideDown 1s ease-in-out',
+      },
     },
+    plugins: [],
   },
-  plugins: [],
 };

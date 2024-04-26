@@ -17,9 +17,7 @@ function MyProfile() {
             <div className="flex justify-between">
               <div className="text-[20px]">{List.name}</div>
               <div className="w-[200px]">
-                <Button background="bg-white" fontSize={16} height={37}>
-                  편집하기
-                </Button>
+                <Button background="bg-white">편집하기</Button>
               </div>
             </div>
             <div>{List.phone}</div>
@@ -35,9 +33,7 @@ function MyProfile() {
           <div className="px-[32px]">
             <div className="flex flex-col gap-6 items-center justify-center h-10 border rounded py-[60px]">
               <p>아직 신청 내역이 없어요.</p>
-              <Button background="bg-white" fontSize={16} height={37}>
-                공고 보러가기
-              </Button>
+              <Button background="bg-white">공고 보러가기</Button>
             </div>
           </div>
         </div>
