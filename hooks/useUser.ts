@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { getUserProfile } from '@/services/api';
-import decodeJWT from '@/utils/decodeJWT';
+import { decodeJWT } from '@/utils/decodeJWT';
 
 const useUser = () => {
   const [user, setUser] = useState('');
