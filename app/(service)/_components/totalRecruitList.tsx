@@ -67,25 +67,31 @@ function TotalRecruitList({ page }: { page?: number }) {
           <DetailFilterModal onFiltersChange={handleFiltersChange} />
         </div>
       </div>
-      <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-1 sm:gap-x-[14px] sm:gap-y-8">
-        {data.items.map(({ item }) => (
-          <li key={item.id}>
-            <Post
-              id={item.id}
-              shopId={item.shop.item.id}
-              address={item.shop.item.address1}
-              imageUrl={item.shop.item.imageUrl}
-              name={item.shop.item.name}
-              hourlyPay={item.hourlyPay}
-              originalHourlyPay={item.shop.item.originalHourlyPay}
-              startsAt={item.startsAt}
-              workhour={item.workhour}
-              closed={item.closed}
-            />
-          </li>
-        ))}
-      </ul>
-      <Pagination page={pageQuery.toString()} sliceDataValue={6} totalDataCount={pageLength} />
+      {data.items.length > 0 ? (
+        <>
+          <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-1 sm:gap-x-[14px] sm:gap-y-8">
+            {data.items.map(({ item }) => (
+              <li key={item.id}>
+                <Post
+                  id={item.id}
+                  shopId={item.shop.item.id}
+                  address={item.shop.item.address1}
+                  imageUrl={item.shop.item.imageUrl}
+                  name={item.shop.item.name}
+                  hourlyPay={item.hourlyPay}
+                  originalHourlyPay={item.shop.item.originalHourlyPay}
+                  startsAt={item.startsAt}
+                  workhour={item.workhour}
+                  closed={item.closed}
+                />
+              </li>
+            ))}
+          </ul>
+          <Pagination page={pageQuery.toString()} sliceDataValue={6} totalDataCount={pageLength} />
+        </>
+      ) : (
+        <div className="mt-8 text-xl text-center text-gray-40">공고 목록이 존재하지 않아요.</div>
+      )}
       <div />
     </>
   );
