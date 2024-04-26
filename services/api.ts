@@ -166,8 +166,20 @@ export const requestModificationStore = async (storeId: string | string[], formD
   }
 };
 
+export const getDetailRecruit = async (shopId: string, recruitId: string) => {
+  try {
+    const { data } = await apiClient.get(`/shops/${shopId}/notices/${recruitId}`);
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.log(error.response?.data.message);
+    }
+    return null;
+  }
+};
 export const postRecruitsEdit = async ({ Id, formData }: PostRecruitsEditBody) => {
   const { data } = await postRequest.post(`/shops/${Id}/notices`, formData);
+  return data;
 };
 
 export const putAlertRead = async (userId: string, alertId: string) => {
