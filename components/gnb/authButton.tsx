@@ -6,6 +6,7 @@ import { AxiosError } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import { useToastContext } from '@/contexts/toastContext';
 import useCookieToken from '@/hooks/useCookieToken';
 import apiClient from '@/libs/axios';
 import jwtDecode from '@/utils/jwtDecode';
@@ -24,6 +25,7 @@ function AuthButton() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userType, setUserType] = useState<string>();
+  const { showToast } = useToastContext();
   const token = useCookieToken();
 
   useEffect(() => {
@@ -49,7 +51,7 @@ function AuthButton() {
   const handleLogout = () => {
     document.cookie = 'accessToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     setIsLoggedIn(false);
-    alert('로그아웃 됐음');
+    showToast('로그아웃 되었습니다.');
     router.push('/');
   };
 
