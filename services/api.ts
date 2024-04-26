@@ -88,7 +88,7 @@ export const postCreateStore = async (formData: PostCreateStoreBody) => {
   return data;
 };
 
-export const getMyStoreData = async (id: string) => {
+export const getMyStore = async (id: string) => {
   const { data } = await apiClient.get(`/shops/${id}`);
   return data;
 };
@@ -145,4 +145,9 @@ export const requestModificationStore = async (storeId: string | string[], formD
   } catch (err) {
     console.log(err);
   }
+};
+
+export const getStoreRecruits = async (storeId: string) => {
+  const { data } = await apiClient.get(`/shops/${storeId}/notices`);
+  return data;
 };

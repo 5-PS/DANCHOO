@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 import Button from '@/components/button/button';
-import { getMyStoreData } from '@/services/api';
+import { getMyStore } from '@/services/api';
 
 /**
  * @todo 처음에 가게 정보 없을 때 보여줄 가게없음 보이게 => 없을 때에는 가게 등록하기 보이게
@@ -21,10 +21,11 @@ export default function MyStoreCard() {
 
   useEffect(() => {
     (async () => {
-      const { item } = await getMyStoreData(storeId as string);
+      const { item } = await getMyStore(storeId as string);
       setStoreData(item);
     })();
   }, [storeId]);
+
   return (
     <div className=" bg-red-10 flex flex-col w-[351px] xl:w-[964px] gap-3 p-5 mx-auto mb-3 md:w-[632px] border rounded-xl border-gray-20 md:p-6 md:mb-6 md:gap-4 xl:flex-row xl:gap-8 ">
       <div className=" rounded-lg overflow-hidden w-[311px] h-[177px] md:max-w-full md:w-[632px] md:h-[361px] xl:w-[539px] xl:h-[308px]  bg-slate-500 relative">
