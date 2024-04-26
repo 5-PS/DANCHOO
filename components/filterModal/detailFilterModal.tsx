@@ -88,7 +88,7 @@ function DetailFilterModal({ onFiltersChange }) {
         상세 필터
       </button>
       <div
-        className={`w-full h-screen px-[12px] py-[24px] overflow-y-auto z-50 bg-white m-auto fixed top-0 left-0 md:w-[390px] md:h-[auto] md:px-[20px] md:py-[24px] md:rounded-[10px] md:border md:border-gray-20 md:absolute md:top-[120%] md:-left-[302px]  ${!activeModal && 'hidden'}`}
+        className={`w-full h-screen px-[12px] py-[24px] overflow-y-auto z-[100] bg-white m-auto fixed top-0 left-0 md:w-[390px] md:h-[auto] md:px-[20px] md:py-[24px] md:rounded-[10px] md:border md:border-gray-20 md:absolute md:top-[120%] md:-left-[302px]  ${!activeModal && 'hidden'}`}
       >
         <div className="text-[20px] mb-[24px] flex justify-between">
           <strong>상세 필터</strong>
