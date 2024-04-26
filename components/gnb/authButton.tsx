@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useToastContext } from '@/contexts/toastContext';
 import useCookieToken from '@/hooks/useCookieToken';
 import apiClient from '@/libs/axios';
-import jwtDecode from '@/utils/jwtDecode';
+import jwtDecode from '@/utils/decodeJWT';
 
 import NotificationBtn from './notificationBtn';
 
@@ -32,7 +32,8 @@ function AuthButton() {
     setIsLoggedIn(!!token);
 
     if (token) {
-      const userId = jwtDecode();
+      const tokenPayload = document.cookie.split('.')[1];
+      const userId = jwtDecode(tokenPayload);
       const fetchData = async () => {
         try {
           const { data } = await apiClient.get(`/users/${userId}`);

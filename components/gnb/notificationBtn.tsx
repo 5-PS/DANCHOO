@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 import { postRequest } from '@/libs/axios';
 import { AlertItem } from '@/types/notification';
-import jwtDecode from '@/utils/jwtDecode';
+import jwtDecode from '@/utils/decodeJWT';
 
 import NotificationBoard from '../notificationModal/notificationBoard';
 
@@ -21,7 +21,8 @@ function NotificationBtn() {
   const [alertList, setAlertList] = useState<AlertList>({ count: 0, items: [] });
 
   useEffect(() => {
-    const userId = jwtDecode();
+    const tokenPayload = document.cookie.split('.')[1];
+    const userId = jwtDecode(tokenPayload);
     const fetchData = async () => {
       try {
         const { data } = await postRequest.get(`/users/${userId}/alerts`);

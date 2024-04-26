@@ -6,8 +6,8 @@ import { formatDistanceToNowStrict, parseISO as parseDate } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
 import { putAlertRead } from '@/services/api';
+import jwtDecode from '@/utils/decodeJWT';
 import formatDateRange from '@/utils/formatDateRange';
-import jwtDecode from '@/utils/jwtDecode';
 
 interface NotificationCardProps {
   alertId: string;
@@ -29,7 +29,8 @@ function NotificationCard({ alertId, createdAt, result, shop, notice, setCurrent
   const { startsAt, workhour } = notice;
 
   const handleAlertRead = async () => {
-    const userId = jwtDecode();
+    const tokenPayload = document.cookie.split('.')[1];
+    const userId = jwtDecode(tokenPayload);
     await putAlertRead(userId, alertId);
     setCurrentCount((prev) => prev - 1);
     setIsRead(true);

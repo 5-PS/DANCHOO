@@ -1,10 +1,9 @@
-const jwtDecode = () => {
-  const tokenPayload = document.cookie.split('.')[1];
-  if (tokenPayload) {
+const jwtDecode = (token: string) => {
+  if (token) {
     const decodedJWT = JSON.parse(
       decodeURIComponent(
         window
-          .atob(tokenPayload)
+          .atob(token)
           .split('')
           .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
           .join(''),
