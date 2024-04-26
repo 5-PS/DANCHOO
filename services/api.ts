@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 
-import apiClient, { postRequest } from '@/libs/axios';
+import { apiClient, postRequest } from '@/libs/axios';
 import {
   PostSignInBody,
   PostSignupBody,
@@ -68,6 +68,11 @@ export const getNotices = async ({
 
 export const getPersonalNotices = async () => {
   const { data } = await apiClient.get('/notices');
+  return data;
+};
+
+export const getUserProfile = async (userId: string) => {
+  const { data } = await apiClient.get(`/users/${userId}`);
   return data;
 };
 
