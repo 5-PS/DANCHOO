@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import getCookie from '@/utils/getCookie';
+import { getCookie } from '@/utils/getCookie';
 
 export const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_API_URL,

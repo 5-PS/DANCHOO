@@ -17,7 +17,7 @@ export default async function ApplicantList({ searchParams, storeId, recruitId }
     );
   }
   const { items } = response;
-  const data = items.map(({ item }) => ({
+  const data = items.map(({ item }: { item: any }) => ({
     status: item.status,
     col1: item.user.item.name,
     col2: item.user.item.bio,
