@@ -61,8 +61,6 @@ export const getNotices = async ({
     params.append('hourlyPayGte', hourlyPayGte.toString());
   }
 
-  console.log(params.getAll('address'));
-
   const { data } = await apiClient.get('/notices', { params });
   return data;
 };
@@ -72,7 +70,35 @@ export const getPersonalNotices = async () => {
   return data;
 };
 
-export const getUserProfile = async (userId: string) => {
+type UserType = 'employee' | 'employer';
+
+export interface ProfileItem extends ProfileOptionalItem {
+  email: string;
+  id: string;
+  shop: null;
+  type: UserType;
+}
+
+export interface ProfileOptionalItem {
+  name: string;
+  phone: string;
+  address: string;
+  bio: string;
+}
+
+interface ProfileLink {
+  description: string;
+  href: string;
+  method: string;
+  rel: string;
+}
+
+interface GetUserProfileResponse {
+  item: ProfileItem;
+  links: ProfileLink[];
+}
+
+export const getUserProfile = async (userId: string): Promise<GetUserProfileResponse> => {
   const { data } = await apiClient.get(`/users/${userId}`);
   return data;
 };
