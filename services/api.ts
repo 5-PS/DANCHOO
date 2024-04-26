@@ -6,6 +6,7 @@ import {
   PostSignupBody,
   PutProfileBody,
   PostCreateStoreBody,
+  PostRecruitsEditBody,
   RequestRecruit,
   GetNoticesParams,
 } from '@/types/api';
@@ -163,6 +164,10 @@ export const requestModificationStore = async (storeId: string | string[], formD
   } catch (err) {
     console.log(err);
   }
+};
+
+export const postRecruitsEdit = async ({ Id, formData }: PostRecruitsEditBody) => {
+  const { data } = await postRequest.post(`/shops/${Id}/notices`, formData);
 };
 
 export const putAlertRead = async (userId: string, alertId: string) => {
