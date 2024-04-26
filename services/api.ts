@@ -20,7 +20,15 @@ export async function postSignIn({ email, password }: PostSignInBody) {
   return data;
 }
 
-export const getNotices = async ({ offset, limit, address, startsAtGte, hourlyPayGte, sort }: GetNoticesParams) => {
+export const getNotices = async ({
+  offset,
+  limit,
+  address,
+  keyword,
+  startsAtGte,
+  hourlyPayGte,
+  sort,
+}: GetNoticesParams) => {
   const params = new URLSearchParams();
 
   if (sort) {
@@ -39,6 +47,11 @@ export const getNotices = async ({ offset, limit, address, startsAtGte, hourlyPa
       params.append('address', v);
     });
   }
+
+  if (keyword) {
+    params.append('keyword', keyword.toString());
+  }
+
   if (startsAtGte) {
     params.append('startsAtGte', startsAtGte.toISOString());
   }
@@ -150,4 +163,9 @@ export const requestModificationStore = async (storeId: string | string[], formD
   } catch (err) {
     console.log(err);
   }
+};
+
+export const putAlertRead = async (userId: string, alertId: string) => {
+  const { data } = await postRequest.put(`/users/${userId}/alerts/${alertId}`);
+  return data;
 };

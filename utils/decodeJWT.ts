@@ -1,4 +1,4 @@
-const decodeJWT = (token: string) => {
+export const decodeJWT = (token: string) => {
   const base64UrlToBase64 = (input: string) => {
     const replaced = input.replace(/-/g, '+').replace(/_/g, '/');
 
@@ -30,4 +30,19 @@ const decodeJWT = (token: string) => {
   return JSON.parse(decodedPayload);
 };
 
-export default decodeJWT;
+const jwtDecode = (token: string) => {
+  if (token) {
+    const decodedJWT = JSON.parse(
+      decodeURIComponent(
+        window
+          .atob(token)
+          .split('')
+          .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
+          .join(''),
+      ),
+    );
+    return decodedJWT.userId;
+  }
+  return null;
+};
+export default jwtDecode;
