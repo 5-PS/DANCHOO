@@ -15,7 +15,7 @@ export interface GetNoticesParams {
   offset?: number;
   limit?: number;
   address: string[];
-  keyword?: string;
+  keyword: string | null;
   startsAtGte?: Date;
   hourlyPayGte: number;
   sort?: 'time' | 'pay' | 'hour' | 'shop';
@@ -104,7 +104,6 @@ export interface PutProfileBody {
     | '서울시 강동구';
   bio: string;
 }
-
 export interface PostCreateStoreBody {
   name: 'string';
   category: '한식' | '중식' | '일식' | '양식' | '분식' | '카페' | '편의점' | '기타';
@@ -144,4 +143,13 @@ export interface RequestRecruit {
   storeId: string | string[];
   recruitId: string | string[];
   applicationsId?: string;
+}
+export interface PostRecruitsEditBody {
+  Id: string | string[];
+  formData: {
+    hourlyPay: number;
+    startsAt: string; // 양식: 2023-12-23T00:00:00Z
+    workhour: number;
+    description: string;
+  };
 }
