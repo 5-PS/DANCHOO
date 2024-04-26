@@ -3,13 +3,19 @@ import Footer from '@/components/footer/footer';
 import RecentlyViewedRecruits from './_components/recentlyViewedRecruits';
 import RecruitCard from './_components/recruitCard';
 
-function RecruitDetail() {
+interface RecruitDetailProps {
+  params: {
+    shopId: string;
+    recruitId: string;
+  };
+}
+
+function RecruitDetail({ params }: RecruitDetailProps) {
+  const { shopId, recruitId } = params;
   return (
-    <div>
-      {/* 헤더 */}
-      <div className="w-full h-[70px] bg-black" />
+    <main>
       <section className="flex flex-col gap-4 px-3 py-10 max-w-[964px] m-auto md:px-8 md:py-[60px] md:gap-6 ">
-        <RecruitCard />
+        <RecruitCard shopId={shopId} recruitId={recruitId} />
       </section>
 
       <section className="px-3 pt-10 pb-20 max-w-[964px] m-auto md:px-8 md:py-[60px] xl:pb-[120px]">
@@ -17,7 +23,7 @@ function RecruitDetail() {
         <RecentlyViewedRecruits />
       </section>
       <Footer />
-    </div>
+    </main>
   );
 }
 export default RecruitDetail;
