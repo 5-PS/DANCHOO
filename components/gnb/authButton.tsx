@@ -21,7 +21,7 @@ function UserTypeLink({ userType }: { userType: BoxProps }) {
   return userType.type === 'employer' ? (
     <Link href={`${userType?.shopId ? `/my-store/${userType.shopId}` : `/my-store`}`}>내가게</Link>
   ) : (
-    <Link href="/my-profile">내 프로필</Link>
+    <Link href={`/my-profile/${userType.userId}`}>내 프로필</Link>
   );
 }
 
