@@ -11,6 +11,9 @@ async function ApplyList({ userId, page }: { userId: string | string[]; page: st
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken');
   const response = await getApplyList(userId, pageNum, accessToken?.value);
+  const pageObj = {
+    page,
+  };
   if (!response.count) {
     return <Empty title="신청 내역" desc="아직 신청 내역이 없어요." btnText="공고 보러가기" href="/" />;
   }
@@ -22,6 +25,6 @@ async function ApplyList({ userId, page }: { userId: string | string[]; page: st
     col3: `${item.notice.item.hourlyPay.toLocaleString()}원`,
   }));
 
-  return <Table query={page} type="applyList" totalDataCount={response.count} data={data} />;
+  return <Table query={pageObj} type="applyList" totalDataCount={response.count} data={data} />;
 }
 export default ApplyList;

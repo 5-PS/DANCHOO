@@ -65,7 +65,7 @@ export const getNotices = async ({
   return data;
 };
 
-export const getPersonalNotices = async ({ address }) => {
+export const getPersonalNotices = async ({ address }: { address: string }) => {
   const { data } = await apiClient.get(`/notices?address=${address}`);
   return data;
 };
@@ -103,7 +103,7 @@ export const getUserProfile = async (userId: string | string[]): Promise<GetUser
   return data;
 };
 
-export const getApplyList = async (userId: string | string[], page = 1, token): Promise<any> => {
+export const getApplyList = async (userId: string | string[], page = 1, token?: string): Promise<any> => {
   const { data } = await axios.get(
     `https://bootcamp-api.codeit.kr/api/4-2/the-julge/users/${userId}/applications?limit=5&offset=${(page - 1) * 5}`,
     {

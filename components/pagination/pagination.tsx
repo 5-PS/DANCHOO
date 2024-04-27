@@ -13,7 +13,7 @@ function Pagination({
   totalDataCount,
   sliceDataValue,
 }: {
-  page: string;
+  page: any;
   totalDataCount: number;
   sliceDataValue: number;
 }) {

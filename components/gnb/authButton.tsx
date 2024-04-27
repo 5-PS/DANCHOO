@@ -49,7 +49,7 @@ function UserContentBox({ userId, logout }: { userId?: string; logout: any }) {
 
 function AuthButton() {
   const router = useRouter();
-  const [token, setToken] = useState<string | undefined>('');
+  const [token, setToken] = useState<any>('');
   const userId = token && decodeJWT(token);
   const handleLogout = () => {
     document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
