@@ -7,7 +7,6 @@ import {
   calculateSliceValue,
   isActiveControlBtn,
 } from '@/utils/calculatePage';
-import Test from './test';
 
 function Pagination({
   page,
@@ -18,7 +17,6 @@ function Pagination({
   totalDataCount: number;
   sliceDataValue: number;
 }) {
-  console.log(page);
   const defaultPage = page || '1';
   const pageNum = parseInt(defaultPage, 10);
   const pageLength = Math.ceil(totalDataCount / sliceDataValue);
