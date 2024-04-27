@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Post from '@/components/post/post';
 
-interface RecentlyViewedRecruitsItem {
+export interface RecentlyViewedRecruitsType {
   id: string;
   shopId: string;
   address: string;
@@ -18,7 +18,7 @@ interface RecentlyViewedRecruitsItem {
 }
 
 function RecentlyViewedRecruits() {
-  const [recentlyViewedRecruits, setRecentlyViewedRecruits] = useState<RecentlyViewedRecruitsItem[]>();
+  const [recentlyViewedRecruits, setRecentlyViewedRecruits] = useState<RecentlyViewedRecruitsType[]>([]);
 
   useEffect(() => {
     const storedRecruits = JSON.parse(sessionStorage.getItem('recentlyViewedRecruits') || '[]');

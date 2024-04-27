@@ -13,6 +13,11 @@
   },
   "plugins": ["prettier", "import"],
   "rules": {
+    "no-alert": "off",
+    "no-console": "off",
+    "no-restricted-globals": "off",
+    "no-nested-ternary": "off",
+    "import/no-cycle": "import/no-cycle",
     "react/react-in-jsx-scope": "off",
     "react/button-has-type": "off",
     "react/jsx-props-no-spreading": "off",

@@ -1,6 +1,12 @@
+'use client';
+
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
 import Button from '@/components/button/button';
 
 export default function RegisteredNotice() {
+  const { storeId } = useParams();
   return (
     <div className="flex items-center justify-center w-full px-6 pt-10 pb-20 bg-neutral-50 md:pt-[60px] md:pb-[120px]">
       <div>
@@ -10,9 +16,11 @@ export default function RegisteredNotice() {
             공고를 등록해 보세요.
           </div>
           <div className=" md:w-[346px] rounded-md justify-center items-center gap-2 inline-flex">
-            <Button className="px-5 py-2 font-bold md:h-12" background="bg-primary">
-              공고 등록하기
-            </Button>
+            <Link href={`/my-store/${storeId}/my-recruits/edit`}>
+              <Button className="px-5 py-2 font-bold md:h-12" background="bg-primary">
+                공고 등록하기
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

@@ -6,7 +6,13 @@ import DatePicker from 'react-datepicker';
 import Image from 'next/image';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import { TFilter } from '@/app/(service)/_components/totalRecruitList';
+
 import Button from '../button/button';
+
+interface DetailFilterModalProps {
+  onFiltersChange: (filters: TFilter) => void;
+}
 
 const ADDRESS_LIST = [
   '서울시 종로구',
@@ -35,14 +41,15 @@ const ADDRESS_LIST = [
   '서울시 송파구',
   '서울시 강동구',
 ];
+
 // Todo: key값 수정, 적용하기 버튼 onClick 이벤트 추가하기, ESlint 들여쓰기 이슈 고치기
-function DetailFilterModal({ onFiltersChange }) {
+function DetailFilterModal({ onFiltersChange }: DetailFilterModalProps) {
   const [activeModal, setActiveModal] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [clickAddressList, setClickAddressList] = useState<string[]>([]);
   const [filterAddressList, setFilterAddressList] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [amount, setAmount] = useState<number | null>();
+  const [amount, setAmount] = useState<number | null>(null);
   const handleDeleteClickAddressListItem = (address: string) => {
     const filterList = clickAddressList.filter((item) => item !== address);
     setClickAddressList(filterList);
