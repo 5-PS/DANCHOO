@@ -107,7 +107,7 @@ export const postCreateStore = async (formData: PostCreateStoreBody) => {
   return data;
 };
 
-export const getMyStoreData = async (id: string) => {
+export const getMyStore = async (id: string) => {
   const { data } = await apiClient.get(`/shops/${id}`);
   return data;
 };
@@ -166,11 +166,28 @@ export const requestModificationStore = async (storeId: string | string[], formD
   }
 };
 
+export const getDetailRecruit = async (shopId: string, recruitId: string) => {
+  try {
+    const { data } = await apiClient.get(`/shops/${shopId}/notices/${recruitId}`);
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.log(error.response?.data.message);
+    }
+    return null;
+  }
+};
 export const postRecruitsEdit = async ({ Id, formData }: PostRecruitsEditBody) => {
   const { data } = await postRequest.post(`/shops/${Id}/notices`, formData);
+  return data;
 };
 
 export const putAlertRead = async (userId: string, alertId: string) => {
   const { data } = await postRequest.put(`/users/${userId}/alerts/${alertId}`);
+  return data;
+};
+
+export const getStoreNotice = async (storeId: string) => {
+  const { data } = await apiClient.get(`/shops/${storeId}/notices`);
   return data;
 };

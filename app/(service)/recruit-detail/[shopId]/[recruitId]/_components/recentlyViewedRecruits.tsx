@@ -8,7 +8,7 @@ function RecentlyViewedRecruits() {
   const [recentlyViewedRecruits, setRecentlyViewedRecruits] = useState([]);
 
   useEffect(() => {
-    const storedRecruits = JSON.parse(sessionStorage.getItem('recentlyViewedRecruits')) || [];
+    const storedRecruits = JSON.parse(sessionStorage.getItem('recentlyViewedRecruits') || '[]');
     setRecentlyViewedRecruits(storedRecruits);
   }, []);
   return (
@@ -16,7 +16,8 @@ function RecentlyViewedRecruits() {
       {recentlyViewedRecruits?.map((list) => (
         <li key={list.id}>
           <Post
-            href={list.href}
+            id={list.id}
+            shopId={list.shopId}
             address={list.address}
             imageUrl={list.imageUrl}
             name={list.name}
