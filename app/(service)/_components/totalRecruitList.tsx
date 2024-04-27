@@ -18,7 +18,7 @@ export interface TFilter {
   hourlyPayGte: number | null;
 }
 
-function TotalRecruitList({ page }: { page?: number }) {
+function TotalRecruitList() {
   const keyword = useSearchParams().get('keyword');
   const [sortOption, setSortOption] = useState<'time' | 'pay' | 'hour' | 'shop'>('time');
   const [filters, setFilters] = useState<TFilter>({
@@ -26,7 +26,10 @@ function TotalRecruitList({ page }: { page?: number }) {
     startsAtGte: null,
     hourlyPayGte: 0,
   });
-  const pageQuery = page || 1;
+  const searchParams = useSearchParams();
+  const page = searchParams.get('page');
+  const pageNum = Number(page);
+  const pageQuery = pageNum || 1;
 
   const { data } = useQuery<RecruitResponse>({
     queryKey: ['notices', sortOption, page, filters, keyword],
