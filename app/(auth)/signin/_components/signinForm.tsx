@@ -10,10 +10,6 @@ import Input from '@/components/input/input';
 import ROUTE_PATHS from '@/constants/route';
 import { postSignIn } from '@/services/api';
 
-interface SignInFormProps {
-  referer: string | null;
-}
-
 interface FieldValues {
   email: string;
   password: string;
@@ -48,7 +44,7 @@ const FORM_FIELDS = [
   },
 ];
 
-export default function SignInForm({ referer }: SignInFormProps) {
+export default function SignInForm() {
   const router = useRouter();
 
   const {
@@ -65,8 +61,7 @@ export default function SignInForm({ referer }: SignInFormProps) {
 
       document.cookie = `accessToken=${token}; Path=/; Max-Age=86400; Secure; SameSite=Strict`;
 
-      if (!referer) router.push(ROUTE_PATHS.HOME);
-      else router.push(referer);
+      router.push(ROUTE_PATHS.HOME);
     } catch (error) {
       if (error instanceof AxiosError) {
         const errorMessage = error.response?.status === 404 ? error.response.data.message : '로그인에 실패했습니다.';

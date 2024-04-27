@@ -1,11 +1,12 @@
 import axios, { AxiosError } from 'axios';
 
-import apiClient, { postRequest } from '@/libs/axios';
+import { apiClient, postRequest } from '@/libs/axios';
 import {
   PostSignInBody,
   PostSignupBody,
   PutProfileBody,
   PostCreateStoreBody,
+  PostRecruitsEditBody,
   RequestRecruit,
   GetNoticesParams,
 } from '@/types/api';
@@ -20,7 +21,15 @@ export async function postSignIn({ email, password }: PostSignInBody) {
   return data;
 }
 
-export const getNotices = async ({ offset, limit, address, startsAtGte, hourlyPayGte, sort }: GetNoticesParams) => {
+export const getNotices = async ({
+  offset,
+  limit,
+  address,
+  keyword,
+  startsAtGte,
+  hourlyPayGte,
+  sort,
+}: GetNoticesParams) => {
   const params = new URLSearchParams();
 
   if (sort) {
@@ -39,6 +48,11 @@ export const getNotices = async ({ offset, limit, address, startsAtGte, hourlyPa
       params.append('address', v);
     });
   }
+
+  if (keyword) {
+    params.append('keyword', keyword.toString());
+  }
+
   if (startsAtGte) {
     params.append('startsAtGte', startsAtGte.toISOString());
   }
@@ -55,6 +69,11 @@ export const getNotices = async ({ offset, limit, address, startsAtGte, hourlyPa
 
 export const getPersonalNotices = async () => {
   const { data } = await apiClient.get('/notices');
+  return data;
+};
+
+export const getUserProfile = async (userId: string) => {
+  const { data } = await apiClient.get(`/users/${userId}`);
   return data;
 };
 
@@ -88,7 +107,7 @@ export const postCreateStore = async (formData: PostCreateStoreBody) => {
   return data;
 };
 
-export const getMyStoreData = async (id: string) => {
+export const getMyStore = async (id: string) => {
   const { data } = await apiClient.get(`/shops/${id}`);
   return data;
 };
@@ -145,4 +164,30 @@ export const requestModificationStore = async (storeId: string | string[], formD
   } catch (err) {
     console.log(err);
   }
+};
+
+export const getDetailRecruit = async (shopId: string, recruitId: string) => {
+  try {
+    const { data } = await apiClient.get(`/shops/${shopId}/notices/${recruitId}`);
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.log(error.response?.data.message);
+    }
+    return null;
+  }
+};
+export const postRecruitsEdit = async ({ Id, formData }: PostRecruitsEditBody) => {
+  const { data } = await postRequest.post(`/shops/${Id}/notices`, formData);
+  return data;
+};
+
+export const putAlertRead = async (userId: string, alertId: string) => {
+  const { data } = await postRequest.put(`/users/${userId}/alerts/${alertId}`);
+  return data;
+};
+
+export const getStoreNotice = async (storeId: string) => {
+  const { data } = await apiClient.get(`/shops/${storeId}/notices`);
+  return data;
 };

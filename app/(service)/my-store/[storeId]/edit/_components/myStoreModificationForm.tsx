@@ -1,17 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import Button from '@/components/button/button';
 import Input from '@/components/input/input';
 import SelectInput from '@/components/input/selectInput';
-import { postCreateStore, requestUploadImg } from '@/services/api';
+import { getStoreInformation, requestModificationStore, requestUploadImg } from '@/services/api';
 import { PostCreateStoreBody } from '@/types/api';
 
 const FOOD_CATEGORY_LIST = [
@@ -63,8 +62,10 @@ interface FieldValues {
   address1: string;
 }
 
-export default function MyStoreForm() {
+export default function MyStoreModificationForm() {
   const router = useRouter();
+  const params = useParams();
+  const { storeId } = params;
   const {
     register,
     handleSubmit,
@@ -72,31 +73,48 @@ export default function MyStoreForm() {
     formState: { errors },
   } = useForm<FieldValues>({ mode: 'all' });
   const [imageSrc, setImageSrc] = useState<any>(null);
-  const { refetch } = useQuery({ queryKey: ['userInfo1'] });
-
+  const [defaultValue, setdefaultValue] = useState<any>(null);
+  const [changeImgSrc, setChangeImgSrc] = useState<any>(null);
   const handleUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        setImageSrc(reader.result);
+        setChangeImgSrc(reader.result);
       };
     }
   };
-
+  useEffect(() => {
+    const getData = async () => {
+      const { item } = await getStoreInformation(storeId);
+      setdefaultValue(item);
+      setImageSrc(item.imageUrl);
+    };
+    getData();
+  }, []);
   const onSubmit = async (formData: any) => {
     try {
-      const imageUrl = await requestUploadImg(formData.imageUrl[0]);
-      const postData: PostCreateStoreBody = {
-        ...formData,
-        imageUrl,
-        originalHourlyPay: Number(formData.originalHourlyPay),
-      };
-      const { item } = await postCreateStore(postData);
-      alert('내가게가 등록 되었습니다');
-      refetch();
-      router.push(`/my-store/${item.id}`);
+      if (changeImgSrc !== null) {
+        const imageUrl = await requestUploadImg(formData.imageUrl[0]);
+        const postData: PostCreateStoreBody = {
+          ...formData,
+          imageUrl,
+          originalHourlyPay: Number(formData.originalHourlyPay),
+        };
+        await requestModificationStore(storeId, postData);
+        alert('수정이 완료되었습니다.');
+        router.push(`/my-store/${storeId}`);
+      } else {
+        const postData: PostCreateStoreBody = {
+          ...formData,
+          imageUrl: imageSrc,
+          originalHourlyPay: Number(formData.originalHourlyPay),
+        };
+        await requestModificationStore(storeId, postData);
+        alert('수정이 완료되었습니다.');
+        router.push(`/my-store/${storeId}`);
+      }
     } catch (error) {
       if (error instanceof AxiosError) {
         const errorMessage = error.response?.data.message;
@@ -104,6 +122,11 @@ export default function MyStoreForm() {
       }
     }
   };
+  const previewImg = changeImgSrc ? (
+    <Image src={changeImgSrc} fill alt="미리보기 이미지" />
+  ) : (
+    <Image src={imageSrc} className="brightness-50" fill alt="미리보기 이미지" />
+  );
   return (
     <form onSubmit={handleSubmit((data) => onSubmit(data))}>
       <div className="flex flex-col gap-6 mb-6 md:mb-8">
@@ -112,7 +135,7 @@ export default function MyStoreForm() {
             label="가게 이름*"
             type="text"
             errorMessage={errors.name?.message}
-            placeholder="가게 이름을 적어주세요."
+            placeholder={defaultValue?.name}
             {...register('name', {
               required: '가게 이름을 적어주세요',
             })}
@@ -143,7 +166,7 @@ export default function MyStoreForm() {
             label="상세 주소*"
             type="text"
             errorMessage={errors.address2?.message}
-            placeholder="주소를 입력해 주세요."
+            placeholder={defaultValue?.address2}
             {...register('address2', {
               required: '상세 주소를 입력해주세요',
             })}
@@ -154,7 +177,7 @@ export default function MyStoreForm() {
             label="기본 시급*"
             type="number"
             rightText="원"
-            placeholder="시급을 입력해주세요"
+            placeholder={defaultValue?.originalHourlyPay}
             errorMessage={errors.originalHourlyPay?.message}
             {...register('originalHourlyPay', {
               required: '시급을 입력해주세요',
@@ -166,28 +189,29 @@ export default function MyStoreForm() {
           <p className="mb-2">가게 이미지</p>
           <label
             htmlFor="image-input"
-            className={`flex flex-col gap-3 font-bold text-gray-40 w-full max-w-[375px] h-[201px] md:max-w-full md:h-[276px] bg-gray-10 border  ${!imageSrc && 'border-gray-20 '}  rounded-xl justify-center items-center cursor-pointer relative overflow-hidden`}
+            className={`flex flex-col gap-3 font-bold text-white w-full max-w-[375px] h-[201px] md:max-w-full md:h-[276px]  ${!imageSrc && 'border-gray-20 '}  rounded-xl justify-center items-center cursor-pointer relative overflow-hidden`}
           >
-            <div className="inline-flex flex-col items-center gap-3">
-              <Image src="/icons/image-add-icon.svg" width={32} height={32} alt="사진 추가 아이콘" />
-              이미지 선택
+            <div className={`inline-flex flex-col items-center gap-3 ${changeImgSrc || 'z-[1000]'}`}>
+              <Image src="/icons/image-change-icon.svg" width={32} height={32} alt="사진 추가 아이콘" />
+              이미지 변경하기
               <input
                 type="file"
                 id="image-input"
                 className="invisible w-0 h-0"
                 {...register('imageUrl', {
-                  required: '가게 이미지를 올려주세요',
                   onChange: handleUploadImage,
                 })}
               />
             </div>
-            {imageSrc && <Image src={imageSrc} fill alt="미리보기 이미지" />}
+
+            {imageSrc && previewImg}
           </label>
           {errors.imageUrl && <span className="text-xs text-red-500">{errors.imageUrl.message}</span>}
         </div>
         <label htmlFor="store-description">
           <p className="mb-2">가게 설명 </p>
           <textarea
+            placeholder={defaultValue?.description}
             id="store-description"
             className="w-full h-[153px] rounded-[6px] px-5 py-4 border border-gray-30"
             {...register('description')}
@@ -197,7 +221,7 @@ export default function MyStoreForm() {
       <div className="flex justify-center ">
         <div className="w-full md:w-[312px]">
           <Button background="bg-primary" className="h-12">
-            등록하기
+            완료하기
           </Button>
         </div>
       </div>

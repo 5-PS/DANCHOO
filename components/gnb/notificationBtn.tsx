@@ -1,22 +1,50 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import { AxiosError } from 'axios';
 import Image from 'next/image';
+
+import { postRequest } from '@/libs/axios';
+import { AlertItem } from '@/types/notification';
+import jwtDecode from '@/utils/decodeJWT';
 
 import NotificationBoard from '../notificationModal/notificationBoard';
 
-// TODO 알람 읽었는지 확인하는 로직 추가 해야함
-function NotificationBtn({ alertList }) {
-  const [isNotificationOpen, setIsNotificationOpen] = useState<boolean>(false);
-  const read = false;
+interface AlertList {
+  count: number;
+  items: AlertItem[];
+}
+
+function NotificationBtn() {
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [alertList, setAlertList] = useState<AlertList>({ count: 0, items: [] });
+
+  useEffect(() => {
+    const tokenPayload = document.cookie.split('.')[1];
+    const userId = jwtDecode(tokenPayload);
+    const fetchData = async () => {
+      try {
+        const { data } = await postRequest.get(`/users/${userId}/alerts`);
+        const unreadAlerts = data.items.filter((item: { item: { read: boolean } }) => !item.item.read);
+        setAlertList({ count: unreadAlerts.length, items: unreadAlerts });
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          const errorMessage = error.response?.data.message;
+          alert(errorMessage);
+        }
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <button onClick={() => setIsNotificationOpen((prev) => !prev)}>
-        {read ? (
-          <Image src="/icons/notification-inactive.svg" width={20} height={20} alt="알림 아이콘" />
-        ) : (
+        {alertList.count ? (
           <Image src="/icons/notification-active.svg" width={20} height={20} alt="알림 아이콘" />
+        ) : (
+          <Image src="/icons/notification-inactive.svg" width={20} height={20} alt="알림 아이콘" />
         )}
       </button>
       {isNotificationOpen && (

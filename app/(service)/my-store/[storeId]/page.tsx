@@ -1,7 +1,6 @@
 import Footer from '@/components/footer/footer';
 
 import MyStoreCard from './_components/myStoreCard';
-import RegisteredNotice from './_components/registeredNotice';
 
 export default function MyStore() {
   return (
@@ -13,7 +12,6 @@ export default function MyStore() {
           </h2>
           <MyStoreCard />
         </div>
-        <RegisteredNotice />
       </div>
       <Footer />
     </>

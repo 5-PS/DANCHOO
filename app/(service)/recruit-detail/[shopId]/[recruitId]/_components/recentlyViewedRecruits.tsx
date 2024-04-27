@@ -4,11 +4,24 @@ import { useEffect, useState } from 'react';
 
 import Post from '@/components/post/post';
 
+export interface RecentlyViewedRecruitsType {
+  id: string;
+  shopId: string;
+  address: string;
+  imageUrl: string;
+  name: string;
+  hourlyPay: number;
+  originalHourlyPay: number;
+  startsAt: string;
+  workhour: number;
+  closed: boolean;
+}
+
 function RecentlyViewedRecruits() {
-  const [recentlyViewedRecruits, setRecentlyViewedRecruits] = useState([]);
+  const [recentlyViewedRecruits, setRecentlyViewedRecruits] = useState<RecentlyViewedRecruitsType[]>([]);
 
   useEffect(() => {
-    const storedRecruits = JSON.parse(sessionStorage.getItem('recentlyViewedRecruits')) || [];
+    const storedRecruits = JSON.parse(sessionStorage.getItem('recentlyViewedRecruits') || '[]');
     setRecentlyViewedRecruits(storedRecruits);
   }, []);
   return (
@@ -16,7 +29,8 @@ function RecentlyViewedRecruits() {
       {recentlyViewedRecruits?.map((list) => (
         <li key={list.id}>
           <Post
-            href={list.href}
+            id={list.id}
+            shopId={list.shopId}
             address={list.address}
             imageUrl={list.imageUrl}
             name={list.name}
