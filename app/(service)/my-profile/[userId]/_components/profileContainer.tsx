@@ -24,21 +24,26 @@ async function ProfileContainer({ userId, page }: { userId: string | string[]; p
       <section>
         <div className="max-w-[957px] m-auto py-[60px] p-[32px]">
           <h2 className="font-bold text-[28px] mb-10">내 프로필</h2>
-          <div className="bg-white  shadow-modal-box p-[32px]">
+          <div className="bg-white shadow-modal-box p-[32px] rounded-xl">
             <div className="flex justify-between">
-              <div className="text-[20px]">{item.name}</div>
+              <div className="text-[20px] font-bold text-primary">{item.name}</div>
               <div className="w-[200px]">
-                <Button background="bg-white">편집하기</Button>
+                <Button background="bg-white" className="h-10 text-sm">
+                  편집하기
+                </Button>
               </div>
             </div>
             <div>{item.phone}</div>
             <div>{item.address}</div>
-            <div>{item.bio}</div>
+            <p>{item.bio}</p>
           </div>
         </div>
       </section>
       <section className=" bg-red-10">
-        <ApplyList userId={userId} page={page} />
+        <div className="max-w-[957px] m-auto py-[60px] p-[32px]">
+          <h2 className="font-bold text-[28px] mb-10">신청 내역</h2>
+          <ApplyList userId={userId} page={page} />
+        </div>
       </section>
     </>
   );
