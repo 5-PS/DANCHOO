@@ -41,7 +41,7 @@ function Personal() {
     );
   }
   const filterData = notice.data?.items.filter(
-    ({ item }) => item.closed === false && new Date() < new Date(item.startsAt),
+    ({ item }: any) => item.closed === false && new Date() < new Date(item.startsAt),
   );
 
   return (
@@ -61,7 +61,7 @@ function Personal() {
         modules={[Autoplay, Navigation]}
         className="mySwiper"
       >
-        {filterData?.map(({ item }) => {
+        {filterData?.map(({ item }: any) => {
           return (
             <SwiperSlide>
               <Post
