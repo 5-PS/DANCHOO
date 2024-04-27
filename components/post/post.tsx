@@ -5,21 +5,9 @@ import { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { RecentlyViewedRecruitsType } from '@/app/(service)/recruit-detail/[shopId]/[recruitId]/_components/recentlyViewedRecruits';
 import calculatePercentage from '@/utils/calculatePercentage';
 import formatDateRange from '@/utils/formatDateRange';
-
-interface PostProps {
-  id: string;
-  shopId: string;
-  address: string;
-  imageUrl: string;
-  name: string;
-  hourlyPay: number;
-  originalHourlyPay: number;
-  startsAt: string;
-  workhour: number;
-  closed: boolean;
-}
 
 function Post({
   id,
@@ -32,7 +20,7 @@ function Post({
   startsAt,
   workhour,
   closed,
-}: PostProps) {
+}: RecentlyViewedRecruitsType) {
   const percentage = useMemo(() => calculatePercentage(hourlyPay, originalHourlyPay), [hourlyPay, originalHourlyPay]);
   const isPassed = new Date() > new Date(startsAt);
   const isClosed = closed || isPassed;

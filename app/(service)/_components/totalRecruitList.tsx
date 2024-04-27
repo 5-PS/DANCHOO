@@ -12,10 +12,10 @@ import SortingDropdown from '@/components/sortingDropdown/sortingDropdown';
 import { getNotices } from '@/services/api';
 import { RecruitResponse } from '@/types/api';
 
-interface TFilter {
+export interface TFilter {
   address: string[];
-  startsAtGte?: Date;
-  hourlyPayGte: number;
+  startsAtGte: Date | null;
+  hourlyPayGte: number | null;
 }
 
 function TotalRecruitList({ page }: { page?: number }) {
@@ -23,7 +23,7 @@ function TotalRecruitList({ page }: { page?: number }) {
   const [sortOption, setSortOption] = useState<'time' | 'pay' | 'hour' | 'shop'>('time');
   const [filters, setFilters] = useState<TFilter>({
     address: [],
-    startsAtGte: undefined,
+    startsAtGte: null,
     hourlyPayGte: 0,
   });
   const pageQuery = page || 1;
@@ -42,7 +42,7 @@ function TotalRecruitList({ page }: { page?: number }) {
       }),
   });
 
-  const pageLength = data?.count;
+  const pageLength = data?.count || 0;
 
   const handleFiltersChange = ({ address, startsAtGte, hourlyPayGte }: TFilter) => {
     setFilters({
