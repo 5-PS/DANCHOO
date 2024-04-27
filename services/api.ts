@@ -107,7 +107,7 @@ export const postCreateStore = async (formData: PostCreateStoreBody) => {
   return data;
 };
 
-export const getMyStoreData = async (id: string) => {
+export const getMyStore = async (id: string) => {
   const { data } = await apiClient.get(`/shops/${id}`);
   return data;
 };
@@ -184,5 +184,10 @@ export const postRecruitsEdit = async ({ Id, formData }: PostRecruitsEditBody) =
 
 export const putAlertRead = async (userId: string, alertId: string) => {
   const { data } = await postRequest.put(`/users/${userId}/alerts/${alertId}`);
+  return data;
+};
+
+export const getStoreNotice = async (storeId: string) => {
+  const { data } = await apiClient.get(`/shops/${storeId}/notices`);
   return data;
 };
