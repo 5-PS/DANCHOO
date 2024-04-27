@@ -65,14 +65,14 @@ function TotalRecruitList() {
     <>
       <div className="flex justify-between">
         <h2 className="text-[28px] font-bold">{keyword ? `${keyword}에 대한 공고목록` : '전체 공고'}</h2>
-        <div className="flex items-center justify-center gap-1 mb-4 md:mb-8">
+        <div className="flex items-center justify-end gap-[10px] mb-4 md:mb-8">
           <SortingDropdown onSelect={handleSortChange} sortOption={sortOption} />
           <DetailFilterModal onFiltersChange={handleFiltersChange} />
         </div>
       </div>
       {data.items.length > 0 ? (
         <>
-          <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-1 sm:gap-x-[14px] sm:gap-y-8">
+          <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-2 gap-y-1 sm:gap-x-[14px] sm:gap-y-8 mb-10">
             {data.items.map(({ item }) => (
               <li key={item.id}>
                 <Post
