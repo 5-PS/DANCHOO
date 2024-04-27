@@ -8,13 +8,7 @@ import { RecruitResponse } from '@/types/api';
 
 import TotalRecruitList from './_components/totalRecruitList';
 
-export default function Home({
-  searchParams,
-}: {
-  searchParams: {
-    page: number;
-  };
-}) {
+export default function Home() {
   const { data } = useQuery<RecruitResponse>({ queryKey: ['notices'], queryFn: getPersonalNotices });
   if (!data) return null;
 
@@ -46,7 +40,7 @@ export default function Home({
         </div>
       </section>
       <section className="px-3 py-[60px] sm:px-8 md:max-w-[964px] md:m-auto">
-        <TotalRecruitList page={searchParams.page} />
+        <TotalRecruitList />
       </section>
     </>
   );
