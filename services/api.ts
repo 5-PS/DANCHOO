@@ -65,8 +65,8 @@ export const getNotices = async ({
   return data;
 };
 
-export const getPersonalNotices = async () => {
-  const { data } = await apiClient.get('/notices');
+export const getPersonalNotices = async ({ address }) => {
+  const { data } = await apiClient.get(`/notices?address=${address}`);
   return data;
 };
 
