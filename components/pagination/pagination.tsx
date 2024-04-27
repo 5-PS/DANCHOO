@@ -28,12 +28,16 @@ function Pagination({
             {Array.from({ length: pageLength }, (_, index) => index + 1).map((number) => {
               if (pageNum === number)
                 return (
-                  <span className="w-[32px] h-[32px] p-[12px] rounded-[4px] text-[14px] leading-[18px] inline-flex justify-center items-center md:w-[40px] md:h-[40px] bg-red-20">
+                  <span
+                    key={number + 'kla'}
+                    className="w-[32px] h-[32px] p-[12px] rounded-[4px] text-[14px] leading-[18px] inline-flex justify-center items-center md:w-[40px] md:h-[40px] bg-red-20"
+                  >
                     {number}
                   </span>
                 );
               return (
                 <Link
+                  key={number + 'kla'}
                   className={`w-[24px] h-[24px] p-[12px] rounded-[4px] text-[14px] leading-[18px] inline-flex justify-center items-center md:w-[40px] md:h-[40px] `}
                   href={`?page=${number}`}
                   scroll={false}
