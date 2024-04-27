@@ -16,7 +16,7 @@ async function RecuitsCard({ storeId, recruitId }: RecuitsCardProps) {
   const response = await getStoreRecruit(storeId, recruitId);
   const { item } = response;
   const { shop } = item;
-  console.log(shop);
+
   return (
     <>
       <div className="mb-4 md:mb-6">
@@ -35,7 +35,7 @@ async function RecuitsCard({ storeId, recruitId }: RecuitsCardProps) {
             <div className="font-bold text-[24px] flex gap-2 items-center md:text-[28px]">
               {item.hourlyPay.toLocaleString()}원
               <PercentageBadge
-                closed={false}
+                isClosed={false}
                 percentage={calculatePercentage(item.hourlyPay, shop.item.originalHourlyPay)}
               />
             </div>
