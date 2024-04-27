@@ -4,7 +4,7 @@ import { getUserProfile } from '@/services/api';
 import ApplyList from './applyList';
 import Empty from './empty';
 
-async function ProfileContainer({ userId, page }: { userId: string | string[] }) {
+async function ProfileContainer({ userId, page }: { userId: string | string[]; page: string }) {
   const user = await getUserProfile(userId);
   const { item } = user;
   if (!item.name) {

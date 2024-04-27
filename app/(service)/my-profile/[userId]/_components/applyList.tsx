@@ -1,20 +1,27 @@
+import { cookies } from 'next/headers';
+
+import Table from '@/components/table/table';
 import { getApplyList } from '@/services/api';
+import formatDateRange from '@/utils/formatDateRange';
 
 import Empty from './empty';
 
-async function ApplyList({ userId, page }: { userId: string | string[] }) {
-  const applyList = await getApplyList(userId, page);
-  console.log(applyList);
-  // 서버 컴포넌트라서 getCookie함수 document.cookie가 안되서 그런거 같아요
-  if (applyList) {
-    return (
-      <Empty
-        title="신청 내역"
-        desc="아직 신청 내역이 없어요."
-        btnText="공고 보러가기"
-        href={`/my-profile/${userId}/edit`}
-      />
-    );
+async function ApplyList({ userId, page }: { userId: string | string[]; page: string }) {
+  const pageNum = Number(page);
+  const cookieStore = cookies();
+  const accessToken = cookieStore.get('accessToken');
+  const response = await getApplyList(userId, pageNum, accessToken?.value);
+  if (!response.count) {
+    return <Empty title="신청 내역" desc="아직 신청 내역이 없어요." btnText="공고 보러가기" href="/" />;
   }
+
+  const data = response.items.map(({ item }: { item: any }) => ({
+    status: item.status,
+    col1: item.shop.item.name,
+    col2: formatDateRange(item.notice.item.startsAt, item.notice.item.workhour),
+    col3: `${item.notice.item.hourlyPay.toLocaleString()}원`,
+  }));
+
+  return <Table query={page} type="applyList" totalDataCount={response.count} data={data} />;
 }
 export default ApplyList;

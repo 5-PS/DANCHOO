@@ -103,8 +103,16 @@ export const getUserProfile = async (userId: string | string[]): Promise<GetUser
   return data;
 };
 
-export const getApplyList = async (userId: string | string[], page = 1): Promise<any> => {
-  const { data } = await postRequest.get(`/users/${userId}/applications?limit=5&offset=${(page - 1) * 5}`);
+export const getApplyList = async (userId: string | string[], page = 1, token): Promise<any> => {
+  const { data } = await axios.get(
+    `https://bootcamp-api.codeit.kr/api/4-2/the-julge/users/${userId}/applications?limit=5&offset=${(page - 1) * 5}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
   return data;
 };
 
@@ -208,6 +216,7 @@ export const getDetailRecruit = async (shopId: string, recruitId: string) => {
     return null;
   }
 };
+
 export const postRecruitsEdit = async ({ Id, formData }: PostRecruitsEditBody) => {
   const { data } = await postRequest.post(`/shops/${Id}/notices`, formData);
   return data;
