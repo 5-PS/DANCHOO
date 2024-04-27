@@ -98,8 +98,13 @@ interface GetUserProfileResponse {
   links: ProfileLink[];
 }
 
-export const getUserProfile = async (userId: string): Promise<GetUserProfileResponse> => {
+export const getUserProfile = async (userId: string | string[]): Promise<GetUserProfileResponse> => {
   const { data } = await apiClient.get(`/users/${userId}`);
+  return data;
+};
+
+export const getApplyList = async (userId: string | string[], page = 1): Promise<any> => {
+  const { data } = await postRequest.get(`/users/${userId}/applications?limit=5&offset=${(page - 1) * 5}`);
   return data;
 };
 

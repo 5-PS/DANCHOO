@@ -11,6 +11,8 @@ import { decodeJWT, getCookie } from '@/utils/getCookie';
 
 import NotificationBtn from './notificationBtn';
 
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiYzBmYWZhNy03ODZhLTQ3NTgtOGRhNC0xYmEwNTYxNTZkNTQiLCJpYXQiOjE3MTQxNTMwNjh9.Dm1Jb_6eodpkKH-ewqLJS_Rf2fZ_NHV_PaX2DZNI0fI
+
 interface BoxProps {
   userId?: string;
   type?: string;
