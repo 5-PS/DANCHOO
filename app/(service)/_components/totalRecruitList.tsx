@@ -42,7 +42,7 @@ function TotalRecruitList({ page }: { page?: number }) {
       }),
   });
 
-  const pageLength = data?.count;
+  const pageLength = data?.count || 0;
 
   const handleFiltersChange = ({ address, startsAtGte, hourlyPayGte }: TFilter) => {
     setFilters({
