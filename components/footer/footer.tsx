@@ -13,7 +13,7 @@ const SOCIAL_MEDIA_LINKS = Object.freeze([
 
 function Footer() {
   return (
-    <footer className="w-full h-[126px] md:h-[100px] justify-center items-center flex bg-gray-10 p-5  md:p-8">
+    <footer className="w-full h-[126px] md:h-[100px] justify-center items-center flex bg-gray-10 p-5 md:p-8 absolute bottom-0">
       <div className="flex justify-between w-full xl:max-w-[964px] mt-2 md:mt-0">
         <div className="flex flex-col-reverse justify-between gap-10 md:gap-0 md:flex-1 md:flex-row text-gray-50">
           <div className="md:flex-1">© 5PS - 2024</div>
