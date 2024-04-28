@@ -32,7 +32,7 @@ export default function CautionModal() {
 
   useOutSideClick(modalRef, closeModal);
   return (
-    <div className="fixed inset-0 flex bg-gray-500 bg-opacity-50 ">
+    <div className="fixed inset-0 flex bg-gray-500 bg-opacity-50  z-[999]">
       <div
         className="fixed transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg top-1/2 left-1/2"
         ref={modalRef}
