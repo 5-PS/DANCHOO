@@ -245,6 +245,6 @@ export const putCancelRecruit = async (shopId: string, recruitId: string, applic
 };
 
 export const getUserApplyList = async (userId?: string) => {
-  const { data } = await postRequest.get(`/users/${userId}/applications`);
+  const { data } = await postRequest.get(`/users/${userId}/applications?limit=100`);
   return data;
 };
