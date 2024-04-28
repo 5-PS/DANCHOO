@@ -227,7 +227,7 @@ export const putAlertRead = async (userId: string, alertId: string) => {
   return data;
 };
 
-export const getStoreNotice = async (storeId: string) => {
-  const { data } = await apiClient.get(`/shops/${storeId}/notices`);
+export const getStoreNotice = async (storeId: string, offset: number, limit: number) => {
+  const { data } = await apiClient.get(`/shops/${storeId}/notices?offset=${offset}&limit=${limit}`);
   return data;
 };
