@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { useQuery } from '@tanstack/react-query';
+
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -12,33 +12,42 @@ import { decodeJWT, getCookie } from '@/utils/getCookie';
 import NotificationBtn from './notificationBtn';
 
 interface BoxProps {
-  userId?: string;
-  type?: string;
-  shopId?: string;
+  type ?: string;
+  linkUrl ?: string;
 }
 
-function UserTypeLink({ userType }: { userType: BoxProps }) {
-  return userType.type === 'employer' ? (
-    <Link href={`${userType?.shopId ? `/my-store/${userType.shopId}` : `/my-store`}`}>내가게</Link>
-  ) : (
-    <Link href={`/my-profile/${userType.userId}`}>내 프로필</Link>
-  );
+ 
+function UserTypeLink({ user }: { user: BoxProps }) {
+  return (
+    <>
+    {user?.type === 'employer' && <Link href={`${user?.linkUrl ? `/my-store/${user.linkUrl}` : `/my-store`}`}>내가게</Link>}
+    {user?.type === 'employee' &&    <Link href={`/my-profile/${user?.linkUrl}`}>내 프로필</Link>}
+    </>
+  )
 }
 
-const getUser = async (userId: any) => apiClient.get(`/users/${userId}`);
+export const getUser = async (userId: any) => apiClient.get(`/users/${userId}`);
 
 function UserContentBox({ userId, logout }: { userId?: string; logout: any }) {
-  const { data } = useQuery({ queryKey: ['userInfo1'], queryFn: () => getUser(userId) });
+  const [user, setUser] = useState<any>(null);
 
-  const userInfo: BoxProps = {
-    userId: data?.data.item.id,
-    type: data?.data.item.type,
-    shopId: data?.data.item.shop?.item.id,
-  };
+ 
+  useEffect(() => {
+    const getUserData = async (id ?: string)  => {
+      const {data} = await getUser(id);
+      const userInfo = {
+        type : data.item.type,
+        linkUrl : data.item.type === 'employer' ? data.item.shop?.item.id : data.item.id,
+      }
+      setUser(userInfo);
+    }
+    getUserData(userId);
+
+  },[])
 
   return (
     <>
-      <UserTypeLink userType={userInfo} />
+      <UserTypeLink user={user} />
       <button onClick={logout} type="button">
         로그아웃
       </button>
@@ -56,6 +65,7 @@ function AuthButton() {
     setToken('');
     alert('로그아웃 되었습니다');
     router.push('/');
+  
   };
   useEffect(() => {
     const accessToken = getCookie('accessToken');

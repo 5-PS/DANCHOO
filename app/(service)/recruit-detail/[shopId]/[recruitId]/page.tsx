@@ -18,10 +18,11 @@ function RecruitDetail({ params }: RecruitDetailProps) {
         <RecruitCard shopId={shopId} recruitId={recruitId}/>
       </section>
 
-      <section className="px-3 pt-10 pb-20 max-w-[964px] m-auto md:px-8 md:py-[60px] xl:pb-[120px]">
+      <section className="px-3 pt-10 pb-[200px] max-w-[964px] m-auto md:px-8 md:pt-[60px] md:pb-[180px] xl:pb-[240px]">
         <h2 className="mb-4 text-xl font-bold text-black md:mb-8 md:text-[28px]">최근에 본 공고</h2>
         <RecentlyViewedRecruits />
       </section>
+
       <Footer />
     </main>
   );
