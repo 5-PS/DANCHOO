@@ -61,19 +61,58 @@ export const getNotices = async ({
     params.append('hourlyPayGte', hourlyPayGte.toString());
   }
 
-  console.log(params.getAll('address'));
-
   const { data } = await apiClient.get('/notices', { params });
   return data;
 };
 
-export const getPersonalNotices = async () => {
-  const { data } = await apiClient.get('/notices');
+export const getPersonalNotices = async ({ address }) => {
+  const { data } = await apiClient.get(`/notices?address=${address}`);
   return data;
 };
 
-export const getUserProfile = async (userId: string) => {
+type UserType = 'employee' | 'employer';
+
+export interface ProfileItem extends ProfileOptionalItem {
+  email: string;
+  id: string;
+  shop: null;
+  type: UserType;
+}
+
+export interface ProfileOptionalItem {
+  name: string;
+  phone: string;
+  address: string;
+  bio: string;
+}
+
+interface ProfileLink {
+  description: string;
+  href: string;
+  method: string;
+  rel: string;
+}
+
+interface GetUserProfileResponse {
+  item: ProfileItem;
+  links: ProfileLink[];
+}
+
+export const getUserProfile = async (userId: string | string[]): Promise<GetUserProfileResponse> => {
   const { data } = await apiClient.get(`/users/${userId}`);
+  return data;
+};
+
+export const getApplyList = async (userId: string | string[], page = 1, token): Promise<any> => {
+  const { data } = await axios.get(
+    `https://bootcamp-api.codeit.kr/api/4-2/the-julge/users/${userId}/applications?limit=5&offset=${(page - 1) * 5}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
   return data;
 };
 
@@ -177,6 +216,7 @@ export const getDetailRecruit = async (shopId: string, recruitId: string) => {
     return null;
   }
 };
+
 export const postRecruitsEdit = async ({ Id, formData }: PostRecruitsEditBody) => {
   const { data } = await postRequest.post(`/shops/${Id}/notices`, formData);
   return data;

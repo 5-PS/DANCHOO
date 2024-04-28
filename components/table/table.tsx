@@ -54,7 +54,7 @@ function Table({ query, type, data, totalDataCount }: TableProps) {
           </tbody>
         </table>
       </div>
-      <Pagination page={query.page} totalDataCount={totalDataCount} sliceDataValue={5} />
+      <Pagination page={query.page ? query.page : query} totalDataCount={totalDataCount} sliceDataValue={5} />
     </div>
   );
 }
