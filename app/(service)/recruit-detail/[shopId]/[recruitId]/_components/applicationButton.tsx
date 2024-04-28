@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Button from '@/components/button/button';
 import useRecruitActions from '@/hooks/useRecruitActions';
+import { useRouter } from 'next/navigation';
 
 interface ApplicationButtonProps {
   isClosed: boolean;
@@ -11,12 +12,17 @@ interface ApplicationButtonProps {
 }
 
 function ApplicationButton({ isClosed, shopId, recruitId }: ApplicationButtonProps) {
-
+  const router = useRouter()
   const [isApplied, setIsApplied] = useState(false);
-  const { applyRecruit, cancelRecruit, type } = useRecruitActions(shopId, recruitId)
+  const { applyRecruit, cancelRecruit, user } = useRecruitActions(shopId, recruitId)
 
   const handleRecruitActions = () => {
-    if (type === 'employee') {
+    if (user?.type === 'employee') {
+      if(!user?.name) {
+        alert('프로필을 등록해 주세요');
+        router.push(`/my-profile/${user?.id}/edit`)
+        return
+      }
       if (!isApplied) {
         applyRecruit()
         setIsApplied(true)
@@ -28,7 +34,7 @@ function ApplicationButton({ isClosed, shopId, recruitId }: ApplicationButtonPro
         }
       }
     }
-    if (type === 'employer') alert('사장님은 신청못합니다!')
+    if (user?.type === 'employer') alert('사장님은 신청못합니다!')
 
   }
 

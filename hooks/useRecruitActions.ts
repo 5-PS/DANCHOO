@@ -8,7 +8,9 @@ import { useState } from 'react';
 interface UserType {
   data: {
     item: {
+      id: string;
       type: string;
+      name: string;
     };
   };
 }
@@ -17,7 +19,7 @@ const useRecruitActions = (shopId: string, recruitId: string) => {
   const { showToast } = useToastContext();
   const router = useRouter();
   const { data } = useQuery<UserType>({ queryKey: ['userInfo1'] });
-  const type = data?.data.item.type;
+  const user = data?.data.item;
 
   const { mutate: applyRecruit } = useMutation({
     mutationFn: () => postApplyRecruit(shopId, recruitId),
@@ -52,7 +54,7 @@ const useRecruitActions = (shopId: string, recruitId: string) => {
     },
   });
 
-  return { applyRecruit, cancelRecruit, type };
+  return { applyRecruit, cancelRecruit, user };
 };
 
 export default useRecruitActions;
