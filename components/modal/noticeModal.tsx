@@ -11,7 +11,7 @@ import useOutSideClick from '../../hooks/useOutSideClick';
 import Button from '../button/button';
 
 export default function NoticeModal() {
-  const { content,submitFunction } = useContext(ModalStateContext);
+  const { content,submitFunction = ()=>{} } = useContext(ModalStateContext);
 
   const modalRef = useRef(null);
   const { closeModal } = useModal();
