@@ -42,12 +42,12 @@ export interface NoticeDataType {
 const NUMBER_OF_POSTS_TO_FETCH = 3;
 
 export default function MyStoreCard() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(null);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [noticeData, setNoticeData] = useState<NoticeDataType[]>([]);
   const [storeData, setStoreData] = useState<StoreDataType>({
-    imageUrl: '/icons/cat.jpg',
+    imageUrl: '/icons/loading.svg',
     category: '',
     name: '',
     address1: '',
