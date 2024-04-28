@@ -10,9 +10,32 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+
 import { useEffect, useState } from 'react';
 import { decodeJWT, getCookie } from '@/utils/getCookie';
 import { getUser } from '@/components/gnb/authButton';
+
+
+interface NoticeFilterDataType {
+  item:{
+    id: string;
+    startsAt: string;
+    workhour: number;
+    closed: boolean;
+    hourlyPay:number;
+    shop:{
+      item:{
+        address1:string;
+        id:string;
+        imageUrl: string;
+        name: string;
+        originalHourlyPay: number;
+
+      }
+    }
+  }
+}
+
 function Personal() {
   
   const [token, setToken] = useState<any>(null);
@@ -75,6 +98,7 @@ function Personal() {
     );
   }
 
+
   return (
     <div className="max-w-[964px] overflow-x-scroll box">
       <h2 className="font-bold text-[28px] mb-10">맞춤 공고</h2>
@@ -114,7 +138,6 @@ function Personal() {
         </Swiper>
         ) : <div>선호 주소에 맞는 맞춤공고가 존재하지 않습니다</div>
       }
-    
     </div>
   );
 }

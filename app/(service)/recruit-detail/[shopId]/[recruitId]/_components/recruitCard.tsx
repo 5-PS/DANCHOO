@@ -6,6 +6,7 @@ import calculatePercentage from '@/utils/calculatePercentage';
 import formatDateRange from '@/utils/formatDateRange';
 
 import ApplicationButton from './applicationButton';
+import { cookies } from 'next/headers';
 
 interface RecruitCardProps {
   shopId: string;
@@ -14,6 +15,7 @@ interface RecruitCardProps {
 
 async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
   const response = await getDetailRecruit(shopId, recruitId);
+  const recruitStatus = cookies().get(`recruit_${recruitId}`)
   const { item } = response;
   const { shop } = item;
   const isPassed = new Date() > new Date(item.startsAt);
@@ -34,6 +36,7 @@ async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
             className={`rounded-xl ${isClosed ? 'brightness-50' : ''}`}
             src={shop.item.imageUrl}
             fill
+            unoptimized
             alt="가게 이미지"
           />
           {isClosed && (
@@ -54,7 +57,7 @@ async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
             <span className="relative inline-block w-4 h-4 md:w-5 md:h-5">
               <Image src="/icons/clock-red.svg" fill alt="시계 아이콘" />
             </span>
-            {`${formatDateRange(item.startsAt, item.workhour)} (${item.workhour} 시간)`}
+            {formatDateRange(item.startsAt, item.workhour)} ({item.workhour} 시간)
           </div>
           <div className="text-gray-50 text-[14px] md:text-[16px] flex items-center gap-[6px] leading-[26px]">
             <span className="relative inline-block w-4 h-4 md:w-5 md:h-5">
@@ -63,7 +66,7 @@ async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
             {shop.item.address1}
           </div>
           <p className="leading-[26px] text-[14px] md:text-[16px] line-clamp-2">{shop.item.description}</p>
-          <ApplicationButton isClosed={isClosed} shopId={shopId} recruitId={recruitId} />
+          <ApplicationButton isClosed={isClosed} shopId={shopId} recruitId={recruitId} recruitStatus={recruitStatus} />
         </div>
       </div>
       <div className="flex flex-col w-full gap-2 p-5 rounded-xl bg-red-10 text-[14px] md:text-[16px] md:p-8 md:gap-3">

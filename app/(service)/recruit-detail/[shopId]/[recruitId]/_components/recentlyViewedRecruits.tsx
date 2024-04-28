@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
 import Post from '@/components/post/post';
 
 export interface RecentlyViewedRecruitsType {
-  id: string;
-  shopId: string;
+  href: string;
   address: string;
   imageUrl: string;
   name: string;
@@ -24,13 +23,13 @@ function RecentlyViewedRecruits() {
     const storedRecruits = JSON.parse(sessionStorage.getItem('recentlyViewedRecruits') || '[]');
     setRecentlyViewedRecruits(storedRecruits);
   }, []);
+
   return (
     <ul className="grid grid-cols-2 gap-x-2 gap-y-4 md:gap-x-[14px] md:gap-y-8 xl:grid-cols-3">
       {recentlyViewedRecruits?.map((list) => (
-        <li key={list.id}>
+        <li key={list.href}>
           <Post
-            id={list.id}
-            shopId={list.shopId}
+            href={list.href}
             address={list.address}
             imageUrl={list.imageUrl}
             name={list.name}
