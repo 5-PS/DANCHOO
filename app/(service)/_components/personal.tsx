@@ -73,7 +73,7 @@ function Personal() {
     }
   },[userData])
 
-
+  console.log(favoriteRecruits)
   if (!token) {
     return (
       <Empty title="맞춤공고" desc="로그인 하고 맞춤 공고를 확인 하세요" btnText="로그인 하러 가기" href={`/signin`} />
@@ -117,16 +117,15 @@ function Personal() {
             return (
               <SwiperSlide>
                 <Post
-                  id={item.id}
-                  shopId={item.shop.item.id}
-                  address={item.shop.item.address1}
-                  imageUrl={item.shop.item.imageUrl}
-                  name={item.shop.item.name}
-                  hourlyPay={item.hourlyPay}
-                  originalHourlyPay={item.shop.item.originalHourlyPay}
-                  startsAt={item.startsAt}
-                  workhour={item.workhour}
-                  closed={item.closed}
+                href={`/recruit-detail/${item.shop.item.id}/${item.id}`}
+                address={item.shop.item.address1}
+                imageUrl={item.shop.item.imageUrl}
+                name={item.shop.item.name}
+                hourlyPay={item.hourlyPay}
+                originalHourlyPay={item.shop.item.originalHourlyPay}
+                startsAt={item.startsAt}
+                workhour={item.workhour}
+                closed={item.closed}
                 />
               </SwiperSlide>
             );
