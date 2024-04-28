@@ -38,12 +38,12 @@ export default function CautionModal() {
         ref={modalRef}
       >
         <div className=" w-[298px] h-[183px] border rounded-xl flex items-center justify-center flex-col">
-          <div className="bg-primary w-[24px] h-[24px] rounded-full flex items-center justify-center">
+          <div className="bg-primary w-[24px] h-[24px] rounded-full flex items-center justify-center absolute top-7">
             <Image src="/icons/modal-issue.svg" alt="." width={25} height={25} />
           </div>
-          <p className="mt-4 text-base font-medium">{content}</p>
+          <p className="h-12 absolute top-17 text-base text-center font-medium w-[250px] line-clamp-2">{content}</p>
           <div className="mt-8 ">
-            <div className="w-[80px]">
+            <div className="w-[80px] absolute right-[106px] bottom-4">
               <Button background="bg-white" onClick={closeModal} className="font-bold h-9">
                 확인
               </Button>

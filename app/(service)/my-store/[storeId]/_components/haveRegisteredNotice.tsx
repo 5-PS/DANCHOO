@@ -21,9 +21,8 @@ export default function HaveRegisteredNotice({ noticeData, storeData, storeId }:
         <div className="grid grid-cols-2 gap-4 p-4 xl:grid-cols-3">
           {noticeData.map(({ item },idx) => (
             <Post
-              key={idx}
-              id={item.id}
-              shopId={storeId}
+              key={item.id}
+              href={`/my-store/${storeId}/my-recruits/${item.id}`}
               address={storeData.address1}
               imageUrl={storeData.imageUrl}
               name={storeData.name}
