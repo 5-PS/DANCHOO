@@ -11,11 +11,15 @@ import useOutSideClick from '../../hooks/useOutSideClick';
 import Button from '../button/button';
 
 export default function CautionModal() {
-  const { content } = useContext(ModalStateContext);
+  const { content, submitFunction = ()=>{}} = useContext(ModalStateContext);
 
   const modalRef = useRef(null);
   const { closeModal } = useModal();
 
+  const handleButtonClick = ()=>{
+    submitFunction();
+    closeModal();
+  }
   useEffect(() => {
     const $body = document.querySelector('body');
 
@@ -44,7 +48,7 @@ export default function CautionModal() {
           <p className="h-12 absolute top-17 text-base text-center font-medium w-[250px] line-clamp-2">{content}</p>
           <div className="mt-8 ">
             <div className="w-[80px] absolute right-[106px] bottom-4">
-              <Button background="bg-white" onClick={closeModal} className="font-bold h-9">
+              <Button background="bg-white" onClick={handleButtonClick} className="font-bold h-9">
                 확인
               </Button>
             </div>

@@ -30,7 +30,7 @@ export default function RootLayout({
           <Providers>
             <ModalProvider>
               <div id="modal" />
-              <div className='min-h-screen relative'>
+              <div className='relative min-h-screen'>
                 {children}
               </div>
               <ModalContainer />

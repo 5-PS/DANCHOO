@@ -19,7 +19,7 @@ export default function HaveRegisteredNotice({ noticeData, storeData, storeId }:
       <div className="w-[351px] md:w-[678px]  xl:w-[964px]">
         <h2 className="w-auto text-gray-900 text-xl font-bold font-['Spoqa Han Sans Neo'] pl-4">내가 등록한 공고</h2>
         <div className="grid grid-cols-2 gap-4 p-4 xl:grid-cols-3">
-          {noticeData.map(({ item }) => (
+          {noticeData.map(({ item },idx) => (
             <Post
               key={item.id}
               href={`/my-store/${storeId}/my-recruits/${item.id}`}
