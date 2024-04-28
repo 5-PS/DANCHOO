@@ -1,7 +1,9 @@
 import './globals.css';
 import localFont from 'next/font/local';
 
+import ModalContainer from '@/components/modal/modalContainer';
 import ReactQueryClientProvider from '@/components/reactQuery/reactQueryClientProvider';
+import ModalProvider from '@/contexts/ModalProvider';
 import Providers from '@/contexts/providers';
 
 import type { Metadata } from 'next';
@@ -25,7 +27,13 @@ export default function RootLayout({
     <html lang="ko">
       <body className={myFont.className}>
         <ReactQueryClientProvider>
-          <Providers>{children}</Providers>
+          <Providers>
+            <ModalProvider>
+              <div id="modal" />
+              {children}
+              <ModalContainer />
+            </ModalProvider>
+          </Providers>
         </ReactQueryClientProvider>
       </body>
     </html>
