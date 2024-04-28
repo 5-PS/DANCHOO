@@ -15,7 +15,7 @@ function RecruitDetail({ params }: RecruitDetailProps) {
   return (
     <main>
       <section className="flex flex-col gap-4 px-3 py-10 max-w-[964px] m-auto md:px-8 md:py-[60px] md:gap-6 ">
-        <RecruitCard shopId={shopId} recruitId={recruitId} />
+        <RecruitCard shopId={shopId} recruitId={recruitId}/>
       </section>
 
       <section className="px-3 pt-10 pb-20 max-w-[964px] m-auto md:px-8 md:py-[60px] xl:pb-[120px]">

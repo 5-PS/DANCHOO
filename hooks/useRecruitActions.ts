@@ -78,8 +78,9 @@ const useRecruitActions = (shopId: string, recruitId: string) => {
 
   const { mutate: applyRecruit } = useMutation({
     mutationFn: () => postApplyRecruit(shopId, recruitId),
-    onSuccess: () => {
+    onSuccess: (data) => {
       showToast('신청 완료!');
+      document.cookie = `recruit_${recruitId}=${data.item.status}; Path=/; Max-Age=8640000; Secure; SameSite=Strict`;
       refetch();
     },
     onError: (error: AxiosError) => handleAxiosError(error, router, showToast),
@@ -89,6 +90,7 @@ const useRecruitActions = (shopId: string, recruitId: string) => {
     mutationFn: () => putCancelRecruit(shopId, recruitId, applicationsId),
     onSuccess: () => {
       showToast('취소했어요');
+      document.cookie = `recruit_${recruitId}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
     },
     onError: (error: AxiosError) => handleAxiosError(error, router, showToast),
   });

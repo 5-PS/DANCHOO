@@ -9,21 +9,23 @@ interface ApplicationButtonProps {
   isClosed: boolean;
   shopId: string;
   recruitId: string;
+  recruitStatus?:{
+    value: string;
+  }
 }
 
-function ApplicationButton({ isClosed, shopId, recruitId }: ApplicationButtonProps) {
+function ApplicationButton({ isClosed, shopId, recruitId, recruitStatus }: ApplicationButtonProps) {
   const router = useRouter()
-  const [isApplied, setIsApplied] = useState(false);
+  const [isApplied, setIsApplied] = useState(recruitStatus?.value === 'pending');
   const { applyRecruit, cancelRecruit, user, status } = useRecruitActions(shopId, recruitId)
 
   useEffect(() => {
     const applyStatus = status?.items.filter((state) => state.item.notice.item.id === recruitId);
     if (applyStatus && applyStatus[0]?.item?.status === 'pending') {
-      setIsApplied(true);
-    } else {
-      setIsApplied(false);
-    }
+      document.cookie = `recruit_${recruitId}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+    } 
   }, [status, recruitId]);
+
 
   const handleRecruitActions = () => {
     if (!user) {
