@@ -50,6 +50,8 @@ function DetailFilterModal({ onFiltersChange }: DetailFilterModalProps) {
   const [filterAddressList, setFilterAddressList] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [amount, setAmount] = useState<number | null>(null);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
   const handleDeleteClickAddressListItem = (address: string) => {
     const filterList = clickAddressList.filter((item) => item !== address);
     setClickAddressList(filterList);
@@ -86,7 +88,7 @@ function DetailFilterModal({ onFiltersChange }: DetailFilterModalProps) {
   };
 
   return (
-    <div className="relative w-[88px]">
+    <div className="relative">
       <button
         type="button"
         className="text-[14px] rounded-[5px] bg-red-40 font-bold px-[12px] py-[6px] text-white"
@@ -160,6 +162,7 @@ function DetailFilterModal({ onFiltersChange }: DetailFilterModalProps) {
               onChange={(date: any) => setStartDate(date)}
               placeholderText="시작일을 선택해주세요"
               dateFormat="yyyy년 MM월 d일"
+              minDate={tomorrow}
             />
           </div>
           <div className="h-[2px] bg-gray-10" />
