@@ -231,3 +231,15 @@ export const getStoreNotice = async (storeId: string) => {
   const { data } = await apiClient.get(`/shops/${storeId}/notices`);
   return data;
 };
+
+export const postApplyRecruit = async (shopId: string, recruitId: string) => {
+  const { data } = await postRequest.post(`/shops/${shopId}/notices/${recruitId}/applications`);
+  return data;
+};
+
+export const putCancelRecruit = async (shopId: string, recruitId: string, applicationsId: string) => {
+  const { data } = await postRequest.put(`/shops/${shopId}/notices/${recruitId}/applications/${applicationsId}`, {
+    status: 'canceled',
+  });
+  return data;
+};
