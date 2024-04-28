@@ -41,11 +41,11 @@ export default function CheckModal() {
         ref={modalRef}
       >
         <div className=" w-[298px] h-[183px] border rounded-xl flex items-center justify-center flex-col">
-          <div className="bg-primary w-[24px] h-[24px] rounded-full flex items-center justify-center">
+          <div className="bg-primary w-[24px] h-[24px] rounded-full flex items-center justify-center absolute top-7">
             <Image src="/icons/modal-check.svg" alt="." width={19} height={19} />
           </div>
-          <p className="mt-4 text-base font-medium">{content}</p>
-          <div className="flex gap-2 mt-8">
+          <p className="h-12 absolute top-17 text-base text-center font-medium w-[250px] line-clamp-2">{content}</p>
+          <div className="absolute flex gap-2 mt-8 bottom-4 right-16">
             <div className="w-[80px]">
               <Button
                 className="font-bold h-9"

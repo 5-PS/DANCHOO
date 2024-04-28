@@ -11,7 +11,7 @@ import useOutSideClick from '../../hooks/useOutSideClick';
 import Button from '../button/button';
 
 export default function NoticeModal() {
-  const { content,submitFunction } = useContext(ModalStateContext);
+  const { content,submitFunction = ()=>{} } = useContext(ModalStateContext);
 
   const modalRef = useRef(null);
   const { closeModal } = useModal();
@@ -42,16 +42,16 @@ export default function NoticeModal() {
         className="fixed transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg top-1/2 left-1/2"
         ref={modalRef}
       >
-        <div className=" w-[298px] h-[183px] border rounded-xl flex items-center justify-center flex-col">
+        <div className=" w-[298px] md:w-[540px] h-[183px] md:h-[250px] border rounded-xl flex items-center justify-center flex-col">
 
-          <p className="mt-4 text-base font-medium">{content}</p>
-          <div className="mt-8 ">
-            <div className="w-[80px]">
-              <Button background="bg-primary" onClick={handleButtonClick} className="font-bold h-9">
+          <p className="absolute top-9 text-base text-center font-medium w-[250px] md:w-[480px] md:top-20 line-clamp-3">{content}</p>
+
+            <div className="w-[120px]  absolute right-22 bottom-3 md:right-10 md:bottom-8">
+              <Button background="bg-primary" onClick={handleButtonClick} className="h-10 font-bold ">
                 확인
               </Button>
             </div>
-          </div>
+
         </div>
       </div>
     </div>
