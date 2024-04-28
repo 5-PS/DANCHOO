@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useEffect, useRef, useCallback } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 
 import Image from 'next/image';
 
@@ -10,11 +10,16 @@ import useModal from '@/hooks/useModal';
 import useOutSideClick from '../../hooks/useOutSideClick';
 import Button from '../button/button';
 
-export default function JustOkModal() {
-  const { content } = useContext(ModalStateContext);
+export default function NoticeModal() {
+  const { content,submitFunction } = useContext(ModalStateContext);
 
   const modalRef = useRef(null);
   const { closeModal } = useModal();
+
+  const handleButtonClick = ()=>{
+    submitFunction();
+    closeModal();
+  }
 
   useEffect(() => {
     const $body = document.querySelector('body');
@@ -38,13 +43,11 @@ export default function JustOkModal() {
         ref={modalRef}
       >
         <div className=" w-[298px] h-[183px] border rounded-xl flex items-center justify-center flex-col">
-          <div className="bg-primary w-[24px] h-[24px] rounded-full flex items-center justify-center">
-            <Image src="/icons/modal-issue.svg" alt="." width={25} height={25} />
-          </div>
+
           <p className="mt-4 text-base font-medium">{content}</p>
           <div className="mt-8 ">
             <div className="w-[80px]">
-              <Button background="bg-white" onClick={closeModal} className="font-bold">
+              <Button background="bg-primary" onClick={handleButtonClick} className="font-bold h-9">
                 확인
               </Button>
             </div>

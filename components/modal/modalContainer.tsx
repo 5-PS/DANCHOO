@@ -6,15 +6,17 @@ import { createPortal } from 'react-dom';
 import { ModalStateContext } from '@/contexts/ModalProvider';
 
 import CheckModal from './checkModal';
-import JustOkModal from './justOkModal';
+import CautionModal from './cautionModal';
+import NoticeModal from './noticeModal';
 
 type ModalComponents = {
   [key: string]: FunctionComponent<any>;
 };
 
 const MODAL_COMPONENTS: ModalComponents = {
-  justOk: JustOkModal,
+  justOk: CautionModal,
   check: CheckModal,
+  notice: NoticeModal
 };
 
 function ModalContainer() {

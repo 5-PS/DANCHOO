@@ -10,15 +10,12 @@ import useModal from '@/hooks/useModal';
 import useOutSideClick from '../../hooks/useOutSideClick';
 import Button from '../button/button';
 
-export default function CheckModal() {
+export default function CautionModal() {
+  const { content } = useContext(ModalStateContext);
+
   const modalRef = useRef(null);
   const { closeModal } = useModal();
-  const { cancelBtnText, submitBtnText, content, submitFunction } = useContext(ModalStateContext);
 
-  const handleButtonClick = ()=>{
-    submitFunction();
-    closeModal();
-  }
   useEffect(() => {
     const $body = document.querySelector('body');
 
@@ -42,26 +39,13 @@ export default function CheckModal() {
       >
         <div className=" w-[298px] h-[183px] border rounded-xl flex items-center justify-center flex-col">
           <div className="bg-primary w-[24px] h-[24px] rounded-full flex items-center justify-center">
-            <Image src="/icons/modal-check.svg" alt="." width={19} height={19} />
+            <Image src="/icons/modal-issue.svg" alt="." width={25} height={25} />
           </div>
           <p className="mt-4 text-base font-medium">{content}</p>
-          <div className="flex gap-2 mt-8">
+          <div className="mt-8 ">
             <div className="w-[80px]">
-              <Button
-                className="font-bold h-9"
-                background="bg-white"
-                onClick={closeModal} // 취소
-              >
-                {cancelBtnText}
-              </Button>
-            </div>
-            <div className="w-[80px]">
-              <Button
-                className="font-bold h-9"
-                background="bg-primary"
-                onClick={handleButtonClick} // submit
-              >
-                {submitBtnText}
+              <Button background="bg-white" onClick={closeModal} className="font-bold h-9">
+                확인
               </Button>
             </div>
           </div>
