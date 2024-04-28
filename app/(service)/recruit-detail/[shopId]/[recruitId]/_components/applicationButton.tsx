@@ -30,7 +30,7 @@ function ApplicationButton({ isClosed, shopId, recruitId, recruitStatus }: Appli
   const handleRecruitActions = () => {
     if (!user) {
       openModal({
-        type: 'notice',
+        type: 'caution',
         content: '로그인이 필요합니다.',
         submitFunction: () => {
           router.push('/signin');
@@ -44,7 +44,7 @@ function ApplicationButton({ isClosed, shopId, recruitId, recruitStatus }: Appli
     }
     if (!user.name) {
       openModal({ 
-        type: 'notice', 
+        type: 'caution', 
         content: '내 프로필을 먼저 등록해 주세요!' ,
         submitFunction: () => {
           router.push(`/my-profile/${user.id}/edit`);
