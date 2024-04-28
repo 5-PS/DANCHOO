@@ -26,24 +26,30 @@ function ApplicationButton({ isClosed, shopId, recruitId }: ApplicationButtonPro
   }, [status, recruitId]);
 
   const handleRecruitActions = () => {
-    if (user?.type === 'employee') {
-      if(!user?.name) {
-        alert('프로필을 등록해 주세요');
-        router.push(`/my-profile/${user?.id}/edit`)
-        return
-      }
-      if (!isApplied) {
-        applyRecruit()
-        setIsApplied(true)
-      } else {
-        const result = confirm('신청을 취소하시겠습니까?')
-        if (result){
-          cancelRecruit()
-          setIsApplied(false)
-        }
+    if (!user) {
+      alert('로그인이 필요합니다');
+      router.push('/signin');
+      return;
+    }
+    if (user.type === 'employer') {
+      alert('사장님은 신청못합니다!');
+      return;
+    }
+    if (!user.name) {
+      alert('프로필을 등록해 주세요');
+      router.push(`/my-profile/${user.id}/edit`);
+      return;
+    }
+    if (!isApplied) {
+      applyRecruit();
+      setIsApplied(true);
+    } else {
+      const result = confirm('신청을 취소하시겠습니까?');
+      if (result) {
+        cancelRecruit();
+        setIsApplied(false);
       }
     }
-    if (user?.type === 'employer') alert('사장님은 신청못합니다!')
 
   }
 

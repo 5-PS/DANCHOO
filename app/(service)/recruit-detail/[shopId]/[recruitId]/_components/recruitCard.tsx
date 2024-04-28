@@ -34,6 +34,7 @@ async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
             className={`rounded-xl ${isClosed ? 'brightness-50' : ''}`}
             src={shop.item.imageUrl}
             fill
+            unoptimized
             alt="가게 이미지"
           />
           {isClosed && (
@@ -54,7 +55,7 @@ async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
             <span className="relative inline-block w-4 h-4 md:w-5 md:h-5">
               <Image src="/icons/clock-red.svg" fill alt="시계 아이콘" />
             </span>
-            {`${formatDateRange(item.startsAt, item.workhour)} (${item.workhour} 시간)`}
+            {formatDateRange(item.startsAt, item.workhour)} (${item.workhour} 시간)
           </div>
           <div className="text-gray-50 text-[14px] md:text-[16px] flex items-center gap-[6px] leading-[26px]">
             <span className="relative inline-block w-4 h-4 md:w-5 md:h-5">
