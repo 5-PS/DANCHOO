@@ -1,10 +1,15 @@
 'use client';
 import Post from '@/components/post/post';
-import { RecruitResponse } from '@/types/api';
+
 import { useQuery } from '@tanstack/react-query';
 import Empty from '../my-profile/[userId]/_components/empty';
 import { getPersonalNotices } from '@/services/api';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { Autoplay, Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 function Personal() {
   const { data } = useQuery<any>({ queryKey: ['userInfo1'] });
   const favorite = data?.data.item.address;
@@ -36,16 +41,29 @@ function Personal() {
     );
   }
   const filterData = notice.data?.items.filter(
-    ({ item }) => item.closed === false && new Date() < new Date(item.startsAt),
+    ({ item }: any) => item.closed === false && new Date() < new Date(item.startsAt),
   );
 
   return (
     <div className="max-w-[964px] overflow-x-scroll box">
-      <h2 className="font-bold text-[28px] px-[32px] mb-10">맞춤 공고</h2>
-      <ul className="flex gap-2 sm:gap-[14px]">
-        {filterData.map(({ item }) => {
+      <h2 className="font-bold text-[28px] mb-10">맞춤 공고</h2>
+
+      <Swiper
+        loop={true}
+        slidesPerView={3}
+        spaceBetween={14}
+        centeredSlides={true}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
+        modules={[Autoplay, Navigation]}
+        className="mySwiper"
+      >
+        {filterData?.map(({ item }: any) => {
           return (
-            <li className="flex-none first:pl-3 last:pr-3 sm:last:pr-8 sm:first:pl-8" key={item.id}>
+            <SwiperSlide>
               <Post
                 id={item.id}
                 shopId={item.shop.item.id}
@@ -58,10 +76,10 @@ function Personal() {
                 workhour={item.workhour}
                 closed={item.closed}
               />
-            </li>
+            </SwiperSlide>
           );
         })}
-      </ul>
+      </Swiper>
     </div>
   );
 }

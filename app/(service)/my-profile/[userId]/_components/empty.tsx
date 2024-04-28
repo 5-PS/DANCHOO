@@ -11,13 +11,13 @@ interface EmptyProps {
 
 function Empty({ title, desc, btnText, href }: EmptyProps) {
   return (
-    <div className="max-w-[957px] m-auto py-[60px]">
+    <div className="max-w-[957px] m-auto">
       <h2 className="font-bold text-[28px] px-[32px] mb-10">{title}</h2>
       <div className="px-[32px]">
         <div className="flex flex-col gap-6 items-center justify-center h-10 border rounded py-[60px]">
           <p>{desc}</p>
           <Link href={href}>
-            <Button background="bg-primary" className="h-10 text-sm ">
+            <Button background="bg-primary" className="h-10 px-10 text-sm ">
               {btnText}
             </Button>
           </Link>
