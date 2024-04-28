@@ -1,9 +1,9 @@
 import { useToastContext } from '@/contexts/toastContext';
-import { getUserApplyList, postApplyRecruit, putCancelRecruit } from '@/services/api';
+import { getDetailRecruit, getUserApplyList, postApplyRecruit, putCancelRecruit } from '@/services/api';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface UserType {
   data: {
@@ -36,17 +36,26 @@ const useRecruitActions = (shopId: string, recruitId: string) => {
   const { showToast } = useToastContext();
   const router = useRouter();
   const { data } = useQuery<UserType>({ queryKey: ['userInfo1'] });
-  const { data: status } = useQuery<RecruitType>({
+  const { data: status, refetch } = useQuery<RecruitType>({
     queryKey: ['applyStatus'],
     queryFn: () => getUserApplyList(data?.data.item.id),
   });
   const user = data?.data.item;
 
+  useEffect(() => {
+    if (status) {
+      const applyRecruitId = status?.items.filter((state) => state.item.notice.item.id === recruitId);
+      if (applyRecruitId && applyRecruitId[0]?.item?.status === 'pending') {
+        setApplicationsId(applyRecruitId[0]?.item.id);
+      }
+    }
+  }, [status]);
+
   const { mutate: applyRecruit } = useMutation({
     mutationFn: () => postApplyRecruit(shopId, recruitId),
-    onSuccess: (data: { item: { id: string } }) => {
-      setApplicationsId(data.item.id);
+    onSuccess: () => {
       showToast('신청 완료!');
+      refetch();
     },
     onError: (error) => {
       if (error instanceof AxiosError) {
