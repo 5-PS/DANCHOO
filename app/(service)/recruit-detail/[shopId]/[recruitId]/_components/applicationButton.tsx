@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@/components/button/button';
 import useRecruitActions from '@/hooks/useRecruitActions';
 import { useRouter } from 'next/navigation';
@@ -14,7 +14,16 @@ interface ApplicationButtonProps {
 function ApplicationButton({ isClosed, shopId, recruitId }: ApplicationButtonProps) {
   const router = useRouter()
   const [isApplied, setIsApplied] = useState(false);
-  const { applyRecruit, cancelRecruit, user } = useRecruitActions(shopId, recruitId)
+  const { applyRecruit, cancelRecruit, user, status } = useRecruitActions(shopId, recruitId)
+
+  useEffect(() => {
+    const applyStatus = status?.items.filter((state) => state.item.notice.item.id === recruitId);
+    if (applyStatus && applyStatus[0]?.item?.status === 'pending') {
+      setIsApplied(true);
+    } else {
+      setIsApplied(false);
+    }
+  }, [status, recruitId]);
 
   const handleRecruitActions = () => {
     if (user?.type === 'employee') {

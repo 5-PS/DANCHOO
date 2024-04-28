@@ -1,5 +1,5 @@
 import { useToastContext } from '@/contexts/toastContext';
-import { postApplyRecruit, putCancelRecruit } from '@/services/api';
+import { getUserApplyList, postApplyRecruit, putCancelRecruit } from '@/services/api';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
@@ -14,11 +14,32 @@ interface UserType {
     };
   };
 }
+
+interface RecruitType {
+  items: [
+    {
+      item: {
+        id: string;
+        status: 'pending' | 'accepted' | 'rejected' | 'canceled';
+        notice: {
+          item: {
+            id: string;
+          };
+        };
+      };
+    },
+  ];
+}
+
 const useRecruitActions = (shopId: string, recruitId: string) => {
   const [applicationsId, setApplicationsId] = useState('');
   const { showToast } = useToastContext();
   const router = useRouter();
   const { data } = useQuery<UserType>({ queryKey: ['userInfo1'] });
+  const { data: status } = useQuery<RecruitType>({
+    queryKey: ['applyStatus'],
+    queryFn: () => getUserApplyList(data?.data.item.id),
+  });
   const user = data?.data.item;
 
   const { mutate: applyRecruit } = useMutation({
@@ -54,7 +75,7 @@ const useRecruitActions = (shopId: string, recruitId: string) => {
     },
   });
 
-  return { applyRecruit, cancelRecruit, user };
+  return { applyRecruit, cancelRecruit, user, status };
 };
 
 export default useRecruitActions;
