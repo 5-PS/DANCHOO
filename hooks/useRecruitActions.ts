@@ -5,6 +5,7 @@ import { AxiosError } from 'axios';
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import useModal from './useModal';
 
 interface UserType {
   data: {
@@ -35,6 +36,7 @@ interface RecruitType {
 const useRecruitActions = (shopId: string, recruitId: string) => {
   const [applicationsId, setApplicationsId] = useState('');
   const { showToast } = useToastContext();
+  const { openModal } = useModal();
   const router = useRouter();
   const { data } = useQuery<UserType>({ queryKey: ['userInfo1'] });
   const { data: status, refetch } = useQuery<RecruitType>({
@@ -47,22 +49,13 @@ const useRecruitActions = (shopId: string, recruitId: string) => {
     if (error instanceof AxiosError) {
       switch (error.response?.status) {
         case 400:
-          alert('공고가 마감되었습니다.');
-          break;
-        case 401:
-          const result = confirm('로그인이 필요합니다');
-          if (result) {
-            router.push('/signin');
-          }
-          break;
-        case 403:
-          alert('공고 지원자만 접근할 수 있습니다');
+          openModal({ type: 'caution', content: '공고가 마감되었습니다.' });
           break;
         case 404:
-          alert('존재하지 않는 공고입니다.');
+          openModal({ type: 'caution', content: '존재하지 않는 공고입니다.' });
           break;
         default:
-          showToast('오류가 발생했습니다.');
+          openModal({ type: 'caution', content: '오류가 발생했습니다.' });
       }
     }
   };
@@ -95,7 +88,7 @@ const useRecruitActions = (shopId: string, recruitId: string) => {
     onError: (error: AxiosError) => handleAxiosError(error, router, showToast),
   });
 
-  return { applyRecruit, cancelRecruit, user, status };
+  return { applyRecruit, cancelRecruit, user, status, openModal };
 };
 
 export default useRecruitActions;

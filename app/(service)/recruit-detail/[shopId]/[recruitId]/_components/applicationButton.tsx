@@ -17,7 +17,7 @@ interface ApplicationButtonProps {
 function ApplicationButton({ isClosed, shopId, recruitId, recruitStatus }: ApplicationButtonProps) {
   const router = useRouter()
   const [isApplied, setIsApplied] = useState(recruitStatus?.value === 'pending');
-  const { applyRecruit, cancelRecruit, user, status } = useRecruitActions(shopId, recruitId)
+  const { applyRecruit, cancelRecruit, user, status, openModal } = useRecruitActions(shopId, recruitId)
 
   useEffect(() => {
     const applyStatus = status?.items.filter((state) => state.item.notice.item.id === recruitId);
@@ -29,30 +29,43 @@ function ApplicationButton({ isClosed, shopId, recruitId, recruitStatus }: Appli
 
   const handleRecruitActions = () => {
     if (!user) {
-      alert('로그인이 필요합니다');
-      router.push('/signin');
-      return;
+      openModal({
+        type: 'notice',
+        content: '로그인이 필요합니다.',
+        submitFunction: () => {
+          router.push('/signin');
+        },
+      });
+      return
     }
     if (user.type === 'employer') {
-      alert('사장님은 신청못합니다!');
+      openModal({ type: 'caution', content: '사장님은 신청 못해요!' });
       return;
     }
     if (!user.name) {
-      alert('프로필을 등록해 주세요');
-      router.push(`/my-profile/${user.id}/edit`);
+      openModal({ 
+        type: 'notice', 
+        content: '내 프로필을 먼저 등록해 주세요!' ,
+        submitFunction: () => {
+          router.push(`/my-profile/${user.id}/edit`);
+      },});
       return;
     }
     if (!isApplied) {
       applyRecruit();
       setIsApplied(true);
     } else {
-      const result = confirm('신청을 취소하시겠습니까?');
-      if (result) {
-        cancelRecruit();
+      openModal({
+        type: 'check',
+        cancelBtnText: '아니오',
+        submitBtnText: '예',
+        content: '신청을 취소하시겠어요?',
+        submitFunction: () => {
+          cancelRecruit();
         setIsApplied(false);
-      }
+        },
+      });
     }
-
   }
 
   return (
