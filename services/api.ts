@@ -243,3 +243,8 @@ export const putCancelRecruit = async (shopId: string, recruitId: string, applic
   });
   return data;
 };
+
+export const getUserApplyList = async (userId?: string) => {
+  const { data } = await postRequest.get(`/users/${userId}/applications`);
+  return data;
+};
