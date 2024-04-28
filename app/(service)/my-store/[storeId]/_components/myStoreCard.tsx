@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -38,9 +38,13 @@ export interface NoticeDataType {
   };
 }
 
+const NUMBER_OF_POSTS_TO_FETCH = 3;
+
 export default function MyStoreCard() {
-  const { storeId }: { storeId: string } = useParams();
   const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [noticeData, setNoticeData] = useState<NoticeDataType[]>([]);
   const [storeData, setStoreData] = useState<StoreDataType>({
     imageUrl: '/icons/cat.jpg',
     category: '',
@@ -49,20 +53,52 @@ export default function MyStoreCard() {
     description: '',
     originalHourlyPay: 0,
   });
-  const [noticeData, setNoticeData] = useState<NoticeDataType[]>([]);
+
+  const observer = useRef<IntersectionObserver>();
+  
+  const { storeId }: { storeId: string } = useParams();
+
+  const loadMoreNotices = useCallback(async () => {
+    if (loading || !hasMore) return;
+    
+    setLoading(true);
+
+    try {
+      const {items} = await getStoreNotice(storeId, noticeData.length, NUMBER_OF_POSTS_TO_FETCH);
+      setNoticeData((prevNotices) => [...prevNotices, ...items]);
+      setHasMore(items.length === NUMBER_OF_POSTS_TO_FETCH);
+    } catch (error) {
+      // TODO: 에러 처리
+    } finally {
+      setLoading(false)
+    }
+}, [loading, hasMore, noticeData.length])
+
+const lastNoticeElementRef = useCallback((node: HTMLElement | null) => {
+  if (loading) return;
+
+  if (observer.current) observer.current.disconnect();
+  observer.current = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && hasMore) {
+      loadMoreNotices();
+    }
+  })
+
+  if (node) observer.current.observe(node);
+}, [loading, hasMore, loadMoreNotices])
 
   useEffect(() => {
     (async () => {
-      const { item } = await getMyStore(storeId as string);
+      const { item } = await getMyStore(storeId);
       setStoreData(item);
     })();
-    (async () => {
-      const data = await getStoreNotice(storeId as string);
-      setCount(data.count);
 
-      setNoticeData(data.items);
+    (async () => {
+      const data = await getStoreNotice(storeId, 0, 6);
+      setNoticeData(data.items)
+      setCount(data.count);
     })();
-  }, [storeId]);
+  }, []);
 
   return (
     <>
@@ -101,7 +137,10 @@ export default function MyStoreCard() {
       {count === 0 ? (
         <RegisteredNotice />
       ) : (
-        <HaveRegisteredNotice noticeData={noticeData} storeData={storeData} storeId={storeId} />
+        <>
+          <HaveRegisteredNotice noticeData={noticeData} storeData={storeData} storeId={storeId} />
+          <div ref={lastNoticeElementRef}/>
+        </>
       )}
     </>
   );
