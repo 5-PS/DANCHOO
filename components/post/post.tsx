@@ -10,8 +10,7 @@ import calculatePercentage from '@/utils/calculatePercentage';
 import formatDateRange from '@/utils/formatDateRange';
 
 function Post({
-  id,
-  shopId,
+  href,
   address,
   imageUrl,
   name,
@@ -29,9 +28,7 @@ function Post({
     const recentlyViewedRecruits = JSON.parse(sessionStorage.getItem('recentlyViewedRecruits') || '[]');
 
     const recruitInfo = {
-      id,
-      shopId,
-      address,
+      href,
       imageUrl,
       name,
       hourlyPay,
@@ -42,7 +39,7 @@ function Post({
     };
 
     const isAlreadyListedIndex = recentlyViewedRecruits.findIndex(
-      (recruit: { id: string }) => recruit.id === recruitInfo.id,
+      (recruit: { href: string }) => recruit.href === recruitInfo.href,
     );
 
     if (isAlreadyListedIndex === -1) {
@@ -56,7 +53,7 @@ function Post({
   };
   return (
     <Link
-      href={`/recruit-detail/${shopId}/${id}`}
+      href={`${href}`}
       onClick={handleClick}
       className="flex flex-col items-center min-w-32 min-h-[350px] md:min-h-[335px] justify-center gap-3 p-3 border border-solid bg-white border-gray-20 rounded-xl md:w-max-[312px] md:p-4 md:gap-5"
     >
@@ -121,7 +118,7 @@ function Post({
               <div
                 className={`text-xs text-center whitespace-nowrap text-ellipsis overflow-hidden max-w-[125px] md:text-white md:font-bold ${isClosed ? 'text-gray-30' : 'text-red-40'}`}
               >
-                {`기존 시급보다 ${percentage}%`}
+                기존 시급보다 ${percentage}%
               </div>
               <Image
                 className="max-[767px]:hidden"

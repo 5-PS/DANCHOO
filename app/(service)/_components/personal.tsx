@@ -13,6 +13,26 @@ import 'swiper/css/pagination';
 import { useEffect, useState } from 'react';
 import { decodeJWT, getCookie } from '@/utils/getCookie';
 import { getUser } from '@/components/gnb/authButton';
+
+interface NoticeFilterDataType {
+  item:{
+    id: string;
+    startsAt: string;
+    workhour: number;
+    closed: boolean;
+    hourlyPay:number;
+    shop:{
+      item:{
+        address1:string;
+        id:string;
+        imageUrl: string;
+        name: string;
+        originalHourlyPay: number;
+
+      }
+    }
+  }
+}
 function Personal() {
   
   const [token, setToken] = useState<any>(null);
