@@ -231,3 +231,20 @@ export const getStoreNotice = async (storeId: string, offset: number, limit: num
   const { data } = await apiClient.get(`/shops/${storeId}/notices?offset=${offset}&limit=${limit}`);
   return data;
 };
+
+export const postApplyRecruit = async (shopId: string, recruitId: string) => {
+  const { data } = await postRequest.post(`/shops/${shopId}/notices/${recruitId}/applications`);
+  return data;
+};
+
+export const putCancelRecruit = async (shopId: string, recruitId: string, applicationsId: string) => {
+  const { data } = await postRequest.put(`/shops/${shopId}/notices/${recruitId}/applications/${applicationsId}`, {
+    status: 'canceled',
+  });
+  return data;
+};
+
+export const getUserApplyList = async (userId?: string) => {
+  const { data } = await postRequest.get(`/users/${userId}/applications?limit=100`);
+  return data;
+};
