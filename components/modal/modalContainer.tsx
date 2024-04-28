@@ -14,7 +14,7 @@ type ModalComponents = {
 };
 
 const MODAL_COMPONENTS: ModalComponents = {
-  justOk: CautionModal,
+  caution: CautionModal,
   check: CheckModal,
   notice: NoticeModal
 };
