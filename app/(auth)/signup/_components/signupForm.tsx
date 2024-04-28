@@ -11,6 +11,7 @@ import ROUTE_PATHS from '@/constants/route';
 import { postSignUpInfo } from '@/services/api';
 
 import MemberType from './memberType';
+import useModal from '@/hooks/useModal';
 
 interface FieldValues {
   email: string;
@@ -34,6 +35,8 @@ export default function SignUpForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({ mode: 'all', defaultValues: { type: 'employee' } });
+
+  const {openModal} = useModal();
 
   const FORM_FIELDS = [
     {
@@ -77,14 +80,14 @@ export default function SignUpForm() {
     try {
       await postSignUpInfo(data);
 
-      alert('회원가입이 완료되었습니다.');
+      openModal({type: 'notice', content: '회원가입이 완료되었습니다.'})
 
       router.push(ROUTE_PATHS.SIGN_IN);
     } catch (error) {
       if (error instanceof AxiosError) {
         const errorMessage =
           error.response?.status === 409 ? error.response.data.message : '회원 가입 요청에 실패하였습니다.';
-        alert(errorMessage);
+        openModal({type: 'caution', content: errorMessage})
       }
     }
   };

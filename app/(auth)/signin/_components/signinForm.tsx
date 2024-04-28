@@ -9,6 +9,7 @@ import Button from '@/components/button/button';
 import Input from '@/components/input/input';
 import ROUTE_PATHS from '@/constants/route';
 import { postSignIn } from '@/services/api';
+import useModal from '@/hooks/useModal';
 
 interface FieldValues {
   email: string;
@@ -47,6 +48,8 @@ const FORM_FIELDS = [
 export default function SignInForm() {
   const router = useRouter();
 
+  const {openModal} = useModal();
+
   const {
     register,
     handleSubmit,
@@ -65,7 +68,7 @@ export default function SignInForm() {
     } catch (error) {
       if (error instanceof AxiosError) {
         const errorMessage = error.response?.status === 404 ? error.response.data.message : '로그인에 실패했습니다.';
-        alert(errorMessage);
+        openModal({type: 'caution', content: errorMessage})
       }
     }
   };
