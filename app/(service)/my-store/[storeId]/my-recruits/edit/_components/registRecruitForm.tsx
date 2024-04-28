@@ -8,6 +8,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Button from '@/components/button/button';
 import Input from '@/components/input/input';
 import { postRecruitsEdit } from '@/services/api';
+import useModal from '@/hooks/useModal';
 
 interface FieldValues {
   hourlyPay: number;
@@ -24,6 +25,7 @@ export default function RegistRecruitForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({ mode: 'all' });
+  const {openModal} = useModal();
 
   const inputFields = [
     {
@@ -57,10 +59,9 @@ export default function RegistRecruitForm() {
       hourlyPay: Number(data.hourlyPay),
       workhour: Number(data.workhour),
     };
-    console.log(formData);
     try {
       await postRecruitsEdit({ Id, formData });
-      alert('성공!');
+      openModal({type:'notice', content:'등록이 완료되었습니다.', submitFunction:()=>{router.push(`/my-store/${storeId}`);}})
     } catch (error) {
       if (error instanceof AxiosError) {
         console.log(error.message);
@@ -71,7 +72,6 @@ export default function RegistRecruitForm() {
 
   const onSubmit = async (data: FieldValues) => {
     await postRecruits(storeId, data);
-    router.push(`/my-store/${storeId}`);
   };
 
   return (

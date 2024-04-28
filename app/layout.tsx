@@ -30,8 +30,8 @@ export default function RootLayout({
           <Providers>
             <ModalProvider>
               <div id="modal" />
-              {children}
               <ModalContainer />
+              {children}
             </ModalProvider>
           </Providers>
         </ReactQueryClientProvider>
