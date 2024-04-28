@@ -11,6 +11,7 @@ import { getMyStore, getStoreNotice } from '@/services/api';
 
 import HaveRegisteredNotice from './haveRegisteredNotice';
 import RegisteredNotice from './registeredNotice';
+import useModal from '@/hooks/useModal';
 
 /**
  * @todo 처음에 가게 정보 없을 때 보여줄 가게없음 보이게 => 없을 때에는 가게 등록하기 보이게
@@ -58,6 +59,8 @@ export default function MyStoreCard() {
   
   const { storeId }: { storeId: string } = useParams();
 
+  const {openModal} = useModal();
+
   const loadMoreNotices = useCallback(async () => {
     if (loading || !hasMore) return;
     
@@ -68,7 +71,7 @@ export default function MyStoreCard() {
       setNoticeData((prevNotices) => [...prevNotices, ...items]);
       setHasMore(items.length === NUMBER_OF_POSTS_TO_FETCH);
     } catch (error) {
-      // TODO: 에러 처리
+      openModal({type: 'caution', content: '추가 공고를 불러오는 데 실패했습니다.'})
     } finally {
       setLoading(false)
     }
