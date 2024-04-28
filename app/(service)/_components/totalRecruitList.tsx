@@ -76,8 +76,7 @@ function TotalRecruitList() {
             {data.items.map(({ item }) => (
               <li key={item.id}>
                 <Post
-                  id={item.id}
-                  shopId={item.shop.item.id}
+                  href={`/recruit-detail/${item.shop.item.id}/${item.id}`}
                   address={item.shop.item.address1}
                   imageUrl={item.shop.item.imageUrl}
                   name={item.shop.item.name}

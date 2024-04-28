@@ -10,6 +10,26 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+
+interface NoticeFilterDataType {
+  item:{
+    id: string;
+    startsAt: string;
+    workhour: number;
+    closed: boolean;
+    hourlyPay:number;
+    shop:{
+      item:{
+        address1:string;
+        id:string;
+        imageUrl: string;
+        name: string;
+        originalHourlyPay: number;
+
+      }
+    }
+  }
+}
 function Personal() {
   const { data } = useQuery<any>({ queryKey: ['userInfo1'] });
   const favorite = data?.data.item.address;
@@ -41,7 +61,7 @@ function Personal() {
     );
   }
   const filterData = notice.data?.items.filter(
-    ({ item }: any) => item.closed === false && new Date() < new Date(item.startsAt),
+    ({ item }:{item: {closed:boolean; startsAt:string;}}) => item.closed === false && new Date() < new Date(item.startsAt),
   );
 
   return (
@@ -61,12 +81,11 @@ function Personal() {
         modules={[Autoplay, Navigation]}
         className="mySwiper"
       >
-        {filterData?.map(({ item }: any) => {
+        {filterData?.map(({ item }: NoticeFilterDataType) => {
           return (
             <SwiperSlide>
               <Post
-                id={item.id}
-                shopId={item.shop.item.id}
+                href={`/recruit-detail/${item.shop.item.id}/${item.id}`}
                 address={item.shop.item.address1}
                 imageUrl={item.shop.item.imageUrl}
                 name={item.shop.item.name}
