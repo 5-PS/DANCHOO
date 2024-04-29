@@ -1,7 +1,6 @@
 'use client';
 import Post from '@/components/post/post';
 
-import { useQuery } from '@tanstack/react-query';
 import Empty from '../my-profile/[userId]/_components/empty';
 import { getPersonalNotices } from '@/services/api';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,7 +11,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { useEffect, useState } from 'react';
 import { decodeJWT, getCookie } from '@/utils/getCookie';
-import { getUser } from '@/components/gnb/authButton';
+import { apiClient } from '@/libs/axios';
 
 interface NoticeFilterDataType {
   item:{
@@ -50,7 +49,7 @@ function Personal() {
     if(token){
       const userId = decodeJWT(token);
       const requestUserData = async (id : string) => {
-        const {data} = await getUser(id);
+        const {data} = await apiClient.get(`/users/${id}`);
         const userInfo = {
           id : data.item.id,
           type : data.item.type,
@@ -73,7 +72,6 @@ function Personal() {
     }
   },[userData])
 
-  console.log(favoriteRecruits)
   if (!token) {
     return (
       <Empty title="맞춤공고" desc="로그인 하고 맞춤 공고를 확인 하세요" btnText="로그인 하러 가기" href={`/signin`} />
