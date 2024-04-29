@@ -5,7 +5,7 @@ import Post from '@/components/post/post';
 import { NoticeDataType, StoreDataType } from './myStoreCard';
 /**
  * @todo 내용 카드로 변경
- * @todo address,name,originalHourlyPay 은 가게정보에서 가져오게 되는데 프롭으로?
+ * @todo address,name,originalHourlyPay 은 기업 정보에서 가져오게 되는데 프롭으로?
  */
 interface HaveRegisteredNoticeType {
   noticeData: NoticeDataType[];

@@ -41,7 +41,7 @@ async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
             src={shop.item.imageUrl}
             fill
             unoptimized
-            alt="가게 이미지"
+            alt="기업 이미지"
           />
           {isClosed && (
             <span className="absolute text-xl font-bold transform -translate-x-1/2 -translate-y-1/2 text-gray-30 top-1/2 left-1/2 whitespace-nowrap">

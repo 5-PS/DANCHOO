@@ -22,7 +22,7 @@ interface BoxProps {
 function UserTypeLink({ user }: { user: BoxProps }) {
   return (
     <>
-    {user?.type === 'employer' && <Link href={`${user?.linkUrl ? `/my-store/${user.linkUrl}` : `/my-store`}`}>내가게</Link>}
+    {user?.type === 'employer' && <Link href={`${user?.linkUrl ? `/my-store/${user.linkUrl}` : `/my-store`}`}>기업 정보</Link>}
     {user?.type === 'employee' &&    <Link href={`/my-profile/${user?.linkUrl}`}>내 프로필</Link>}
     </>
   )

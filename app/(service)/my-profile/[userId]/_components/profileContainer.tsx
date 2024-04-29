@@ -15,7 +15,7 @@ async function ProfileContainer({ userId, page }: { userId: string | string[]; p
       <section className=" pt-[60px] py-[120px]">
         <Empty
           title="내 프로필"
-          desc="내 프로필을 등록하고 원하는 가게에 지원해 보세요."
+          desc="내 프로필을 등록하고 원하는 기업에 지원해 보세요."
           btnText="내 프로필 등록하기"
           href={`/my-profile/${userId}/edit`}
         />
