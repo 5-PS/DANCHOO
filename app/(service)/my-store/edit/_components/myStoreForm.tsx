@@ -72,7 +72,7 @@ export default function MyStoreForm() {
     formState: { errors },
   } = useForm<FieldValues>({ mode: 'all' });
   const [imageSrc, setImageSrc] = useState<any>(null);
-  const { refetch } = useQuery({ queryKey: ['userInfo1'] });
+  const { refetch } = useQuery({ queryKey: ['userInfo'] });
 
   const handleUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
