@@ -52,12 +52,12 @@ export default function ProfileEditForm() {
     mode: 'all' ,
     defaultValues: async() => {
       const user = await getUserProfile(userId);
-      const { item } = user;
+      const item = user;
       return {
-        name: item.name,
-        phone: item.phone,
-        address:item.address,
-        bio: item.bio,
+        name: item?.item.name,
+        phone: item?.item.phone,
+        address:item?.item.address,
+        bio: item?.item.bio,
       }}
   });
   const handleOnSubmit = async (data: PutProfileBody) => {
