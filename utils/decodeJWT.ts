@@ -1,4 +1,4 @@
-export const decodeJWT = (token: string) => {
+export const decodeJWT = (token?: string) => {
   if (!token) {
     return '';
   }
@@ -34,7 +34,8 @@ export const decodeJWT = (token: string) => {
   return JSON.parse(decodedPayload);
 };
 
-const jwtDecode = (token: string) => {
+const jwtDecode = () => {
+  const token = document.cookie.split('.')[1];
   if (token) {
     const decodedJWT = JSON.parse(
       decodeURIComponent(
@@ -47,6 +48,5 @@ const jwtDecode = (token: string) => {
     );
     return decodedJWT.userId;
   }
-  return null;
 };
 export default jwtDecode;
