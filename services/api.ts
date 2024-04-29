@@ -9,6 +9,7 @@ import {
   PostRecruitsEditBody,
   RequestRecruit,
   GetNoticesParams,
+  PostChangeRecruitsEditBody,
 } from '@/types/api';
 
 export async function postSignUpInfo({ email, password, confirmPassword, type }: PostSignupBody) {
@@ -246,6 +247,11 @@ export const getDetailRecruit = async (shopId: string, recruitId: string) => {
 
 export const postRecruitsEdit = async ({ Id, formData }: PostRecruitsEditBody) => {
   const { data } = await postRequest.post(`/shops/${Id}/notices`, formData);
+  return data;
+};
+
+export const postChangeRecruitsEdit = async ({ storeId, recruitId, formData }: PostChangeRecruitsEditBody) => {
+  const { data } = await postRequest.put(`/shops/${storeId}/notices/${recruitId}`, formData);
   return data;
 };
 

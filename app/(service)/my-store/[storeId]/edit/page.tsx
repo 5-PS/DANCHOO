@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import MyStoreModificationForm from './_components/myStoreModificationForm';
 
-export default function MystoreEditFormPage({ params }: { params: { storeId: string | string[] } }) {
+export default function MyStoreEditFormPage({ params }: { params: { storeId: string | string[] } }) {
   const { storeId } = params;
   return (
     <div className="flex flex-col w-full gap-6 px-3 pt-10 pb-20 md:py-[60px] md:px-0 md:w-full md:max-w-[680px] md:m-auto xl:max-w-[946px]">

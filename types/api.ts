@@ -146,3 +146,13 @@ export interface PostRecruitsEditBody {
     description: string;
   };
 }
+export interface PostChangeRecruitsEditBody {
+  storeId: string | string[];
+  recruitId: string | string[];
+  formData: {
+    hourlyPay: number;
+    startsAt: string; // 양식: 2023-12-23T00:00:00Z
+    workhour: number;
+    description: string;
+  };
+}

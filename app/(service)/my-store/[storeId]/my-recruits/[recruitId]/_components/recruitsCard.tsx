@@ -5,6 +5,7 @@ import PercentageBadge from '@/components/post/percentageBadge';
 import { getStoreRecruit } from '@/services/api';
 import calculatePercentage from '@/utils/calculatePercentage';
 import formatDateRange from '@/utils/formatDateRange';
+import Link from 'next/link';
 
 // TODO: 시급비교 라벨 따로빼기, 주소, 시간 아이콘 넣기
 interface RecuitsCardProps {
@@ -53,9 +54,11 @@ async function RecuitsCard({ storeId, recruitId }: RecuitsCardProps) {
             {shop.item.address1}
           </div>
           <p className="leading-[26px] text-[14px] md:text-[16px] line-clamp-2">{shop.item.description}</p>
-          <Button background="bg-white" className="h-[48px]">
-            공고 편집하기
-          </Button>
+          <Link href={`/my-store/${storeId}/my-recruits/${recruitId}/edit`} >
+            <Button background="bg-white" className="h-[48px]">
+              공고 편집하기
+            </Button>
+          </Link>
         </div>
       </div>
       <div className="flex flex-col w-full gap-2 p-5 rounded-xl bg-red-10 text-[14px] md:text-[16px] md:p-8 md:gap-3">
