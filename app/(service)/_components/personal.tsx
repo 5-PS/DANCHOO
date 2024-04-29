@@ -131,7 +131,7 @@ function Personal() {
             );
           })}
         </Swiper>
-        ) : <div>선호 주소에 맞는 맞춤공고가 존재하지 않습니다</div>
+        ) : <div className='text-center'>선호 주소에 맞는 맞춤공고가 존재하지 않습니다</div>
       }
     
     </div>
