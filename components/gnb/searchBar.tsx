@@ -27,7 +27,7 @@ function SearchBar() {
         value={value}
         className="flex-1 outline-none bg-gray-10 placeholder:text-gray-40 placeholder:text-xs"
         type="text"
-        placeholder="가게 이름으로 찾아보세요"
+        placeholder="기업 이름으로 찾아보세요"
         onChange={(e: ChangeEvent<HTMLInputElement>) => setValue(e.target.value)}
       />
     </form>

@@ -14,8 +14,8 @@ import RegisteredNotice from './registeredNotice';
 import useModal from '@/hooks/useModal';
 
 /**
- * @todo 처음에 가게 정보 없을 때 보여줄 가게없음 보이게 => 없을 때에는 가게 등록하기 보이게
- * @todo 편집하기 누르면 가게 정보 편집 페이지로
+ * @todo 처음에 기업 정보 없을 때 보여줄 기업없음 보이게 => 없을 때에는 기업 등록하기 보이게
+ * @todo 편집하기 누르면 기업 정보 편집 페이지로
  * @todo 공고 등록하기 페이지를 누르면 공고 등록하기 페이지로 이동
  * @todo 내가 등록한 공고 무한스크롤로, 최신순으로 정렬하고,
  */
@@ -107,7 +107,7 @@ const lastNoticeElementRef = useCallback((node: HTMLElement | null) => {
     <>
       <div className=" bg-red-10 flex flex-col w-[351px] xl:w-[964px] gap-3 p-5 mx-auto mb-3 md:w-[632px] border rounded-xl border-gray-20 md:p-6 md:mb-6 md:gap-4 xl:flex-row xl:gap-8 ">
         <div className=" rounded-lg overflow-hidden w-[311px] h-[177px] md:max-w-full md:w-[632px] md:h-[361px] xl:w-[539px] xl:h-[308px]  bg-slate-500 relative">
-          <Image src={storeData.imageUrl} alt="가게이미지" fill priority />
+          <Image src={storeData.imageUrl} alt="기업이미지" fill priority />
         </div>
         <div className="flex flex-col justify-between xl:w-[343px] ">
           <div className="flex flex-col gap-2 xl:pt-4 md:gap-3">

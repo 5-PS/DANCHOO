@@ -23,7 +23,7 @@ function Table({ query, type, data, totalDataCount }: TableProps) {
             <tr className="h-[40px] text-[12px] border-b text-left border-gray-20 bg-red-10 md:text-[14px] md:h-[50px]">
               <th className="tb-head w-[186px] sticky left-0  md:w-[226px] bg-red-10">
                 {type === 'applicantList' && '신청자'}
-                {type === 'applyList' && '가게'}
+                {type === 'applyList' && '기업'}
               </th>
               <th className="tb-head w-[270px] md:w-[300px]">
                 {type === 'applicantList' && '소개'}
