@@ -3,13 +3,16 @@ import { getUserProfile } from '@/services/api';
 
 import ApplyList from './applyList';
 import Empty from './empty';
+import Link from 'next/link';
+import Footer from '@/components/footer/footer';
 
 async function ProfileContainer({ userId, page }: { userId: string | string[]; page: string }) {
   const user = await getUserProfile(userId);
   const { item } = user;
   if (!item.name) {
     return (
-      <section className=" bg-red-10">
+      <>
+      <section className=" pt-[60px] py-[120px]">
         <Empty
           title="내 프로필"
           desc="내 프로필을 등록하고 원하는 가게에 지원해 보세요."
@@ -17,6 +20,8 @@ async function ProfileContainer({ userId, page }: { userId: string | string[]; p
           href={`/my-profile/${userId}/edit`}
         />
       </section>
+      <Footer/>
+      </>
     );
   }
   return (
@@ -26,11 +31,13 @@ async function ProfileContainer({ userId, page }: { userId: string | string[]; p
           <h2 className="font-bold text-[28px] mb-10">내 프로필</h2>
           <div className="bg-white shadow-modal-box p-[32px] rounded-xl">
             <div className="flex justify-between">
-              <div className="text-[20px] font-bold text-primary">{item.name}</div>
+              <div className="text-[24px] font-bold text-primary">{item.name}</div>
               <div className="w-[200px]">
-                <Button background="bg-white" className="h-10 text-sm">
+                <Link href={`/my-profile/${userId}/edit`}>
+                  <Button background="bg-white" className="h-10 text-sm">
                   편집하기
-                </Button>
+                  </Button>
+                </Link>
               </div>
             </div>
             <div>{item.phone}</div>
@@ -39,12 +46,13 @@ async function ProfileContainer({ userId, page }: { userId: string | string[]; p
           </div>
         </div>
       </section>
-      <section className=" bg-red-10">
+      <section className="pb-[120px] bg-red-10">
         <div className="max-w-[957px] m-auto py-[60px] p-[32px]">
           <h2 className="font-bold text-[28px] mb-10">신청 내역</h2>
           <ApplyList userId={userId} page={page} />
         </div>
       </section>
+      <Footer/>
     </>
   );
 }
