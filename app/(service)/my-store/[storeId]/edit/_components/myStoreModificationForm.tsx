@@ -12,6 +12,7 @@ import Input from '@/components/input/input';
 import SelectInput from '@/components/input/selectInput';
 import { getStoreInformation, requestModificationStore, requestUploadImg } from '@/services/api';
 import { PostCreateStoreBody } from '@/types/api';
+import useModal from '@/hooks/useModal';
 
 const FOOD_CATEGORY_LIST = [
   { id: 1, category: '한식' },
@@ -65,6 +66,7 @@ interface FieldValues {
 export default function MyStoreModificationForm() {
   const router = useRouter();
   const params = useParams();
+  const {openModal} = useModal();
   const { storeId } = params;
   const {
     register,
@@ -103,7 +105,7 @@ export default function MyStoreModificationForm() {
           originalHourlyPay: Number(formData.originalHourlyPay),
         };
         await requestModificationStore(storeId, postData);
-        alert('수정이 완료되었습니다.');
+        openModal({type : 'caution', content : '수정이 완료되었습니다', })
         router.push(`/my-store/${storeId}`);
       } else {
         const postData: PostCreateStoreBody = {
@@ -112,13 +114,13 @@ export default function MyStoreModificationForm() {
           originalHourlyPay: Number(formData.originalHourlyPay),
         };
         await requestModificationStore(storeId, postData);
-        alert('수정이 완료되었습니다.');
+        openModal({type : 'caution', content : '수정이 완료되었습니다', })
         router.push(`/my-store/${storeId}`);
       }
     } catch (error) {
       if (error instanceof AxiosError) {
-        const errorMessage = error.response?.data.message;
-        alert(errorMessage);
+        const errorMessage = error.response?.data.message ? error.response?.data.message  : '다시 시도해주세요';
+        openModal({type : 'caution', content : errorMessage, })
       }
     }
   };

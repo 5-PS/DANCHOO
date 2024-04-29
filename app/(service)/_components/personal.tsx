@@ -73,7 +73,6 @@ function Personal() {
     }
   },[userData])
 
-  console.log(favoriteRecruits)
   if (!token) {
     return (
       <Empty title="맞춤공고" desc="로그인 하고 맞춤 공고를 확인 하세요" btnText="로그인 하러 가기" href={`/signin`} />

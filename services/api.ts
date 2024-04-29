@@ -9,6 +9,7 @@ import {
   PostRecruitsEditBody,
   RequestRecruit,
   GetNoticesParams,
+  PostChangeRecruitsEditBody,
 } from '@/types/api';
 
 export async function postSignUpInfo({ email, password, confirmPassword, type }: PostSignupBody) {
@@ -75,7 +76,7 @@ type UserType = 'employee' | 'employer';
 export interface ProfileItem extends ProfileOptionalItem {
   email: string;
   id: string;
-  shop: null;
+  shop: { item: { id: string } };
   type: UserType;
 }
 
@@ -117,15 +118,17 @@ interface ProfileLink {
   method: string;
   rel: string;
 }
-
-interface GetUserProfileResponse {
+export interface GetUserProfileResponse {
   item: ProfileItem;
   links: ProfileLink[];
 }
 
-export const getUserProfile = async (userId: string | string[]): Promise<GetUserProfileResponse> => {
-  const { data } = await apiClient.get(`/users/${userId}`);
-  return data;
+export const getUserProfile = async (userId: string | string[]): Promise<GetUserProfileResponse | null> => {
+  if (!!userId) {
+    const { data } = await apiClient.get(`/users/${userId}`);
+    return data;
+  }
+  return null;
 };
 
 export const getApplyList = async (userId: string | string[], page = 1, token?: string): Promise<any> => {
@@ -244,6 +247,11 @@ export const getDetailRecruit = async (shopId: string, recruitId: string) => {
 
 export const postRecruitsEdit = async ({ Id, formData }: PostRecruitsEditBody) => {
   const { data } = await postRequest.post(`/shops/${Id}/notices`, formData);
+  return data;
+};
+
+export const postChangeRecruitsEdit = async ({ storeId, recruitId, formData }: PostChangeRecruitsEditBody) => {
+  const { data } = await postRequest.put(`/shops/${storeId}/notices/${recruitId}`, formData);
   return data;
 };
 

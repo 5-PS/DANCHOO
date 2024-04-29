@@ -7,6 +7,7 @@ import formatDateRange from '@/utils/formatDateRange';
 
 import ApplicationButton from './applicationButton';
 import { cookies } from 'next/headers';
+import { decodeJWT } from '@/utils/decodeJWT';
 
 interface RecruitCardProps {
   shopId: string;
@@ -15,7 +16,10 @@ interface RecruitCardProps {
 
 async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
   const response = await getDetailRecruit(shopId, recruitId);
-  const recruitStatus = cookies().get(`recruit_${recruitId}`)
+  const cookie = cookies();
+  const token = cookie.get('accessToken');
+  const { userId } = decodeJWT(token?.value as string);
+  const recruitStatus = cookie.get(`recruit_${recruitId}`)
   const { item } = response;
   const { shop } = item;
   const isPassed = new Date() > new Date(item.startsAt);
@@ -66,7 +70,7 @@ async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
             {shop.item.address1}
           </div>
           <p className="leading-[26px] text-[14px] md:text-[16px] line-clamp-2">{shop.item.description}</p>
-          <ApplicationButton isClosed={isClosed} shopId={shopId} recruitId={recruitId} recruitStatus={recruitStatus} />
+          <ApplicationButton isClosed={isClosed} shopId={shopId} recruitId={recruitId} recruitStatus={recruitStatus} userId={userId} />
         </div>
       </div>
       <div className="flex flex-col w-full gap-2 p-5 rounded-xl bg-red-10 text-[14px] md:text-[16px] md:p-8 md:gap-3">

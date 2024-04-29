@@ -5,6 +5,7 @@ import PercentageBadge from '@/components/post/percentageBadge';
 import { getStoreRecruit } from '@/services/api';
 import calculatePercentage from '@/utils/calculatePercentage';
 import formatDateRange from '@/utils/formatDateRange';
+import Link from 'next/link';
 
 // TODO: 시급비교 라벨 따로빼기, 주소, 시간 아이콘 넣기
 interface RecuitsCardProps {
@@ -27,7 +28,7 @@ async function RecuitsCard({ storeId, recruitId }: RecuitsCardProps) {
       </div>
       <div className="flex flex-col w-full gap-3 p-5 mb-3 border rounded-xl border-gray-20 md:p-6 md:mb-6 md:gap-4 xl:flex-row xl:gap-8">
         <div className="w-full h-[178px] relative md:h-[350px] xl:h-[320px]">
-          <Image src={shop.item.imageUrl} fill alt="가게 이미지" />
+          <Image src={shop.item.imageUrl} className='rounded-2xl' fill alt="가게 이미지" />
         </div>
         <div className="flex flex-col gap-2 xl:pt-4 md:gap-3 md:max-w-full xl:max-w-[346px] xl:w-full xl:justify-between">
           <div>
@@ -53,9 +54,11 @@ async function RecuitsCard({ storeId, recruitId }: RecuitsCardProps) {
             {shop.item.address1}
           </div>
           <p className="leading-[26px] text-[14px] md:text-[16px] line-clamp-2">{shop.item.description}</p>
-          <Button background="bg-white" className="h-[48px]">
-            공고 편집하기
-          </Button>
+          <Link href={`/my-store/${storeId}/my-recruits/${recruitId}/edit`} >
+            <Button background="bg-white" className="h-[48px]">
+              공고 편집하기
+            </Button>
+          </Link>
         </div>
       </div>
       <div className="flex flex-col w-full gap-2 p-5 rounded-xl bg-red-10 text-[14px] md:text-[16px] md:p-8 md:gap-3">

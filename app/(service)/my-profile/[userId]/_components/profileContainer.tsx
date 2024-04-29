@@ -8,8 +8,8 @@ import Footer from '@/components/footer/footer';
 
 async function ProfileContainer({ userId, page }: { userId: string | string[]; page: string }) {
   const user = await getUserProfile(userId);
-  const { item } = user;
-  if (!item.name) {
+  const item = user;
+  if (!item?.item.name) {
     return (
       <>
       <section className=" pt-[60px] py-[120px]">
@@ -31,7 +31,7 @@ async function ProfileContainer({ userId, page }: { userId: string | string[]; p
           <h2 className="font-bold text-[28px] mb-10">내 프로필</h2>
           <div className="bg-white shadow-modal-box p-[32px] rounded-xl">
             <div className="flex justify-between">
-              <div className="text-[24px] font-bold text-primary">{item.name}</div>
+              <div className="text-[24px] font-bold text-primary">{item.item.name}</div>
               <div className="w-[200px]">
                 <Link href={`/my-profile/${userId}/edit`}>
                   <Button background="bg-white" className="h-10 text-sm">
@@ -40,9 +40,9 @@ async function ProfileContainer({ userId, page }: { userId: string | string[]; p
                 </Link>
               </div>
             </div>
-            <div>{item.phone}</div>
-            <div>{item.address}</div>
-            <p>{item.bio}</p>
+            <div>{item.item.phone}</div>
+            <div>{item.item.address}</div>
+            <p>{item.item.bio}</p>
           </div>
         </div>
       </section>

@@ -1,21 +1,9 @@
 import { useToastContext } from '@/contexts/toastContext';
-import { getDetailRecruit, getUserApplyList, postApplyRecruit, putCancelRecruit } from '@/services/api';
+import { getUserApplyList, getUserProfile, postApplyRecruit, putCancelRecruit } from '@/services/api';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import useModal from './useModal';
-
-interface UserType {
-  data: {
-    item: {
-      id: string;
-      type: string;
-      name: string;
-    };
-  };
-}
 
 interface RecruitType {
   items: [
@@ -33,19 +21,19 @@ interface RecruitType {
   ];
 }
 
-const useRecruitActions = (shopId: string, recruitId: string) => {
+const useRecruitActions = (shopId: string, recruitId: string, userId: string) => {
   const [applicationsId, setApplicationsId] = useState('');
   const { showToast } = useToastContext();
   const { openModal } = useModal();
-  const router = useRouter();
-  const { data } = useQuery<UserType>({ queryKey: ['userInfo1'] });
+  const { data } = useQuery({ queryKey: ['userInfo'], queryFn: () => getUserProfile(userId), enabled: !!userId });
   const { data: status, refetch } = useQuery<RecruitType>({
     queryKey: ['applyStatus'],
-    queryFn: () => getUserApplyList(data?.data.item.id),
+    queryFn: () => getUserApplyList(data?.item.id),
+    enabled: data?.item.type === 'employee',
   });
-  const user = data?.data.item;
+  const user = data?.item;
 
-  const handleAxiosError = (error: AxiosError, router: AppRouterInstance, showToast: (_msg: string) => void) => {
+  const handleAxiosError = (error: AxiosError) => {
     if (error instanceof AxiosError) {
       switch (error.response?.status) {
         case 400:
@@ -72,11 +60,11 @@ const useRecruitActions = (shopId: string, recruitId: string) => {
   const { mutate: applyRecruit } = useMutation({
     mutationFn: () => postApplyRecruit(shopId, recruitId),
     onSuccess: (data) => {
+      document.cookie = `recruit_${recruitId}=${data.item.status}_${data.item.user.item.id}; Path=/; Max-Age=8640000; Secure; SameSite=Strict`;
       showToast('신청 완료!');
-      document.cookie = `recruit_${recruitId}=${data.item.status}; Path=/; Max-Age=8640000; Secure; SameSite=Strict`;
       refetch();
     },
-    onError: (error: AxiosError) => handleAxiosError(error, router, showToast),
+    onError: (error: AxiosError) => handleAxiosError(error),
   });
 
   const { mutate: cancelRecruit } = useMutation({
@@ -85,10 +73,10 @@ const useRecruitActions = (shopId: string, recruitId: string) => {
       showToast('취소했어요');
       document.cookie = `recruit_${recruitId}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
     },
-    onError: (error: AxiosError) => handleAxiosError(error, router, showToast),
+    onError: (error: AxiosError) => handleAxiosError(error),
   });
 
-  return { applyRecruit, cancelRecruit, user, status, openModal };
+  return { applyRecruit, cancelRecruit, user, openModal };
 };
 
 export default useRecruitActions;

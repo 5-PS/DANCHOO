@@ -13,6 +13,7 @@ import Input from '@/components/input/input';
 import SelectInput from '@/components/input/selectInput';
 import { postCreateStore, requestUploadImg } from '@/services/api';
 import { PostCreateStoreBody } from '@/types/api';
+import useModal from '@/hooks/useModal';
 
 const FOOD_CATEGORY_LIST = [
   { id: 1, category: '한식' },
@@ -65,6 +66,7 @@ interface FieldValues {
 
 export default function MyStoreForm() {
   const router = useRouter();
+  const {openModal} = useModal();
   const {
     register,
     handleSubmit,
@@ -72,7 +74,6 @@ export default function MyStoreForm() {
     formState: { errors },
   } = useForm<FieldValues>({ mode: 'all' });
   const [imageSrc, setImageSrc] = useState<any>(null);
-  const { refetch } = useQuery({ queryKey: ['userInfo1'] });
 
   const handleUploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -94,13 +95,13 @@ export default function MyStoreForm() {
         originalHourlyPay: Number(formData.originalHourlyPay),
       };
       const { item } = await postCreateStore(postData);
-      alert('내가게가 등록 되었습니다');
-      refetch();
+      openModal({type : 'caution', content : '내 가게가 생성되었습니다', })
+   
       router.push(`/my-store/${item.id}`);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        const errorMessage = error.response?.data.message;
-        alert(errorMessage);
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const errorMessage = err.response?.data.message ? err.response?.data.message : '다시 시도해주세요';
+        openModal({type:'caution', content : errorMessage})
       }
     }
   };

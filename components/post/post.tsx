@@ -118,7 +118,7 @@ function Post({
               <div
                 className={`text-xs text-center whitespace-nowrap text-ellipsis overflow-hidden max-w-[125px] md:text-white md:font-bold ${isClosed ? 'text-gray-30' : 'text-red-40'}`}
               >
-                기존 시급보다 ${percentage}%
+                기존 시급보다 {percentage}%
               </div>
               <Image
                 className="max-[767px]:hidden"

@@ -7,8 +7,9 @@ import { useParams, useRouter } from 'next/navigation';
 
 import Button from '@/components/button/button';
 import Input from '@/components/input/input';
-import { postRecruitsEdit } from '@/services/api';
+import { getStoreRecruit, postChangeRecruitsEdit } from '@/services/api';
 import useModal from '@/hooks/useModal';
+import { useEffect, useState } from 'react';
 
 interface FieldValues {
   hourlyPay: number;
@@ -17,13 +18,22 @@ interface FieldValues {
   description: string;
 }
 
-export default function RegistRecruitForm() {
-  const { storeId } = useParams();
+export default function RecruitEdit() {
+  const { storeId, recruitId } = useParams();
   const router = useRouter();
+  
+  const getData = async()=>{
+    const {item} = await getStoreRecruit(storeId as string,recruitId as string);
+    setValue('startsAt', item.startsAt.split("T")[0]);
+    setValue('hourlyPay', item.hourlyPay);
+    setValue('workhour', item.workhour);
+    setValue('description', item.description);
+  }
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<FieldValues>({ mode: 'all' });
   const {openModal} = useModal();
 
@@ -52,27 +62,31 @@ export default function RegistRecruitForm() {
     },
   ];
 
-  const postRecruits = async (Id: string | string[], data: any) => {
+  const postRecruits = async (storeId: string | string[],recruitId: string | string[],data: any) => {
     const formData = {
       ...data,
       startsAt: `${data.startsAt}T15:00:00Z`,
       hourlyPay: Number(data.hourlyPay),
       workhour: Number(data.workhour),
     };
+
     try {
-      await postRecruitsEdit({ Id, formData });
-      openModal({type:'notice', content:'등록이 완료되었습니다.', submitFunction:()=>{router.push(`/my-store/${storeId}`);}})
+      await postChangeRecruitsEdit({storeId, recruitId, formData });
+      openModal({type:'notice', content:'수정이 완료되었습니다.', submitFunction:()=>{router.push(`/my-store/${storeId}/my-recruits/${recruitId}`);router.refresh();}})
     } catch (error) {
       if (error instanceof AxiosError) {
-
+        console.log(error.message);
         alert(error.response?.data.message);
       }
     }
   };
 
   const onSubmit = async (data: FieldValues) => {
-    await postRecruits(storeId, data);
+    postRecruits(storeId,recruitId,data);
   };
+  useEffect(()=>{
+    getData();
+  },[])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -80,6 +94,7 @@ export default function RegistRecruitForm() {
         <div className="grid gap-x-5 md:grid-cols-2 xl:grid-cols-3 gap-y-6">
           {inputFields.map((field) => (
             <Input
+              id={field.label}
               key={field.label}
               label={field.label}
               type={field.type}
@@ -105,7 +120,7 @@ export default function RegistRecruitForm() {
       <div className="flex items-center justify-center">
         <div className="w-full md:w-[312px]">
           <Button background="bg-primary" className="h-12 font-bold">
-            등록하기
+            수정하기
           </Button>
         </div>
       </div>
