@@ -6,6 +6,15 @@ import NotificationBtn from './notificationBtn';
 import { useRouter } from 'next/navigation';
 import { useToastContext } from '@/contexts/toastContext';
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getUserProfile } from '@/services/api';
+
+interface AuthButtonProps {
+  userInfo?: {
+    type?: string; 
+    linkUrl?: string;
+  };
+}
 
 function UserTypeLink({ userInfo }: AuthButtonProps) {
   return (
@@ -15,18 +24,17 @@ function UserTypeLink({ userInfo }: AuthButtonProps) {
     </>
   )
 }
-interface AuthButtonProps {
-  userInfo?: {
-    type?: string; 
-    linkUrl?: string;
-  };
-}
 
-function AuthButton({ userInfo }:AuthButtonProps) {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!userInfo)
+function AuthButton({userId}:{userId:string}) {
+  const [isLoggedIn, setIsLoggedIn] = useState(!!userId)
   const router = useRouter()
   const { showToast } = useToastContext()
-
+  const {data} = useQuery({queryKey:['userInfo'], queryFn:()=> getUserProfile(userId), enabled: !!userId})
+  const userInfo = {
+    type: data?.item.type,
+    linkUrl: data?.item.type === 'employer' ? data.item.shop?.item.id : data?.item.id,
+  };
+  
   const handleLogout = () => {
     document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     setIsLoggedIn(false)

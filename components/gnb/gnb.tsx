@@ -5,17 +5,11 @@ import AuthButton from './authButton';
 import SearchBar from './searchBar';
 import { cookies } from 'next/headers';
 import { decodeJWT } from '@/utils/decodeJWT';
-import { getUserProfile } from '@/services/api';
 
 async function Gnb() {
   const cookie = cookies()
   const token = cookie.get('accessToken')
   const { userId } = decodeJWT(token?.value as string)
-  const data = await getUserProfile(userId)
-  const userInfo = {
-    type: data?.item.type,
-    linkUrl: data?.item.type === 'employer' ? data.item.shop.item.id : data?.item.id,
-  };
 
   return (
     <header className="sticky top-0 z-[99] w-full px-5 py-3 bg-white">
@@ -23,7 +17,7 @@ async function Gnb() {
         <Link href="/">
           <Image src="/icons/logo.svg" width={112} height={40} alt="로고" priority />
         </Link>
-        <AuthButton userInfo={userInfo} />
+        <AuthButton userId={userId} />
         <SearchBar />
       </nav>
     </header>
