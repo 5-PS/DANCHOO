@@ -25,6 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <link rel='icon' href='/images/favicon.ico' sizes='any' />
       <body className={myFont.className}>
         <ReactQueryClientProvider>
           <Providers>
