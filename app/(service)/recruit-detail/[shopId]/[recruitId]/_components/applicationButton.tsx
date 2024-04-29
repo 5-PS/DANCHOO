@@ -12,20 +12,13 @@ interface ApplicationButtonProps {
   recruitStatus?:{
     value: string;
   }
+  userId: string;
 }
 
-function ApplicationButton({ isClosed, shopId, recruitId, recruitStatus }: ApplicationButtonProps) {
+function ApplicationButton({ isClosed, shopId, recruitId, recruitStatus, userId }: ApplicationButtonProps) {
   const router = useRouter()
   const [isApplied, setIsApplied] = useState(recruitStatus?.value === 'pending');
-  const { applyRecruit, cancelRecruit, user, status, openModal } = useRecruitActions(shopId, recruitId)
-
-  useEffect(() => {
-    const applyStatus = status?.items.filter((state) => state.item.notice.item.id === recruitId);
-    if (applyStatus && applyStatus[0]?.item?.status === 'pending') {
-      document.cookie = `recruit_${recruitId}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
-    } 
-  }, [status, recruitId]);
-
+  const { applyRecruit, cancelRecruit, user, openModal } = useRecruitActions(shopId, recruitId, userId)
 
   const handleRecruitActions = () => {
     if (!user) {
