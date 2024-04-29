@@ -21,13 +21,14 @@ function NotificationBtn() {
   const [alertList, setAlertList] = useState<AlertList>({ count: 0, items: [] });
 
   useEffect(() => {
-    const tokenPayload = document.cookie.split('.')[1];
-    const userId = jwtDecode(tokenPayload);
+    const userId = jwtDecode();
     const fetchData = async () => {
       try {
+        if (userId) {
         const { data } = await postRequest.get(`/users/${userId}/alerts`);
         const unreadAlerts = data.items.filter((item: { item: { read: boolean } }) => !item.item.read);
-        setAlertList({ count: unreadAlerts.length, items: unreadAlerts });
+        setAlertList({ count: unreadAlerts.length, items: unreadAlerts })
+      }
       } catch (error) {
         if (error instanceof AxiosError) {
           const errorMessage = error.response?.data.message;

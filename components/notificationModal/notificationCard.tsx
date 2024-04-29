@@ -29,8 +29,7 @@ function NotificationCard({ alertId, createdAt, result, shop, notice, setCurrent
   const { startsAt, workhour } = notice;
 
   const handleAlertRead = async () => {
-    const tokenPayload = document.cookie.split('.')[1];
-    const userId = jwtDecode(tokenPayload);
+    const userId = jwtDecode();
     await putAlertRead(userId, alertId);
     setCurrentCount((prev) => prev - 1);
     setIsRead(true);
