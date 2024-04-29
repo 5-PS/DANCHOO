@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { ProfileItem, getUserProfile } from '@/services/api';
+import { GetUserProfileResponse, getUserProfile } from '@/services/api';
 import { decodeJWT } from '@/utils/decodeJWT';
 
 const useUser = () => {
-  const [user, setUser] = useState<ProfileItem | null>(null);
+  const [user, setUser] = useState<GetUserProfileResponse | null>(null);
 
   const token = typeof document !== 'undefined' ? document.cookie : '';
   // console.log(token);
@@ -23,7 +23,7 @@ const useUser = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const { item } = await getUserProfile(decodedPayload.userId);
+      const item = await getUserProfile(decodedPayload.userId);
       setUser(item);
     };
 

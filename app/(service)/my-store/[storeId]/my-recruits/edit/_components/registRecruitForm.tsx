@@ -64,7 +64,7 @@ export default function RegistRecruitForm() {
       openModal({type:'notice', content:'등록이 완료되었습니다.', submitFunction:()=>{router.push(`/my-store/${storeId}`);}})
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.log(error.message);
+
         alert(error.response?.data.message);
       }
     }

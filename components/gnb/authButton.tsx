@@ -10,6 +10,8 @@ import { apiClient } from '@/libs/axios';
 import { decodeJWT, getCookie } from '@/utils/getCookie';
 
 import NotificationBtn from './notificationBtn';
+import { useToastContext } from '@/contexts/toastContext';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface BoxProps {
   type ?: string;
@@ -60,12 +62,15 @@ function AuthButton() {
   const router = useRouter();
   const [token, setToken] = useState<any>('');
   const userId = token && decodeJWT(token);
+  const { showToast } = useToastContext()
+  const queryClient = useQueryClient();
+
   const handleLogout = () => {
     document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     setToken('');
-    alert('로그아웃 되었습니다');
+    showToast('로그아웃 되었습니다');
     router.push('/');
-  
+    queryClient.removeQueries({queryKey:['userInfo'], type: 'inactive'});
   };
   useEffect(() => {
     const accessToken = getCookie('accessToken');
