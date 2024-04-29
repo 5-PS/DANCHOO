@@ -40,7 +40,7 @@ function NotificationCard({ alertId, createdAt, result, shop, notice, setCurrent
     !isRead && (
       <li className="flex flex-col gap-1 px-3 py-4 bg-white border border-gray-200 rounded-md ">
         <button className="text-left" onClick={handleAlertRead}>
-          <div className={`w-[5px] h-[5px] ${result === 'accepted' ? 'bg-blue-20' : 'bg-red-40'} rounded-full`} />
+          <div className={`w-[5px] h-[5px] ${result === 'accepted' ? 'bg-blue-20' : 'bg-red-50'} rounded-full`} />
           <p className="text-sm">
             {shop.name}
             {formatDateRange(startsAt, workhour)}
