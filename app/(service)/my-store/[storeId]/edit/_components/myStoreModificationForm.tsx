@@ -134,12 +134,12 @@ export default function MyStoreModificationForm() {
       <div className="flex flex-col gap-6 mb-6 md:mb-8">
         <div className="flex flex-col gap-5 md:flex-row">
           <Input
-            label="가게 이름*"
+            label="기업 이름*"
             type="text"
             errorMessage={errors.name?.message}
             placeholder={defaultValue?.name}
             {...register('name', {
-              required: '가게 이름을 적어주세요',
+              required: '기업 이름을 적어주세요',
             })}
           />
           <Controller
@@ -188,7 +188,7 @@ export default function MyStoreModificationForm() {
           />
         </div>
         <div className="w-full md:w-[483px]">
-          <p className="mb-2">가게 이미지</p>
+          <p className="mb-2">기업 이미지</p>
           <label
             htmlFor="image-input"
             className={`flex flex-col gap-3 font-bold text-white w-full max-w-[375px] h-[201px] md:max-w-full md:h-[276px]  ${!imageSrc && 'border-gray-20 '}  rounded-xl justify-center items-center cursor-pointer relative overflow-hidden`}
@@ -211,7 +211,7 @@ export default function MyStoreModificationForm() {
           {errors.imageUrl && <span className="text-xs text-red-500">{errors.imageUrl.message}</span>}
         </div>
         <label htmlFor="store-description">
-          <p className="mb-2">가게 설명 </p>
+          <p className="mb-2">기업 설명 </p>
           <textarea
             placeholder={defaultValue?.description}
             id="store-description"
