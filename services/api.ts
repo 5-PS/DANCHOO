@@ -117,7 +117,7 @@ interface ProfileLink {
   method: string;
   rel: string;
 }
-interface GetUserProfileResponse {
+export interface GetUserProfileResponse {
   item: ProfileItem;
   links: ProfileLink[];
 }
