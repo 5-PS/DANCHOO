@@ -22,7 +22,7 @@ function Pagination({
   const pageLength = Math.ceil(totalDataCount / sliceDataValue);
   if (pageLength <= LIMIT_PAGE_COUNT_NUM) {
     return (
-      <div className="w-full py-[8px] px-[12px] flex justify-center items-center mb-[60px]">
+      <div className="w-full py-[8px] px-[12px] flex justify-center items-center">
         <div className="flex gap-[20px] items-center ">
           <div className="flex gap-[4px] md:gap-[2px]">
             {Array.from({ length: pageLength }, (_, index) => index + 1).map((number) => {
