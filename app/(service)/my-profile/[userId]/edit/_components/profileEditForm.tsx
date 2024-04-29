@@ -8,7 +8,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Button from '@/components/button/button';
 import Input from '@/components/input/input';
 import SelectInput from '@/components/input/selectInput';
-import { putUserProfile } from '@/services/api';
+import { getUserProfile, putUserProfile } from '@/services/api';
 import { PutProfileBody } from '@/types/api';
 
 const ADDRESS_LIST = [
@@ -48,7 +48,18 @@ export default function ProfileEditForm() {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<FieldValues>({ mode: 'all' });
+  } = useForm<FieldValues>({ 
+    mode: 'all' ,
+    defaultValues: async() => {
+      const user = await getUserProfile(userId);
+      const { item } = user;
+      return {
+        name: item.name,
+        phone: item.phone,
+        address:item.address,
+        bio: item.bio,
+      }}
+  });
   const handleOnSubmit = async (data: PutProfileBody) => {
     try {
       await putUserProfile(userId, data);

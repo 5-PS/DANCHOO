@@ -15,7 +15,7 @@ async function ApplyList({ userId, page }: { userId: string | string[]; page: st
     page,
   };
   if (!response.count) {
-    return <Empty title="신청 내역" desc="아직 신청 내역이 없어요." btnText="공고 보러가기" href="/" />;
+    return <Empty title='' desc="아직 신청 내역이 없어요." btnText="공고 보러가기" href="/" />;
   }
 
   const data = response.items.map(({ item }: { item: any }) => ({

@@ -21,13 +21,6 @@ export interface GetNoticesParams {
   sort?: 'time' | 'pay' | 'hour' | 'shop';
 }
 
-// interface Pagination {
-//   offset: number;
-//   limit: number;
-//   count: number;
-//   hasNext: boolean;
-// }
-
 export interface RecruitResponse {
   offset: number;
   limit: number;
@@ -74,9 +67,9 @@ interface Link {
 }
 
 export interface PutProfileBody {
-  name: string;
-  phone: string;
-  address:
+  name?: string;
+  phone?: string;
+  address?:
     | '서울시 종로구'
     | '서울시 중구'
     | '서울시 용산구'
@@ -102,7 +95,7 @@ export interface PutProfileBody {
     | '서울시 강남구'
     | '서울시 송파구'
     | '서울시 강동구';
-  bio: string;
+  bio?: string;
 }
 export interface PostCreateStoreBody {
   name: 'string';
