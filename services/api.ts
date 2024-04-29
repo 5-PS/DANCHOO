@@ -75,7 +75,7 @@ type UserType = 'employee' | 'employer';
 export interface ProfileItem extends ProfileOptionalItem {
   email: string;
   id: string;
-  shop: null;
+  shop: { item: { id: string } };
   type: UserType;
 }
 
@@ -92,15 +92,17 @@ interface ProfileLink {
   method: string;
   rel: string;
 }
-
 interface GetUserProfileResponse {
   item: ProfileItem;
   links: ProfileLink[];
 }
 
-export const getUserProfile = async (userId: string | string[]): Promise<GetUserProfileResponse> => {
-  const { data } = await apiClient.get(`/users/${userId}`);
-  return data;
+export const getUserProfile = async (userId: string | string[]): Promise<GetUserProfileResponse | null> => {
+  if (!!userId) {
+    const { data } = await apiClient.get(`/users/${userId}`);
+    return data;
+  }
+  return null;
 };
 
 export const getApplyList = async (userId: string | string[], page = 1, token?: string): Promise<any> => {
