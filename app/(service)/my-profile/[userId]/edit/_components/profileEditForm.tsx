@@ -10,6 +10,7 @@ import Input from '@/components/input/input';
 import SelectInput from '@/components/input/selectInput';
 import { getUserProfile, putUserProfile } from '@/services/api';
 import { PutProfileBody } from '@/types/api';
+import useModal from '@/hooks/useModal';
 
 const ADDRESS_LIST = [
   { id: 1, category: '서울시 종로구' },
@@ -40,6 +41,7 @@ const ADDRESS_LIST = [
 ];
 interface FieldValues extends PutProfileBody {}
 export default function ProfileEditForm() {
+  const {openModal} = useModal();
   const params = useParams();
   const { userId } = params;
   const router = useRouter();
@@ -63,12 +65,12 @@ export default function ProfileEditForm() {
   const handleOnSubmit = async (data: PutProfileBody) => {
     try {
       await putUserProfile(userId, data);
-      alert('프로필을 등록하였습니다');
+      openModal({type  : 'caution', content : '완료되었습니다'})
       router.push(`/my-profile/${userId}`);
     } catch (err) {
       if (err instanceof AxiosError) {
-        const errorMessage = err.response?.data.message;
-        alert(errorMessage);
+        const errorMessage = err.response?.data.message ? err.response?.data.message  : '다시 시도해 주세요';
+        openModal({type  : 'caution', content : errorMessage})
       }
     }
   };
