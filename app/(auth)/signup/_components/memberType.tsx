@@ -6,8 +6,8 @@ import checkedIcon from '@/public/icons/checked.svg';
 import uncheckedIcon from '@/public/icons/unchecked.svg';
 
 const MEMBER_TYPE: { label: string; type: 'employee' | 'employer' }[] = [
-  { label: '알바님', type: 'employee' },
-  { label: '사장님', type: 'employer' },
+  { label: '취준생', type: 'employee' },
+  { label: '기업회원', type: 'employer' },
 ];
 
 interface MemberTypeProps {

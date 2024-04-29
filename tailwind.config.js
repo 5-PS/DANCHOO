@@ -20,7 +20,7 @@ module.exports = {
       },
 
       colors: {
-        primary: '#0045F8', //#EA3C12
+        primary: '#1268EA', //#EA3C12
         'primary-hover': '#1160DA',
         black: '#111322',
         'gray-50': '#7d7986',
@@ -30,6 +30,7 @@ module.exports = {
         'gray-10': '#f2f2f3',
         'gray-5': '#fafafa',
         white: '#ffffff',
+        'red-50': '#FF4040',
         'red-40': '#1268EA', //#FF4040
         'red-30': '#F3F9FF', //#FF8D72
         'red-20': '#ECEFFF', //#FFAF9B

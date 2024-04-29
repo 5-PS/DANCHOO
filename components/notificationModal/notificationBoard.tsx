@@ -29,28 +29,32 @@ function NotificationBoard({ onClose, alertList }: NotificationBoardProps) {
           <Image src={close} alt="닫기 버튼" />
         </button>
       </div>
-      <ul className="flex flex-col gap-2">
-        {items.map(({ item }) => {
-          const {
-            id,
-            createdAt,
-            result,
-            shop: { item: shopItem },
-            notice: { item: noticeItem },
-          } = item;
-          return (
-            <NotificationCard
-              key={id}
-              alertId={id}
-              createdAt={createdAt}
-              result={result}
-              shop={shopItem}
-              notice={noticeItem}
-              setCurrentCount={setCurrentCount}
-            />
-          );
-        })}
-      </ul>
+      {currentCount > 0 ? (
+        <ul className="flex flex-col gap-2">
+          {items.map(({ item }) => {
+            const {
+              id,
+              createdAt,
+              result,
+              shop: { item: shopItem },
+              notice: { item: noticeItem },
+            } = item;
+            return (
+              <NotificationCard
+                key={id}
+                alertId={id}
+                createdAt={createdAt}
+                result={result}
+                shop={shopItem}
+                notice={noticeItem}
+                setCurrentCount={setCurrentCount}
+              />
+            );
+          })}
+        </ul>
+      ) : (
+        <p className="text-center text-gray-500 px-14">알림이 없습니다</p>
+      )}
     </div>
   );
 }
