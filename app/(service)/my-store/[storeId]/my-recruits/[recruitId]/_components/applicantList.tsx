@@ -24,5 +24,10 @@ export default async function ApplicantList({ searchParams, storeId, recruitId }
     col3: item.user.item.phone,
     applicationsId: item.id,
   }));
-  return <Table query={searchParams} type="applicantList" data={data} totalDataCount={response.count} />;
+  const isAccept = data.some((item : any) => item.status === 'accepted');
+  const dataArr = isAccept ? data.map((item : any) => ({
+    ...item,
+    status : item.status === 'accepted' ||  item.status === 'canceled' ? item.status : 'rejected',
+  })) : data
+  return <Table query={searchParams} type="applicantList" data={dataArr} totalDataCount={response.count} />;
 }
