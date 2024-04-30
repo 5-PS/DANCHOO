@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 import Image from 'next/image';
@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { TFilter } from '@/app/(service)/_components/totalRecruitList';
 
 import Button from '../button/button';
+import useOutsideClick from '@/hooks/useOutSideClick';
 
 interface DetailFilterModalProps {
   onFiltersChange: (filters: TFilter) => void;
@@ -50,6 +51,10 @@ function DetailFilterModal({ onFiltersChange }: DetailFilterModalProps) {
   const [filterAddressList, setFilterAddressList] = useState<string[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [amount, setAmount] = useState<number | null>(null);
+  const toggleRef = useRef(null)
+  const ref = useRef(null)
+  useOutsideClick(ref, () => {setActiveModal(false)}, toggleRef);
+  
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   const handleDeleteClickAddressListItem = (address: string) => {
@@ -90,13 +95,14 @@ function DetailFilterModal({ onFiltersChange }: DetailFilterModalProps) {
   return (
     <div className="relative">
       <button
+        ref={toggleRef}
         type="button"
         className="text-[14px] rounded-[5px] bg-red-40 font-bold px-[12px] py-[6px] text-white"
         onClick={() => setActiveModal((prev) => !prev)}
       >
         상세 필터
       </button>
-      <div
+      <div ref={ref}
         className={`w-full h-screen px-[12px] py-[24px] overflow-y-auto z-[100] bg-white m-auto fixed top-0 left-0 md:w-[390px] md:h-[auto] md:px-[20px] md:py-[24px] md:rounded-[10px] md:border md:border-gray-20 md:absolute md:top-[120%] md:-left-[302px]  ${!activeModal && 'hidden'}`}
       >
         <div className="text-[20px] mb-[24px] flex justify-between">

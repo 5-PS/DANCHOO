@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { AxiosError } from 'axios';
 import Image from 'next/image';
@@ -19,6 +19,7 @@ interface AlertList {
 function NotificationBtn() {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [alertList, setAlertList] = useState<AlertList>({ count: 0, items: [] });
+  const alertRef = useRef(null)
 
   useEffect(() => {
     const tokenPayload = document.cookie.split('.')[1];
@@ -40,7 +41,7 @@ function NotificationBtn() {
 
   return (
     <>
-      <button onClick={() => setIsNotificationOpen((prev) => !prev)}>
+      <button ref={alertRef} onClick={() => setIsNotificationOpen((prev) => !prev)}>
         {alertList.count ? (
           <Image src="/icons/notification-active.svg" width={20} height={20} alt="알림 아이콘" />
         ) : (
@@ -49,7 +50,7 @@ function NotificationBtn() {
       </button>
       {isNotificationOpen && (
         <div className="fixed inset-0 md:absolute md:right-0 md:top-12 md:left-auto">
-          <NotificationBoard onClose={() => setIsNotificationOpen(false)} alertList={alertList} />
+          <NotificationBoard onClose={() => setIsNotificationOpen(false)} alertList={alertList} alertRef={alertRef}/>
         </div>
       )}
     </>
