@@ -41,6 +41,21 @@ export interface NoticeDataType {
 
 const NUMBER_OF_POSTS_TO_FETCH = 3;
 
+type CategoryMap = {
+  [key: string]: string;
+};
+
+const CATEGORY_LIST:CategoryMap = {
+   한식:'개발' ,
+   중식:'디자인',
+   일식:'경영',
+   양식:'마케팅',
+   분식:'영업',
+   카페:'회계',
+   편의:'상품기획/MD',
+   기타:'HR',
+};
+
 export default function MyStoreCard() {
   const [count, setCount] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -113,7 +128,7 @@ const lastNoticeElementRef = useCallback((node: HTMLElement | null) => {
           <div className="flex flex-col gap-2 xl:pt-4 md:gap-3">
             <div>
               <span className="inline-block mb-2 font-bold text-primary text-[14px] md:text-[16px]">
-                {storeData.category}
+                {CATEGORY_LIST[storeData.category]}
               </span>
               <div className="font-bold text-[24px] flex gap-2 items-center md:text-[28px]">{storeData.name}</div>
             </div>

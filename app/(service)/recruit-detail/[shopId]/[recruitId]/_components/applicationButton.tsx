@@ -32,7 +32,7 @@ function ApplicationButton({ isClosed, shopId, recruitId, recruitStatus, userId 
       return
     }
     if (user.type === 'employer') {
-      openModal({ type: 'caution', content: '사장님은 신청 못해요!' });
+      openModal({ type: 'caution', content: '기업회원은 신청 할 수 없습니다.' });
       return;
     }
     if (!user.name) {
