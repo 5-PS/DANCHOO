@@ -80,7 +80,7 @@ function Personal() {
   }
 
   if (userData?.type === 'employer') {
-    return <div className='flex justify-center items-center text-[32px] font-bold text-gray-30 xl:h-[417px]'>사장님은 맞춤공고를 이용할 수 없어요</div>;
+    return <div className='flex justify-center items-center text-[20px] text-gray-40 xl:h-[160px]'>기업회원은 맞춤공고를 이용할 수 없어요</div>;
   }
 
   if (!userData?.address) {

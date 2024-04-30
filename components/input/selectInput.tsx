@@ -5,7 +5,7 @@ import { ReactNode, useState } from 'react';
 interface SelectInputProps {
   children: ReactNode;
   onChange: (value: string) => void;
-  renderList: { id: number; category: string }[];
+  renderList: { id: number; category: string ,field?:string}[];
   errorMessage?: string;
 }
 
@@ -20,8 +20,8 @@ export default function SelectInput({ children, onChange, renderList, errorMessa
     setIsDropdownOpened(!isDropdownOpened);
   };
 
-  const handleSelectOption = (category: string) => {
-    setSelectOption(category);
+  const handleSelectOption = (category: string,field?:string) => {
+    setSelectOption(field ? field : category);
     onChange(category);
     setIsDropdownOpened(false);
   };
@@ -40,9 +40,9 @@ export default function SelectInput({ children, onChange, renderList, errorMessa
       <ul
         className={`scrollbar z-50 absolute w-full top-[100px] overflow-y-auto h-[190px] rounded-md border border-solid border-gray-20 bg-white ${isDropdownOpened ? 'block' : 'hidden'}`}
       >
-        {renderList.map(({ id, category }) => (
-          <li key={id} onClick={() => handleSelectOption(category)} className={listClassName}>
-            {category}
+        {renderList.map(({ id, category,field }) => (
+          <li key={id} onClick={() => handleSelectOption(category,field )} className={listClassName}>
+            {field ? field : category}
           </li>
         ))}
       </ul>

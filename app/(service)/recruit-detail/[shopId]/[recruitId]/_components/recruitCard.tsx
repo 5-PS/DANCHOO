@@ -14,6 +14,22 @@ interface RecruitCardProps {
   recruitId: string;
 }
 
+type CategoryMap = {
+  [key: string]: string;
+};
+
+
+const CATEGORY_LIST:CategoryMap = {
+  한식:'개발' ,
+  중식:'디자인',
+  일식:'경영',
+  양식:'마케팅',
+  분식:'영업',
+  카페:'회계',
+  편의:'상품기획/MD',
+  기타:'HR',
+};
+
 async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
   const response = await getDetailRecruit(shopId, recruitId);
   const cookie = cookies();
@@ -30,7 +46,7 @@ async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
     <>
       <div className="mb-4 md:mb-6">
         <span className="text-[14px] inline-block mb-2 font-bold text-primary md:text-[16px]">
-          {shop.item.category}
+          {CATEGORY_LIST[shop.item.category]}
         </span>
         <h1 className="text-[20px] font-bold md:text-[28px]">{shop.item.name}</h1>
       </div>
@@ -75,7 +91,7 @@ async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
       </div>
       <div className="flex flex-col w-full gap-2 p-5 rounded-xl bg-red-10 text-[14px] md:text-[16px] md:p-8 md:gap-3">
         <h2 className="font-bold">공고 설명</h2>
-        <p className="text-pretty">{item.description}</p>
+        <p className="whitespace-pre-line text-pretty">{item.description}</p>
       </div>
     </>
   );

@@ -16,14 +16,14 @@ import { PostCreateStoreBody } from '@/types/api';
 import useModal from '@/hooks/useModal';
 
 const FOOD_CATEGORY_LIST = [
-  { id: 1, category: '한식' },
-  { id: 2, category: '중식' },
-  { id: 3, category: '일식' },
-  { id: 4, category: '양식' },
-  { id: 5, category: '분식' },
-  { id: 6, category: '카페' },
-  { id: 7, category: '편의점' },
-  { id: 8, category: '기타' },
+  { id: 1, category: '한식' , field:'개발' },
+  { id: 2, category: '중식', field:'디자인' },
+  { id: 3, category: '일식', field:'경영' },
+  { id: 4, category: '양식', field:'마케팅' },
+  { id: 5, category: '분식', field:'영업' },
+  { id: 6, category: '카페', field:'회계' },
+  { id: 7, category: '편의점', field:'상품기획/MD' },
+  { id: 8, category: '기타', field:'HR' },
 ];
 
 const ADDRESS_LIST = [
