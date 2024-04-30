@@ -91,7 +91,7 @@ async function RecruitCard({ shopId, recruitId }: RecruitCardProps) {
       </div>
       <div className="flex flex-col w-full gap-2 p-5 rounded-xl bg-red-10 text-[14px] md:text-[16px] md:p-8 md:gap-3">
         <h2 className="font-bold">공고 설명</h2>
-        <p className="text-pretty">{item.description}</p>
+        <p className="whitespace-pre-line text-pretty">{item.description}</p>
       </div>
     </>
   );

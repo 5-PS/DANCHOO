@@ -20,7 +20,7 @@ export interface TFilter {
 
 function TotalRecruitList() {
   const keyword = useSearchParams().get('keyword');
-  const [sortOption, setSortOption] = useState<'time' | 'pay' | 'hour' | 'shop'>('time');
+  const [sortOption, setSortOption] = useState<'time' | 'pay' | 'hour' | 'shop'>('pay');
   const [filters, setFilters] = useState<TFilter>({
     address: [],
     startsAtGte: null,

@@ -20,7 +20,7 @@ const FILTER_LIST: { id: number; category: string; sort: 'time' | 'pay' | 'hour'
   },
   {
     id: 4,
-    category: '가다나순',
+    category: '가나다순',
     sort: 'shop',
   },
 ];
