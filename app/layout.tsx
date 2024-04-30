@@ -7,6 +7,7 @@ import ModalProvider from '@/contexts/ModalProvider';
 import Providers from '@/contexts/providers';
 
 import type { Metadata } from 'next';
+import NextTopLoader from 'nextjs-toploader';
 
 const myFont = localFont({
   src: '../public/fonts/Pretendard-Regular.woff2',
@@ -30,6 +31,7 @@ export default function RootLayout({
         <ReactQueryClientProvider>
           <Providers>
             <ModalProvider>
+              <NextTopLoader />
               <div id="modal" />
               <div className='relative min-h-screen'>
                 {children}
