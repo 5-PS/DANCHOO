@@ -53,7 +53,7 @@
 
 ## 🎞 Duration
 
-2024.02.26(월) ~ 03.12(화)
+2024.04.14(월) ~ 04.30(화)
 
 ## ☀️ Project Topic
 
@@ -64,11 +64,13 @@ https://the-julge.netlify.app/
 
 ## 🛠️ Skills & Tools
 
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) <img src="https://img.shields.io/badge/Css-1572B6?style=for-the-badge&logo=Css3&logoColor=white"> ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white) <img src="https://img.shields.io/badge/Typescript-3776AB?style=for-the-badge&logo=TypeScript&logoColor=white">
+<img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=for-the-badge&logo=Tailwind CSS&logoColor=white">
 
 ## 📚 Library
 
-![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white) <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"> ![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white) ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white) <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white"> 
+<img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"> ![React Query](https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white) ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white) <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white">
+<img src="https://img.shields.io/badge/NExtjs-000000?style=for-the-badge&logo=nextdotjs&logoColor=white">
 
 ## 💬 Community
 
@@ -82,36 +84,8 @@ https://the-julge.netlify.app/
 ---
 
 # ✨ Feature
+https://github.com/5-PS/The-Julge/assets/103150252/1dfad9a7-8f30-4b51-9c15-e92f2e663afe
 
-## 1. 메인 페이지 (컴포넌트 명: pages/Main.jsx)
-
-- 이름을 입력해서 질문을 받을 수 있는 피드 생성
-- 질문을 위한 질문 목록 페이지로 이동
-
-## 2. 질문 목록 페이지 (컴포넌트 명: pages/ListPage.jsx)
-
-- 생성된 피드들을 카드 형태로 페이지별로 표시
-- 피드들을 ‘이름순’ , ’최신순’ 기준으로 선택해서 정렬
-- 원하는 피드를 선택하여 질문 피드 페이지로 이동
-- 질문할 피드를 랜덤으로 골라주는 랜덤선택 기능
-
-## 3. 질문 피드 페이지 (컴포넌트 명: pages/CardPage.jsx)
-
-- 질문 생성
-- 질문에 대한 답변 여부, 답변 표시
-- 질문에 대한 좋아요, 싫어요 버튼, 수치 표시
-- 링크 복사, 카카오, 페이스북 공유
-- 무한 스크롤 방식
-
-## 4. 답변 페이지 (컴포넌트 명: pages/CardPage.jsx)
-
-- 피드 삭제
-- 답변하기 및 수정하기
-- 개별 질문 삭제하기
-- 답변 거절하기
-- 질문에 대한 좋아요, 싫어요 버튼, 수치 표시
-- 링크 복사, 카카오, 페이스북 공유
-- 무한 스크롤 방식
 
 <br/>
 
