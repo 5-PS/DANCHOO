@@ -4,17 +4,24 @@
     "airbnb",
     "airbnb-typescript",
     "plugin:import/recommended",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "prettier",
-    "import"
-  ],
+  "plugins": ["prettier", "import"],
   "rules": {
+    "no-alert": "off",
+    "no-console": "off",
+    "no-restricted-globals": "off",
+    "no-nested-ternary": "off",
+    "import/no-cycle": "import/no-cycle",
+    "react/react-in-jsx-scope": "off",
+    "react/button-has-type": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
     "prettier/prettier": [
       "error",
       {
@@ -25,16 +32,7 @@
     "import/order": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-          "object",
-          "type"
-        ],
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
         "pathGroups": [
           {
             "pattern": "react*",
@@ -47,9 +45,7 @@
           }
         ],
         "newlines-between": "always",
-        "pathGroupsExcludedImportTypes": [
-          "react*"
-        ],
+        "pathGroupsExcludedImportTypes": ["react*"],
         "alphabetize": {
           "order": "asc"
         }
